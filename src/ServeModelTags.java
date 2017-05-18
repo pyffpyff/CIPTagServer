@@ -9,7 +9,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 import model.DCMGmodel;
 
 public class ServeModelTags{
@@ -33,8 +33,8 @@ public class ServeModelTags{
 			tserver.socket().bind(new InetSocketAddress(lpnum));
 			tserver.configureBlocking(false);
 			//ServerSocket tserver = new ServerSocket(lpnum);
-			String[] userargs = {"-jucs","cip://2:192.168.56.10/1:4","-gtiServerPort", "4000"};
-			String[] SGargs = {"-jucs","cip://2:192.168.56.122/1:4","-gtiServerPort", "4000"};
+			//String[] userargs = {"-jucs","cip://2:192.168.56.10/1:4","-gtiServerPort", "4000"};
+			//String[] SGargs = {"-jucs","cip://2:192.168.56.122/1:4","-gtiServerPort", "4000"};
 			
 			
 			
@@ -42,71 +42,79 @@ public class ServeModelTags{
 			//Wrapper SG = new Wrapper(SGargs);
 			//Wrapper user = new Wrapper(userargs);
 			System.out.println("Should be connected");
-
-			while(true){
-				try{
-					//System.out.println("haven't accepted yet");
-					//Socket tclient = tserver.accept();
-					//System.out.println("accepted conn\n");
-
-					SocketChannel tclient = tserver.accept();
-					
-					
-					now = System.currentTimeMillis();
-					modelet = now - prev;
-					if(modelet > modelinterval){
-						//System.out.println(now);
-						dcmg.solvemodel(false);
-						prev = System.currentTimeMillis();
-						itrcounter++;
-						//System.out.println(itrcounter);
+			try{
+				while(true){
+					try{
+						//System.out.println("haven't accepted yet");
+						//Socket tclient = tserver.accept();
+						//System.out.println("accepted conn\n");
+	
+						SocketChannel tclient = tserver.accept();
+						
+						
+						now = System.currentTimeMillis();
+						modelet = now - prev;
+						if(modelet > modelinterval){
+							//System.out.println(now);
+							dcmg.solvemodel(false);
+							prev = System.currentTimeMillis();
+							itrcounter++;
+							//System.out.println(itrcounter);
+						}
+						if(tclient != null){
+							//BufferedReader reqstream = new BufferedReader(new InputStreamReader(tclient.getInputStream()));
+							//PrintWriter outstream = new PrintWriter(tclient.getOutputStream(),true);
+							ByteBuffer recbuff = ByteBuffer.allocate(8192);
+							
+							
+							//System.out.println("Before Receipt");
+							
+							//line = reqstream.readLine();
+							//System.out.println(line);
+							tclient.read(recbuff);
+							recbuff.flip();
+							Charset charset = Charset.forName("UTF-8");
+							CharsetDecoder decoder = charset.newDecoder();
+							CharBuffer charBuffer = decoder.decode(recbuff);
+							line = charBuffer.toString();
+							//System.out.println(line);
+	
+							//line = reqstream.readLine();
+							//retval = processInput(SG,user,line);
+							//System.out.println("about to process");
+							retval = processInput(dcmg, line);
+							//System.out.println("just processed");
+							//System.out.println(line);
+							if(retval != null){
+								//System.out.println(retval);
+	
+								//outstream.println(retval);
+								ByteBuffer buffer = ByteBuffer.wrap(retval.getBytes());
+								tclient.write(buffer);
+							}
+							else{
+								String nullmsg = "null";
+								ByteBuffer buffer = ByteBuffer.wrap(nullmsg.getBytes());
+								tclient.write(buffer);
+								//System.out.println("return value is null");
+							}
+	
+							System.out.println("closing client socket");
+							tclient.close();
+						}
+						
 					}
-					if(tclient != null){
-						//BufferedReader reqstream = new BufferedReader(new InputStreamReader(tclient.getInputStream()));
-						//PrintWriter outstream = new PrintWriter(tclient.getOutputStream(),true);
-						ByteBuffer recbuff = ByteBuffer.allocate(8192);
-						
-						
-						//System.out.println("Before Receipt");
-						
-						//line = reqstream.readLine();
-						//System.out.println(line);
-						tclient.read(recbuff);
-						recbuff.flip();
-						Charset charset = Charset.forName("UTF-8");
-						CharsetDecoder decoder = charset.newDecoder();
-						CharBuffer charBuffer = decoder.decode(recbuff);
-						line = charBuffer.toString();
-						//System.out.println(line);
-
-						//line = reqstream.readLine();
-						//retval = processInput(SG,user,line);
-						//System.out.println("about to process");
-						retval = processInput(dcmg, line);
-						//System.out.println("just processed");
-						//System.out.println(line);
-						if(retval != null){
-							//System.out.println(retval);
-
-							//outstream.println(retval);
-							ByteBuffer buffer = ByteBuffer.wrap(retval.getBytes());
-							tclient.write(buffer);
-						}
-						else{
-							String nullmsg = "null";
-							ByteBuffer buffer = ByteBuffer.wrap(nullmsg.getBytes());
-							tclient.write(buffer);
-							//System.out.println("return value is null");
-						}
-
-						//System.out.println("wrote");
-
-					}				
-				}
-				catch(IOException e){
-					System.out.println(e);
+					catch(IOException e){
+						System.out.println(e);
+					}
+					
 				}
 			}
+			catch(Exception e){
+				System.out.println("closing server socket");
+				tserver.close();
+			}
+			
 		}	
 		catch(IOException e){
 			System.out.println(e);
