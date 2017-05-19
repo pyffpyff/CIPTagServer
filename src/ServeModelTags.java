@@ -20,34 +20,31 @@ public class ServeModelTags{
 		long modelet = 0;
 		long modelinterval = 20;
 		long itrcounter = 0;
+		long recbytes;
 		String line;
 		String retval;
 		
 
 		//create model object
 		DCMGmodel dcmg = new DCMGmodel();
-
+		ByteBuffer recbuff = ByteBuffer.allocate(8192);
+		//ByteBuffer buffer = ByteBuffer.allocate(8192);
+		//CharBuffer charBuffer = CharBuffer.allocate(8192);
+		
+		Charset charset = Charset.forName("UTF-8");
+		CharsetDecoder decoder = charset.newDecoder();
+		
 		try{
 			//create listening socket
 			ServerSocketChannel tserver = ServerSocketChannel.open();
 			tserver.socket().bind(new InetSocketAddress(lpnum));
 			tserver.configureBlocking(false);
-			//ServerSocket tserver = new ServerSocket(lpnum);
-			//String[] userargs = {"-jucs","cip://2:192.168.56.10/1:4","-gtiServerPort", "4000"};
-			//String[] SGargs = {"-jucs","cip://2:192.168.56.122/1:4","-gtiServerPort", "4000"};
 			
 			
-			
-			//this is where we would create new Wrapper objects if we were using a PLC
-			//Wrapper SG = new Wrapper(SGargs);
-			//Wrapper user = new Wrapper(userargs);
 			System.out.println("Should be connected");
 			try{
 				while(true){
 					try{
-						//System.out.println("haven't accepted yet");
-						//Socket tclient = tserver.accept();
-						//System.out.println("accepted conn\n");
 	
 						SocketChannel tclient = tserver.accept();
 						
@@ -62,59 +59,42 @@ public class ServeModelTags{
 							//System.out.println(itrcounter);
 						}
 						if(tclient != null){
-							//BufferedReader reqstream = new BufferedReader(new InputStreamReader(tclient.getInputStream()));
-							//PrintWriter outstream = new PrintWriter(tclient.getOutputStream(),true);
-							ByteBuffer recbuff = ByteBuffer.allocate(8192);
-							
-							
-							//System.out.println("Before Receipt");
-							
-							//line = reqstream.readLine();
-							//System.out.println(line);
-							tclient.read(recbuff);
+							recbuff.position(0);
+							recbuff.limit(8192);
+							recbytes = tclient.read(recbuff);
 							recbuff.flip();
-							Charset charset = Charset.forName("UTF-8");
-							CharsetDecoder decoder = charset.newDecoder();
-							CharBuffer charBuffer = decoder.decode(recbuff);
-							line = charBuffer.toString();
-							//System.out.println(line);
+							line = decoder.decode(recbuff).toString();
+							
+							System.out.println(String.format("line: %s", line));
+							System.out.println(recbytes);
+							System.out.println(recbuff);
 	
-							//line = reqstream.readLine();
-							//retval = processInput(SG,user,line);
-							//System.out.println("about to process");
+							
 							retval = processInput(dcmg, line);
-							//System.out.println("just processed");
-							//System.out.println(line);
+							
 							if(retval != null){
-								//System.out.println(retval);
-	
-								//outstream.println(retval);
-								ByteBuffer buffer = ByteBuffer.wrap(retval.getBytes());
-								tclient.write(buffer);
+								System.out.println(retval);
+								tclient.write(ByteBuffer.wrap(retval.getBytes()));
 							}
 							else{
 								String nullmsg = "null";
-								ByteBuffer buffer = ByteBuffer.wrap(nullmsg.getBytes());
-								tclient.write(buffer);
+								tclient.write(ByteBuffer.wrap(nullmsg.getBytes()));
 								//System.out.println("return value is null");
 							}
 	
 							System.out.println("closing client socket");
 							tclient.close();
 						}
-						
 					}
 					catch(IOException e){
 						System.out.println(e);
 					}
-					
 				}
 			}
 			catch(Exception e){
 				System.out.println("closing server socket");
 				tserver.close();
 			}
-			
 		}	
 		catch(IOException e){
 			System.out.println(e);
