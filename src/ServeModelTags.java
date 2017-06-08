@@ -66,8 +66,8 @@ public class ServeModelTags{
 							line = decoder.decode(recbuff).toString();
 							
 							System.out.println(String.format("line: %s", line));
-							System.out.println(recbytes);
-							System.out.println(recbuff);
+							//System.out.println(recbytes);
+							//System.out.println(recbuff);
 	
 							
 							retval = processInput(dcmg, line);

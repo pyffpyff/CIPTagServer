@@ -3,6 +3,7 @@ import model.Source;
 import model.SolarPanel;
 import model.Batt;
 import model.Modelmath;
+import java.io.PrintWriter;
 
 public class DCMGmodel{
 	double r;
@@ -223,10 +224,26 @@ public class DCMGmodel{
 	double src5unregc;
 	double src6unregc;
 	
+
+	PrintWriter log = null;
+	String[] signallist =  {"Main Bus Voltage", "Main Branch Voltage","Branch 2 Bus 1 Voltage", "Branch 1 Bus 1 Voltage",
+					"Branch 2 Interconnect 1 Voltage", "Branch 1 Interconnect 1 Voltage", "Branch 2 Bus 2 Voltage", "Branch 1 Bus 2 Voltage",
+					"Branch 2 Interconnect 2 Voltage", "Branch 1 Interconnect 2 Voltage", "Branch 2 Bus 1 Load 1 Voltage", "Branch 2 Bus 1 Load 2 Voltage",
+					"Branch 2 Bus 1 Load 3 Voltage", "Branch 1 Bus 1 Load 1 Voltage", "Branch 1 Bus 1 Load 2 Voltage", "Branch 1 Bus 1 Load 3 Voltage", 
+					"Branch 2 Bus 2 Load 1 Voltage", "Branch 2 Bus 2 Load 2 Voltage", "Branch 2 Bus 2 Load 3 Voltage", "Branch 1 Bus 2 Load 1 Voltage",
+					"Branch 1 Bus 2 Load 2 Voltage", "Branch 1 Bus 2 Load 3 Voltage", "Branch 2 Bus 1 Current", "Branch 1 Bus 1 Current", 
+					"Interconnect 1 Current", "Branch 2 Bus 2 Current", "Branch 1 Bus 2 Current", "Interconnect 2 Current", 
+					"Branch 2 Bus 1 Load 1 Current", "Branch 2 Bus 1 Load 2 Current", "Branch 2 Bus 1 Load 3 Current", 
+					"Branch 1 Bus 1 Load 1 Current", "Branch 1 Bus 1 Load 2 Current", "Branch 1 Bus 1 Load 3 Current",
+					"Branch 2 Bus 2 Load 1 Current", "Branch 2 Bus 2 Load 2 Current", "Branch 2 Bus 2 Load 3 Current", 
+					"Branch 1 Bus 2 Load 1 Current", "Branch 1 Bus 2 Load 2 Current", "Branch 1 Bus 2 Load 3 Current",
+					"Source 1 Current", "Source 2 Current", "Source 3 Current", "Source 4 Current", "Source 5 Current", "Source 6 Current"};
+	
 	public static void main(String[] args){		
 		DCMGmodel dcmg = new DCMGmodel();
 		
 		dcmg.solvemodel(true);
+		
 	}
 	
 	public DCMGmodel(){
@@ -281,26 +298,26 @@ public class DCMGmodel{
 		this.BRANCH_2_BUS_1_DISTAL_User = 1;
 		this.BRANCH_2_BUS_2_DISTAL_User = 1;
 
-		this.BRANCH_2_BUS_1_LOAD_1_User = 1;
-		this.BRANCH_2_BUS_1_LOAD_2_User = 1;
-		this.BRANCH_2_BUS_1_LOAD_3_User = 1;
-		this.BRANCH_2_BUS_2_LOAD_1_User = 1;
-		this.BRANCH_2_BUS_2_LOAD_2_User = 1;
-		this.BRANCH_2_BUS_2_LOAD_3_User = 1;
-		this.BRANCH_1_BUS_1_LOAD_1_User = 1;
-		this.BRANCH_1_BUS_1_LOAD_2_User = 1;
-		this.BRANCH_1_BUS_1_LOAD_3_User = 1;
-		this.BRANCH_1_BUS_2_LOAD_1_User = 1;
-		this.BRANCH_1_BUS_2_LOAD_2_User = 1;
-		this.BRANCH_1_BUS_2_LOAD_3_User = 1;
+		this.BRANCH_2_BUS_1_LOAD_1_User = 0;
+		this.BRANCH_2_BUS_1_LOAD_2_User = 0;
+		this.BRANCH_2_BUS_1_LOAD_3_User = 0;
+		this.BRANCH_2_BUS_2_LOAD_1_User = 0;
+		this.BRANCH_2_BUS_2_LOAD_2_User = 0;
+		this.BRANCH_2_BUS_2_LOAD_3_User = 0;
+		this.BRANCH_1_BUS_1_LOAD_1_User = 0;
+		this.BRANCH_1_BUS_1_LOAD_2_User = 0;
+		this.BRANCH_1_BUS_1_LOAD_3_User = 0;
+		this.BRANCH_1_BUS_2_LOAD_1_User = 0;
+		this.BRANCH_1_BUS_2_LOAD_2_User = 0;
+		this.BRANCH_1_BUS_2_LOAD_3_User = 0;
 
-		this.INTERCONNECT_1_User = 1;
-		this.INTERCONNECT_2_User = 1;
+		this.INTERCONNECT_1_User = 0;
+		this.INTERCONNECT_2_User = 0;
 
 		this.SOURCE_1_User = 1;
-		this.SOURCE_2_User = 1;
-		this.SOURCE_3_User = 1;
-		this.SOURCE_4_User = 1;
+		this.SOURCE_2_User = 0;
+		this.SOURCE_3_User = 0;
+		this.SOURCE_4_User = 0;
 		this.SOURCE_5_User = 0;
 		this.SOURCE_6_User = 0;
 		
@@ -405,8 +422,26 @@ public class DCMGmodel{
 		this.INTERCONNECT_2_Fault_1 = 0;
 		this.INTERCONNECT_2_Fault_2 = 0;
 		this.MAIN_BUS_Fault = 0;
-
 		
+		//print signal names for csv log file
+		try{
+			this.log = new PrintWriter("modellog.csv","UTF-8");
+			for(int i = 0; i < this.signallist.length; i++)
+			{
+				if(i < this.signallist.length-1)
+				{
+					log.append(String.format("%s,",this.signallist[i]));
+				}
+				else
+				{
+					log.append(String.format("%s\n", this.signallist[i]));
+				}
+			}	
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 	
 	public void solvemodel(boolean debugging){
@@ -863,6 +898,14 @@ public class DCMGmodel{
 		//System.out.println(String.format("regv: %f",src3regv));
 		//System.out.println(String.format("regc: %f",src3regc));
 		
+		//write to log
+		this.log.append(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+				busvoltages[1],busvoltages[2],busvoltages[3],busvoltages[4],busvoltages[5],busvoltages[6],busvoltages[7],busvoltages[8],busvoltages[9],
+				busvoltages[10],busvoltages[11],busvoltages[12],busvoltages[13],busvoltages[14],busvoltages[15],busvoltages[16],busvoltages[17],busvoltages[18],busvoltages[19],
+				busvoltages[20],busvoltages[21],busvoltages[22],b2b1c,b1b1c,ic1c,b2b2c,b1b2c,ic2c,b2b1l1c,b2b1l2c,b2b1l3c,b1b1l1c,b1b1l2c,b1b1l3c,b2b2l1c,b2b2l2c,b2b2l3c,b1b2l1c,b1b2l2c,b1b2l3c,
+				src1regc,src2regc,src3regc,src4regc,src5regc,src6regc));
+		
+		
 		if(debugging){
 			System.out.println("BUS VOLTAGES:");
 			System.out.println(String.format("ground: %f", busvoltages[0]));
@@ -1099,34 +1142,34 @@ public class DCMGmodel{
 							retval[i] = int2bool(BRANCH_2_BUS_2_LOAD_3_User);
 						}
 						else if(tags[i].equals("BRANCH_2_BUS_2_PROXIMAL_User")){
-							retval[i] = int2bool(BRANCH_2_BUS_2_PROXIMAL_User);
+							retval[i] = int2invbool(BRANCH_2_BUS_2_PROXIMAL_User);
 						}
 						else if(tags[i].equals("BRANCH_1_BUS_2_PROXIMAL_User")){
-							retval[i] = int2bool(BRANCH_1_BUS_2_PROXIMAL_User);
+							retval[i] = int2invbool(BRANCH_1_BUS_2_PROXIMAL_User);
 						}
 						else if(tags[i].equals("BRANCH_2_BUS_1_PROXIMAL_User")){
-							retval[i] = int2bool(BRANCH_2_BUS_1_PROXIMAL_User);
+							retval[i] = int2invbool(BRANCH_2_BUS_1_PROXIMAL_User);
 						}
 						else if(tags[i].equals("BRANCH_1_BUS_1_PROXIMAL_User")){
-							retval[i] = int2bool(BRANCH_1_BUS_1_PROXIMAL_User);
+							retval[i] = int2invbool(BRANCH_1_BUS_1_PROXIMAL_User);
 						}
 						else if(tags[i].equals("BRANCH_2_BUS_2_DISTAL_User")){
-							retval[i] = int2bool(BRANCH_2_BUS_2_DISTAL_User);
+							retval[i] = int2invbool(BRANCH_2_BUS_2_DISTAL_User);
 						}
 						else if(tags[i].equals("BRANCH_1_BUS_2_DISTAL_User")){
-							retval[i] = int2bool(BRANCH_1_BUS_2_DISTAL_User);
+							retval[i] = int2invbool(BRANCH_1_BUS_2_DISTAL_User);
 						}
 						else if(tags[i].equals("BRANCH_2_BUS_1_DISTAL_User")){
-							retval[i] = int2bool(BRANCH_2_BUS_1_DISTAL_User);
+							retval[i] = int2invbool(BRANCH_2_BUS_1_DISTAL_User);
 						}
 						else if(tags[i].equals("BRANCH_1_BUS_1_DISTAL_User")){
-							retval[i] = int2bool(BRANCH_1_BUS_1_DISTAL_User);
+							retval[i] = int2invbool(BRANCH_1_BUS_1_DISTAL_User);
 						}
 						else if(tags[i].equals("INTERCONNECT_1_User")){
-							retval[i] = int2bool(INTERCONNECT_1_User);
+							retval[i] = int2invbool(INTERCONNECT_1_User);
 						}
 						else if(tags[i].equals("INTERCONNECT_2_User")){
-							retval[i] = int2bool(INTERCONNECT_2_User);
+							retval[i] = int2invbool(INTERCONNECT_2_User);
 						}
 						else if(tags[i].equals("SOURCE_1_droopCoeff")){
 							retval[i] = new Float(SOURCE_1_droopCoeff);
@@ -1323,34 +1366,34 @@ public class DCMGmodel{
 					BRANCH_2_BUS_2_LOAD_3_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_2_BUS_2_PROXIMAL_User")){
-					BRANCH_2_BUS_2_PROXIMAL_User = bool2int(values[i]);
+					BRANCH_2_BUS_2_PROXIMAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_1_BUS_2_PROXIMAL_User")){
-					BRANCH_1_BUS_2_PROXIMAL_User = bool2int(values[i]);
+					BRANCH_1_BUS_2_PROXIMAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_2_BUS_1_PROXIMAL_User")){
-					BRANCH_2_BUS_1_PROXIMAL_User = bool2int(values[i]);
+					BRANCH_2_BUS_1_PROXIMAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_1_BUS_1_PROXIMAL_User")){
-					BRANCH_1_BUS_1_PROXIMAL_User = bool2int(values[i]);
+					BRANCH_1_BUS_1_PROXIMAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_2_BUS_2_DISTAL_User")){
-					BRANCH_2_BUS_2_DISTAL_User = bool2int(values[i]);
+					BRANCH_2_BUS_2_DISTAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_1_BUS_2_DISTAL_User")){
-					BRANCH_1_BUS_2_DISTAL_User = bool2int(values[i]);
+					BRANCH_1_BUS_2_DISTAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_2_BUS_1_DISTAL_User")){
-					BRANCH_2_BUS_1_DISTAL_User = bool2int(values[i]);
+					BRANCH_2_BUS_1_DISTAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("BRANCH_1_BUS_1_DISTAL_User")){
-					BRANCH_1_BUS_1_DISTAL_User = bool2int(values[i]);
+					BRANCH_1_BUS_1_DISTAL_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("INTERCONNECT_1_User")){
-					INTERCONNECT_1_User = bool2int(values[i]);
+					INTERCONNECT_1_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("INTERCONNECT_2_User")){
-					INTERCONNECT_2_User = bool2int(values[i]);
+					INTERCONNECT_2_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_User")){
 					SOURCE_1_User = bool2int(values[i]);
@@ -1568,6 +1611,21 @@ public class DCMGmodel{
 		return retval;
 	}
 	
+	public Boolean int2invbool(int in){		
+		Boolean retval;
+		if(in == 1){
+			retval = new Boolean(false);
+		}
+		else if(in == 0){
+			retval = new Boolean(true);
+		}
+		else{
+			System.out.println(String.format("int2bool got bad value: %d",in));
+			retval = null;
+		}
+		return retval;
+	}
+	
 	public int bool2int(Object boo){
 		int retval;
 		if(boo.equals(new Boolean(true))){
@@ -1575,6 +1633,21 @@ public class DCMGmodel{
 		}
 		else if(boo.equals(new Boolean(false))){
 			retval = 0;
+		}
+		else{
+			System.out.println(String.format("bool2int got bad value: %s",boo.toString()));
+			retval = -1;
+		}
+		return retval;
+	}
+	
+	public int invbool2int(Object boo){
+		int retval;
+		if(boo.equals(new Boolean(true))){
+			retval = 0;
+		}
+		else if(boo.equals(new Boolean(false))){
+			retval = 1;
 		}
 		else{
 			System.out.println(String.format("bool2int got bad value: %s",boo.toString()));
