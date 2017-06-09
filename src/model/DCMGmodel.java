@@ -4,6 +4,8 @@ import model.SolarPanel;
 import model.Batt;
 import model.Modelmath;
 import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.File;
 
 public class DCMGmodel{
 	double r;
@@ -224,7 +226,7 @@ public class DCMGmodel{
 	double src5unregc;
 	double src6unregc;
 	
-
+	String logfilename = "modellog.csv";
 	PrintWriter log = null;
 	String[] signallist =  {"Main Bus Voltage", "Main Branch Voltage","Branch 2 Bus 1 Voltage", "Branch 1 Bus 1 Voltage",
 					"Branch 2 Interconnect 1 Voltage", "Branch 1 Interconnect 1 Voltage", "Branch 2 Bus 2 Voltage", "Branch 1 Bus 2 Voltage",
@@ -425,16 +427,17 @@ public class DCMGmodel{
 		
 		//print signal names for csv log file
 		try{
-			this.log = new PrintWriter("modellog.csv","UTF-8");
+			System.out.println("creating model log file");
+			this.log = new PrintWriter(new FileOutputStream(new File(this.logfilename),true));
 			for(int i = 0; i < this.signallist.length; i++)
 			{
 				if(i < this.signallist.length-1)
 				{
-					log.append(String.format("%s,",this.signallist[i]));
+					log.printf("%s,",this.signallist[i]);
 				}
 				else
 				{
-					log.append(String.format("%s\n", this.signallist[i]));
+					log.printf("%s\n", this.signallist[i]);
 				}
 			}	
 		}
@@ -442,6 +445,11 @@ public class DCMGmodel{
 		{
 			System.out.println(e);
 		}
+	}
+	
+	public void cleanup(){
+		System.out.println("Closing log file");
+		this.log.close();
 	}
 	
 	public void solvemodel(boolean debugging){
@@ -899,11 +907,15 @@ public class DCMGmodel{
 		//System.out.println(String.format("regc: %f",src3regc));
 		
 		//write to log
-		this.log.append(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-				busvoltages[1],busvoltages[2],busvoltages[3],busvoltages[4],busvoltages[5],busvoltages[6],busvoltages[7],busvoltages[8],busvoltages[9],
-				busvoltages[10],busvoltages[11],busvoltages[12],busvoltages[13],busvoltages[14],busvoltages[15],busvoltages[16],busvoltages[17],busvoltages[18],busvoltages[19],
-				busvoltages[20],busvoltages[21],busvoltages[22],b2b1c,b1b1c,ic1c,b2b2c,b1b2c,ic2c,b2b1l1c,b2b1l2c,b2b1l3c,b1b1l1c,b1b1l2c,b1b1l3c,b2b2l1c,b2b2l2c,b2b2l3c,b1b2l1c,b1b2l2c,b1b2l3c,
-				src1regc,src2regc,src3regc,src4regc,src5regc,src6regc));
+		this.log.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+				String.valueOf(busvoltages[1]),String.valueOf(busvoltages[2]),String.valueOf(busvoltages[3]),String.valueOf(busvoltages[4]),String.valueOf(busvoltages[5]),String.valueOf(busvoltages[6]),
+				String.valueOf(busvoltages[7]),String.valueOf(busvoltages[8]),String.valueOf(busvoltages[9]),
+				String.valueOf(busvoltages[10]),String.valueOf(busvoltages[11]),String.valueOf(busvoltages[12]),String.valueOf(busvoltages[13]),String.valueOf(busvoltages[14]),
+				String.valueOf(busvoltages[15]),String.valueOf(busvoltages[16]),String.valueOf(busvoltages[17]),String.valueOf(busvoltages[18]),String.valueOf(busvoltages[19]),
+				String.valueOf(busvoltages[20]),String.valueOf(busvoltages[21]),String.valueOf(busvoltages[22]),String.valueOf(b2b1c),String.valueOf(b1b1c),String.valueOf(ic1c),
+				String.valueOf(b2b2c),String.valueOf(b1b2c),String.valueOf(ic2c),String.valueOf(b2b1l1c),String.valueOf(b2b1l2c),String.valueOf(b2b1l3c),String.valueOf(b1b1l1c),
+				String.valueOf(b1b1l2c),String.valueOf(b1b1l3c),String.valueOf(b2b2l1c),String.valueOf(b2b2l2c),String.valueOf(b2b2l3c),String.valueOf(b1b2l1c),String.valueOf(b1b2l2c),
+				String.valueOf(b1b2l3c),String.valueOf(src1regc),String.valueOf(src2regc),String.valueOf(src3regc),String.valueOf(src4regc),String.valueOf(src5regc),String.valueOf(src6regc)));
 		
 		
 		if(debugging){

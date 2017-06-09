@@ -102,6 +102,9 @@ public class ServeModelTags{
 		catch(Exception E){
 			System.out.println(E);
 		}
+		finally{
+			dcmg.cleanup();
+		}
 	}
 
 	public static String processInput(DCMGmodel dcmg, String req){
