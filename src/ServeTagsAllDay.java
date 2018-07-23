@@ -26,8 +26,10 @@ public class ServeTagsAllDay{
 			ServerSocket tserver = new ServerSocket(lpnum);
 			String[] userargs = {"-jucs","cip://2:192.168.56.10/1:4","-gtiServerPort", "4000"};
 			String[] SGargs = {"-jucs","cip://2:192.168.56.222/1:0","-gtiServerPort", "4001"};
+			String[] GRIDargs = {"-jucs","cip://2:192.168.56.102/1:2","-gtiServerPort","4002"};
 			Wrapper SG = new Wrapper(SGargs);
 			Wrapper user = new Wrapper(userargs);
+			Wrapper GRID = new Wrapper(GRIDargs);
 			System.out.println("Should be connected");
 
 			while(true){
@@ -39,7 +41,7 @@ public class ServeTagsAllDay{
 					
 					line = reqstream.readLine();
 					
-					retval = processInput(SG,user,line);
+					retval = processInput(SG,user,GRID,line);
 					end = System.currentTimeMillis();
 					System.out.printf("\nresponse in %s ms :",end - start);
 					outstream.println(retval);					
@@ -57,7 +59,7 @@ public class ServeTagsAllDay{
 		}
 	}
 
-	public static String processInput(Wrapper SG, Wrapper user, String req){
+	public static String processInput(Wrapper SG, Wrapper user, Wrapper GRID, String req){
 		try{
 			String[] items = req.split(" ");
 			String method = items[0];
@@ -71,6 +73,10 @@ public class ServeTagsAllDay{
 			}
 			else if(plc.equals("user")){
 				retval = processMore(user,method,items);
+				return retval;
+			}
+			else if(plc.equals("GRID")){
+				retval = processMore(GRID,method,items);
 				return retval;
 			}
 			else{
