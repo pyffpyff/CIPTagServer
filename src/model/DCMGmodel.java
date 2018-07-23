@@ -2,6 +2,7 @@ package model;
 import model.Source;
 import model.SolarPanel;
 import model.Batt;
+import model.Generator;
 import model.Modelmath;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
@@ -72,8 +73,8 @@ public class DCMGmodel{
 	int BRANCH_1_BUS_2_LOAD_2_User;
 	int BRANCH_1_BUS_2_LOAD_3_User;
 
-	int INTERCONNECT_1_User;
-	int INTERCONNECT_2_User;
+	int CROSSTIE_1_User;
+	int CROSSTIE_2_User;
 
 	int SOURCE_1_User;
 	int SOURCE_2_User;
@@ -132,11 +133,13 @@ public class DCMGmodel{
 	int SOURCE_6_DROOP_SELECT;
 	
 	Batt src1;
-	Batt src2;
+	//Batt src2;
+	Generator src2;
 	SolarPanel src3;
 	SolarPanel src4;
 	BattCharger src5;
-	BattCharger src6;
+	//BattCharger src6;
+	Generator src6;
 		
 	int src1loc;
 	int src2loc;
@@ -164,10 +167,10 @@ public class DCMGmodel{
 	int BRANCH_1_BUS_2_Fault;
 	int BRANCH_2_BUS_1_Fault;
 	int BRANCH_2_BUS_2_Fault;
-	int INTERCONNECT_1_Fault_1;
-	int INTERCONNECT_1_Fault_2;
-	int INTERCONNECT_2_Fault_1;
-	int INTERCONNECT_2_Fault_2;
+	int CROSSTIE_1_Fault_1;
+	int CROSSTIE_1_Fault_2;
+	int CROSSTIE_2_Fault_1;
+	int CROSSTIE_2_Fault_2;
 	int MAIN_BUS_Fault;
 	
 	double mbv;
@@ -229,12 +232,12 @@ public class DCMGmodel{
 	String logfilename = "modellog.csv";
 	PrintWriter log = null;
 	String[] signallist =  {"Main Bus Voltage", "Main Branch Voltage","Branch 2 Bus 1 Voltage", "Branch 1 Bus 1 Voltage",
-					"Branch 2 Interconnect 1 Voltage", "Branch 1 Interconnect 1 Voltage", "Branch 2 Bus 2 Voltage", "Branch 1 Bus 2 Voltage",
-					"Branch 2 Interconnect 2 Voltage", "Branch 1 Interconnect 2 Voltage", "Branch 2 Bus 1 Load 1 Voltage", "Branch 2 Bus 1 Load 2 Voltage",
+					"Branch 2 CROSSTIE 1 Voltage", "Branch 1 CROSSTIE 1 Voltage", "Branch 2 Bus 2 Voltage", "Branch 1 Bus 2 Voltage",
+					"Branch 2 CROSSTIE 2 Voltage", "Branch 1 CROSSTIE 2 Voltage", "Branch 2 Bus 1 Load 1 Voltage", "Branch 2 Bus 1 Load 2 Voltage",
 					"Branch 2 Bus 1 Load 3 Voltage", "Branch 1 Bus 1 Load 1 Voltage", "Branch 1 Bus 1 Load 2 Voltage", "Branch 1 Bus 1 Load 3 Voltage", 
 					"Branch 2 Bus 2 Load 1 Voltage", "Branch 2 Bus 2 Load 2 Voltage", "Branch 2 Bus 2 Load 3 Voltage", "Branch 1 Bus 2 Load 1 Voltage",
 					"Branch 1 Bus 2 Load 2 Voltage", "Branch 1 Bus 2 Load 3 Voltage", "Branch 2 Bus 1 Current", "Branch 1 Bus 1 Current", 
-					"Interconnect 1 Current", "Branch 2 Bus 2 Current", "Branch 1 Bus 2 Current", "Interconnect 2 Current", 
+					"CROSSTIE 1 Current", "Branch 2 Bus 2 Current", "Branch 1 Bus 2 Current", "CROSSTIE 2 Current", 
 					"Branch 2 Bus 1 Load 1 Current", "Branch 2 Bus 1 Load 2 Current", "Branch 2 Bus 1 Load 3 Current", 
 					"Branch 1 Bus 1 Load 1 Current", "Branch 1 Bus 1 Load 2 Current", "Branch 1 Bus 1 Load 3 Current",
 					"Branch 2 Bus 2 Load 1 Current", "Branch 2 Bus 2 Load 2 Current", "Branch 2 Bus 2 Load 3 Current", 
@@ -313,8 +316,8 @@ public class DCMGmodel{
 		this.BRANCH_1_BUS_2_LOAD_2_User = 0;
 		this.BRANCH_1_BUS_2_LOAD_3_User = 0;
 
-		this.INTERCONNECT_1_User = 0;
-		this.INTERCONNECT_2_User = 0;
+		this.CROSSTIE_1_User = 0;
+		this.CROSSTIE_2_User = 0;
 
 		this.SOURCE_1_User = 1;
 		this.SOURCE_2_User = 0;
@@ -372,19 +375,21 @@ public class DCMGmodel{
 		this.SOURCE_5_DROOP_SELECT = 1;
 		this.SOURCE_6_DROOP_SELECT = 1;
 		
-		this.src1 = new Batt(10.0,12.0,.8);
-		this.src2 = new Batt(10.0,12.0,.8);
+		this.src1 = new Batt(10.0,12.0,1.0);
+		//this.src2 = new Batt(10.0,12.0,1.0);
+		this.src2 = new Generator(10.0,12.0,4.0);
 		this.src3 = new SolarPanel(10.0,12.0,100);
 		this.src4 = new SolarPanel(10.0,12.0,100);
 		this.src5 = new BattCharger(this.src1);
-		this.src6 = new BattCharger(this.src2);
+		//this.src6 = new BattCharger(this.src2);
+		this.src6 = new Generator(10.0,12.0,4.0);
 		
 		
-		this.src1loc = 1;
+		this.src1loc = 4;
 		this.src2loc = 1;
-		this.src3loc = 1;
-		this.src4loc = 1;
-		this.src5loc = 1;
+		this.src3loc = 4;
+		this.src4loc = 3;
+		this.src5loc = 4;
 		this.src6loc = 1;
 		
 		this.src1regv = 12;
@@ -419,10 +424,10 @@ public class DCMGmodel{
 		this.BRANCH_1_BUS_2_Fault = 0;
 		this.BRANCH_2_BUS_1_Fault = 0;
 		this.BRANCH_2_BUS_2_Fault = 0;
-		this.INTERCONNECT_1_Fault_1 = 0;
-		this.INTERCONNECT_1_Fault_2 = 0;
-		this.INTERCONNECT_2_Fault_1 = 0;
-		this.INTERCONNECT_2_Fault_2 = 0;
+		this.CROSSTIE_1_Fault_1 = 0;
+		this.CROSSTIE_1_Fault_2 = 0;
+		this.CROSSTIE_2_Fault_1 = 0;
+		this.CROSSTIE_2_Fault_2 = 0;
 		this.MAIN_BUS_Fault = 0;
 		
 		//print signal names for csv log file
@@ -484,13 +489,13 @@ public class DCMGmodel{
 		Y[4][16] = -ys * BRANCH_1_BUS_1_LOAD_1_User;
 		Y[4][0] = -yf * BRANCH_1_BUS_1_Fault;
 
-		Y[5][6] = -(1/(r+rs))*INTERCONNECT_1_User;
+		Y[5][6] = -(1/(r+rs))*CROSSTIE_1_User;
 		Y[5][7] = -(1/(r+rs))*BRANCH_2_BUS_2_PROXIMAL_User;
-		Y[5][0] = -yf * INTERCONNECT_1_Fault_1;
+		Y[5][0] = -yf * CROSSTIE_1_Fault_1;
 
 
 		Y[6][8] = -(1/(r+rs))*BRANCH_1_BUS_2_PROXIMAL_User;
-		Y[6][0] = -yf*INTERCONNECT_1_Fault_2;
+		Y[6][0] = -yf*CROSSTIE_1_Fault_2;
 
 		Y[7][9] = -yb * BRANCH_2_BUS_2_DISTAL_User;
 		Y[7][17] = -ys * BRANCH_2_BUS_2_LOAD_1_User;
@@ -504,10 +509,10 @@ public class DCMGmodel{
 		Y[8][22] = -ys * BRANCH_1_BUS_2_LOAD_3_User;
 		Y[8][0] = -yf * BRANCH_1_BUS_2_Fault;
 
-		Y[9][10] = -(1/(r + rs))* INTERCONNECT_2_User;
-		Y[9][0] = -yf * INTERCONNECT_2_Fault_1;
+		Y[9][10] = -(1/(r + rs))* CROSSTIE_2_User;
+		Y[9][0] = -yf * CROSSTIE_2_Fault_1;
 
-		Y[10][0] = -yf * INTERCONNECT_2_Fault_2;
+		Y[10][0] = -yf * CROSSTIE_2_Fault_2;
 
 		Y[11][0] = -yl211;
 
@@ -1024,10 +1029,10 @@ public class DCMGmodel{
 						else if(tags[i].equals("BRANCH_2_BUS_2_Current")){
 							retval[i] = new Float(b2b2c);
 						}
-						else if(tags[i].equals("INTERCONNECT_1_Current")){
+						else if(tags[i].equals("CROSSTIE_1_Current")){
 							retval[i] = new Float(ic1c);
 						}
-						else if(tags[i].equals("INTERCONNECT_2_Current")){
+						else if(tags[i].equals("CROSSTIE_2_Current")){
 							retval[i] = new Float(ic2c);
 						}
 						else if(tags[i].equals("SOURCE_1_RegCurrent")){
@@ -1177,11 +1182,11 @@ public class DCMGmodel{
 						else if(tags[i].equals("BRANCH_1_BUS_1_DISTAL_User")){
 							retval[i] = int2invbool(BRANCH_1_BUS_1_DISTAL_User);
 						}
-						else if(tags[i].equals("INTERCONNECT_1_User")){
-							retval[i] = int2invbool(INTERCONNECT_1_User);
+						else if(tags[i].equals("CROSSTIE_1_User")){
+							retval[i] = int2invbool(CROSSTIE_1_User);
 						}
-						else if(tags[i].equals("INTERCONNECT_2_User")){
-							retval[i] = int2invbool(INTERCONNECT_2_User);
+						else if(tags[i].equals("CROSSTIE_2_User")){
+							retval[i] = int2invbool(CROSSTIE_2_User);
 						}
 						else if(tags[i].equals("SOURCE_1_droopCoeff")){
 							retval[i] = new Float(SOURCE_1_droopCoeff);
@@ -1219,12 +1224,12 @@ public class DCMGmodel{
 						else if(tags[i].equals("SOURCE_6_noLoadVoltage")){
 							retval[i] = new Float(SOURCE_6_noLoadVoltage);
 						}
-						else if(tags[i].equals("BATT_1_SOC")){
-							retval[i] = new Float(src1.soc);
-						}
-						else if(tags[i].equals("BATT_2_SOC")){
-							retval[i] = new Float(src2.soc);
-						}
+						//else if(tags[i].equals("BATT_1_SOC")){
+							//retval[i] = new Float(src1.soc);
+						//}
+						//else if(tags[i].equals("BATT_2_SOC")){
+							//retval[i] = new Float(src2.soc);
+						//}
 						else if(tags[i].equals("SOURCE_1_User")){
 							retval[i] = int2bool(SOURCE_1_User);
 						}
@@ -1279,24 +1284,6 @@ public class DCMGmodel{
 						else if(tags[i].equals("SOURCE_6_BatteryReqStop")){
 							retval[i] = int2bool(SOURCE_6_BatteryReqStop);
 						}				
-						else if(tags[i].equals("SOURCE_1_psetpoint")){
-							retval[i] = new Float(SOURCE_1_psetpoint);
-						}
-						else if(tags[i].equals("SOURCE_2_psetpoint")){
-							retval[i] = new Float(SOURCE_2_psetpoint);
-						}
-						else if(tags[i].equals("SOURCE_3_psetpoint")){
-							retval[i] = new Float(SOURCE_3_psetpoint);
-						}
-						else if(tags[i].equals("SOURCE_4_psetpoint")){
-							retval[i] = new Float(SOURCE_4_psetpoint);
-						}
-						else if(tags[i].equals("SOURCE_5_psetpoint")){
-							retval[i] = new Float(SOURCE_5_psetpoint);
-						}
-						else if(tags[i].equals("SOURCE_6_psetpoint")){
-							retval[i] = new Float(SOURCE_6_psetpoint);
-						}						
 						else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
 							retval[i] = int2bool(SOURCE_1_BATTERY_CHARGE_SELECT);
 						}
@@ -1332,6 +1319,12 @@ public class DCMGmodel{
 						}
 						else if(tags[i].equals("SOURCE_6_DROOP_SELECT")){
 							retval[i] = int2bool(SOURCE_6_DROOP_SELECT);
+						}
+						else if(tags[i].equals("SolarSetpoint1Alias")){
+							retval[i] = new Float(10.0);
+						}
+						else if(tags[i].equals("SolarSetpoint1Alias")){
+							retval[i] = new Float(10.0);
 						}
 						else{
 							System.out.println(String.format("tag %s does not exist",tags[i]));
@@ -1401,11 +1394,11 @@ public class DCMGmodel{
 				else if(tags[i].equals("BRANCH_1_BUS_1_DISTAL_User")){
 					BRANCH_1_BUS_1_DISTAL_User = invbool2int(values[i]);
 				}
-				else if(tags[i].equals("INTERCONNECT_1_User")){
-					INTERCONNECT_1_User = invbool2int(values[i]);
+				else if(tags[i].equals("CROSSTIE_1_User")){
+					CROSSTIE_1_User = invbool2int(values[i]);
 				}
-				else if(tags[i].equals("INTERCONNECT_2_User")){
-					INTERCONNECT_2_User = invbool2int(values[i]);
+				else if(tags[i].equals("CROSSTIE_2_User")){
+					CROSSTIE_2_User = invbool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_User")){
 					SOURCE_1_User = bool2int(values[i]);
@@ -1514,32 +1507,7 @@ public class DCMGmodel{
 				}
 				else if(tags[i].equals("SOURCE_6_BatteryReqStop")){
 					SOURCE_6_BatteryReqStop = bool2int(values[i]);
-				}				
-				else if(tags[i].equals("SOURCE_1_psetpoint")){
-					SOURCE_1_psetpoint = obj2double(values[i]);
-					src1.cpowsp = SOURCE_1_psetpoint;
 				}
-				else if(tags[i].equals("SOURCE_2_psetpoint")){
-					SOURCE_2_psetpoint = obj2double(values[i]);
-					src2.cpowsp = SOURCE_2_psetpoint;
-				}
-				else if(tags[i].equals("SOURCE_3_psetpoint")){
-					SOURCE_3_psetpoint = obj2double(values[i]);
-					src3.cpowsp = SOURCE_3_psetpoint;
-				}
-				else if(tags[i].equals("SOURCE_4_psetpoint")){
-					SOURCE_4_psetpoint = obj2double(values[i]);
-					src4.cpowsp = SOURCE_4_psetpoint;
-				}
-				else if(tags[i].equals("SOURCE_5_psetpoint")){
-					SOURCE_5_psetpoint = obj2double(values[i]);
-					src5.cpowsp = SOURCE_5_psetpoint;
-				}
-				else if(tags[i].equals("SOURCE_6_psetpoint")){
-					SOURCE_6_psetpoint = obj2double(values[i]);
-					src6.cpowsp = SOURCE_6_psetpoint;
-				}
-				
 				else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
 					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(values[i]);
 				}

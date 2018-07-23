@@ -9,6 +9,10 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.File;
+
 //import java.io.InputStreamReader;
 import model.DCMGmodel;
 
@@ -24,6 +28,7 @@ public class ServeModelTags{
 		String line;
 		String retval;
 		
+		String reqlogfname = "requests.log";
 
 		//create model object
 		DCMGmodel dcmg = new DCMGmodel();
@@ -34,7 +39,12 @@ public class ServeModelTags{
 		Charset charset = Charset.forName("UTF-8");
 		CharsetDecoder decoder = charset.newDecoder();
 		
+		PrintWriter reqlog = null;
+		
 		try{
+			//create log file
+			reqlog = new PrintWriter(new FileOutputStream(new File(reqlogfname),false));
+			
 			//create listening socket
 			ServerSocketChannel tserver = ServerSocketChannel.open();
 			tserver.socket().bind(new InetSocketAddress(lpnum));
@@ -65,6 +75,8 @@ public class ServeModelTags{
 							recbuff.flip();
 							line = decoder.decode(recbuff).toString();
 							
+							reqlog.printf("\nFROM %s, RECEIVED NEW MESSAGE: %s\n   AT %d",tclient.socket().getRemoteSocketAddress(), line, System.currentTimeMillis()/1000);
+							
 							System.out.println(String.format("line: %s", line));
 							//System.out.println(recbytes);
 							//System.out.println(recbuff);
@@ -74,6 +86,7 @@ public class ServeModelTags{
 							
 							if(retval != null){
 								System.out.println(retval);
+								reqlog.printf("\nRESPONSE: %s\n     AT %d", retval, System.currentTimeMillis()/1000);
 								tclient.write(ByteBuffer.wrap(retval.getBytes()));
 							}
 							else{
@@ -93,7 +106,9 @@ public class ServeModelTags{
 			}
 			catch(Exception e){
 				System.out.println("closing server socket");
-				tserver.close();
+				if(tserver != null){
+					tserver.close();
+				}
 			}
 		}	
 		catch(IOException e){
@@ -104,6 +119,7 @@ public class ServeModelTags{
 		}
 		finally{
 			dcmg.cleanup();
+			reqlog.close();
 		}
 	}
 

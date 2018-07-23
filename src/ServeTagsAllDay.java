@@ -17,12 +17,15 @@ public class ServeTagsAllDay{
 		int lpnum = 12897;
 		String line;
 		String retval;
+		
+		long start;
+		long end;
 
 		try{
 			//create listening socket
 			ServerSocket tserver = new ServerSocket(lpnum);
 			String[] userargs = {"-jucs","cip://2:192.168.56.10/1:4","-gtiServerPort", "4000"};
-			String[] SGargs = {"-jucs","cip://2:192.168.56.122/1:4","-gtiServerPort", "4000"};
+			String[] SGargs = {"-jucs","cip://2:192.168.56.222/1:0","-gtiServerPort", "4001"};
 			Wrapper SG = new Wrapper(SGargs);
 			Wrapper user = new Wrapper(userargs);
 			System.out.println("Should be connected");
@@ -30,13 +33,15 @@ public class ServeTagsAllDay{
 			while(true){
 				try{
 					Socket tclient = tserver.accept();
+					start = System.currentTimeMillis();
 					BufferedReader reqstream = new BufferedReader(new InputStreamReader(tclient.getInputStream()));
 					PrintWriter outstream = new PrintWriter(tclient.getOutputStream(),true);
 					
 					line = reqstream.readLine();
 					
 					retval = processInput(SG,user,line);
-					
+					end = System.currentTimeMillis();
+					System.out.printf("\nresponse in %s ms :",end - start);
 					outstream.println(retval);					
 				}
 				catch(IOException e){
@@ -100,6 +105,7 @@ public class ServeTagsAllDay{
 		try{
 			List<String> tagNames = new ArrayList<String>();
 			List<Object> tagValues = new ArrayList<Object>();
+			System.out.println("handlewrite called");
 
 			for(int i = 2; i < items.length; i++){
 				String[] parts = items[i].split(":");
@@ -144,7 +150,7 @@ public class ServeTagsAllDay{
 	
 	public static String handleRead(Wrapper w, String[] items){
 		try{
-			System.out.println("handleRead() called");
+			//System.out.println("handleRead() called");
 			List<String> tagNames = new ArrayList<String>();
 			
 			for(int i = 2;i < items.length; i++){
@@ -155,24 +161,27 @@ public class ServeTagsAllDay{
 
 			System.out.print(String.format("%d", nameArray.length));
 			if(nameArray.length == 1){
-				Object retval = w.readTag(items[2]); //commented for testing
+				Object retval = w.readTag(items[2]); 
 				String output = String.format("%s:%s\n", items[2] ,retval.toString());
+				System.out.println(output);
 				return output;
 			}
 			else if(nameArray.length > 1){
-				Object[] retval = w.readTags(nameArray); //commented for testing
+				Object[] retval = w.readTags(nameArray);
 				String output = "";
 				for(int j = 0;j < retval.length; j++){					
 					output = output.concat(String.format("%s:%s",nameArray[j],retval[j].toString()));
 					if(j != retval.length - 1){
 						output = output.concat(",");
 					}
-					System.out.println(output);
 				}
+				System.out.println("tag names: ");
+				System.out.println(output);
 				output = output.concat("\n");
 				return output;
 			}
 			else{
+				System.out.println("weird name array length");
 				return null;
 			}
 
