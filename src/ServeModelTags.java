@@ -132,7 +132,27 @@ public class ServeModelTags{
 			
 			String retval;
 			
-			if(plc.equals("SG")){
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+//plc name	change for resource, grid ...	
+			
+			
+			
+			
+			
+			
+			
+			
+		if(plc.equals("SG")){
 				//retval = processMore(SG,method,items);
 				retval = processMore(dcmg,method,items);
 				return retval;
