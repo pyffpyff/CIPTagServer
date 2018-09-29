@@ -1,3 +1,4 @@
+package model;
 import java.util.Objects;
 
 public class Complex {
@@ -9,7 +10,17 @@ public class Complex {
         re = real;
         im = imag;
     }
-
+    
+    
+    public static Complex turnCom (double real) {
+    	Complex y;
+    	y =new Complex(real,0);
+    	return y;
+    }
+    public static double real (Complex a) {
+    	return a.re;
+    }
+    
     // return a string representation of the invoking Complex object
     public String toString() {
         if (im == 0) return re + "";
@@ -19,13 +30,13 @@ public class Complex {
     }
 
     // return abs/modulus/magnitude
-    public double abs() {
-        return Math.hypot(re, im);
+    public static double abs(Complex a) {
+        return Math.hypot(a.re, a.im);
     }
 
     // return angle/phase/argument, normalized to be between -pi and pi
-    public double phase() {
-        return Math.atan2(im, re);
+    public static double phase(Complex y) {
+        return Math.atan2(y.im, y.re);
     }
 
     // return a new Complex object whose value is (this + b)
@@ -98,12 +109,32 @@ public class Complex {
         return sin().divides(cos());
     }
     
-
+    public static void print(Complex a) {
+    	System.out.print("the value of %f is " +a);
+    }
 
     // a static version of plus
     public static Complex plus(Complex a, Complex b) {
         double real = a.re + b.re;
         double imag = a.im + b.im;
+        Complex total = new Complex(real, imag);
+        return total;
+    }
+    public static Complex minus(Complex a, Complex b) {
+        double real = a.re - b.re;
+        double imag = a.im - b.im;
+        Complex sum = new Complex(real, imag);
+        return sum;
+    }
+    public static Complex times(Complex a, Complex b) {
+        double real = a.re * b.re;
+        double imag = a.im * b.im;
+        Complex sum = new Complex(real, imag);
+        return sum;
+    }
+    public static Complex devide(Complex a, Complex b) {
+        double real = a.re / b.re;
+        double imag = a.im / b.im;
         Complex sum = new Complex(real, imag);
         return sum;
     }
