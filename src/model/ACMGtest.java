@@ -13,15 +13,21 @@ import model.Inverse;
 
 public class ACMGtest{
 	double r;
+	double rr;
 	double ra;
 	double rb;
 	double rc;
 	double rg;
 	double ro;
+	double xx;
 	double xa;
 	double xb;
 	double xc;
-	
+	double vbase;
+	double xbase;
+	double rbase;
+	double pbase;
+	double qbase;
 	//load resistances
 	double lr;
 	
@@ -41,7 +47,8 @@ public class ACMGtest{
 	double a1;
 	double b1;
 	double c1;
-	
+	double ll;
+	double sl;
 	//set p,q for power flow equation
 	double v1;
 	double v2;
@@ -324,11 +331,13 @@ public class ACMGtest{
     public ACMGtest() {
     	//radomly set value first
     	this.r = 0.05;
+    	this.rr = 0;
 		this.ra = 1.1;
 		this.rb = 1.2;
 		this.rc = 1.3;
 		this.rg = 0.1;
 		this.ro = 0.1;
+		this.xx = 0;
 		this.xa = 0.1;
 		this.xb = 0.2;
 		this.xc = 0.3;
@@ -491,6 +500,11 @@ public class ACMGtest{
 		this.src1unregc = 0;
 		this.src2unregc = 0;
 		
+	    this.vbase=24;
+	    this.rbase=1;
+	    this.xbase=0.2;
+	    this.pbase=576;
+	    this.qbase=2880;
 	    
 	  //print signal names for csv log file
 	  		try{
@@ -521,26 +535,23 @@ public class ACMGtest{
     
     public void solvemodel(boolean debugging){
     	//size matrix based on number of sources connected
-		dim = 4 + SOURCE_1_User + SOURCE_2_User;
+		dim = 4;// + SOURCE_1_User + SOURCE_2_User;
 		double[][] Y = new double[dim][dim];
 		double[] U = new double[dim];
 		double[] K = new double[dim];
 		
-		//double[] gencurrents = new double[6];
-		//double[] busvoltages = new double[6];
-    
-		//build admittance matrix
-		//Complex complex = new Complex;
 		
 		a1 = Math.pow(ra, 2)+Math.pow(xa, 2);
-		Y[0][1] = -Math.pow(a1, 2);
-		b1 = Math.pow(rb, 2)+Math.pow(xb, 2);
-		Y[0][2] = -Math.pow(b1, 2);
-		c1 = Math.pow(rc, 2)+Math.pow(xc, 2);
-		Y[0][3] = -Math.pow(c1, 2);
 		
-				
-		int connindex = 4;
+		Y[0][1] = -Math.sqrt(a1);
+		b1 = Math.pow(rb, 2)+Math.pow(xb, 2);
+		Y[0][2] = -Math.sqrt(b1);
+		c1 = Math.pow(rc, 2)+Math.pow(xc, 2);
+		Y[0][3] = -Math.sqrt(c1);
+		ll = Math.pow(rr, 2)+Math.pow(xx, 2);
+		sl = Math.pow(c1, 2);
+		
+/*		int connindex = 4;
 		int SOURCE_1_connindex = -1;
 		int SOURCE_2_connindex = -1;
 		   
@@ -555,7 +566,7 @@ public class ACMGtest{
 			SOURCE_2_connindex = connindex;
 			connindex++;
 		}
-    
+*/    
 		//make the matrix symmetric
 				for(int i= 0;i<dim;i++){
 					for(int j = i+1;j<dim;j++){
@@ -564,12 +575,16 @@ public class ACMGtest{
 				}
     
 		//sum elements of rows and negate to find diagonal
-		Y[1][1] = - Y[1][0];
-		Y[2][2] = - Y[2][0];
-		Y[3][3] = - Y[3][0];
+		double a0;
+		a0 = Math.pow((ra+rb+rc), 2)+Math.pow((xa+xb+xc), 2);
+		Y[0][0] = -Math.sqrt(a0);
+				
 		
-    
-		for(int i = 0;i<K.length;i++){
+		Y[1][1] = - Y[1][0] ;
+		Y[2][2] = - Y[2][0];
+		Y[3][3] = - Y[3][0] ;
+		
+/*		for(int i = 0;i<K.length;i++){
 			if(i<6){
 				K[i] = 0;
 			}
@@ -599,42 +614,51 @@ public class ACMGtest{
 		if(SOURCE_2_User == 1){
 			Y[SOURCE_2_connindex][SOURCE_2_connindex] = -ro * SOURCE_2_User;
 		}
-					
+*/					
 		System.out.print("Y:");
 		Modelmath.printmat(Y);
 		System.out.println();
 		
 	
 		this.v1 = 1.0;
-		
 		this.s1 = 0;
+		
 		this.s2 = 0;
 		this.s3 = 0;
 		this.s4 = 0;
-		
-		
+			
 		this.v2 = 1.0;
 		this.v3 = 1.0;
 		this.v4 = 1.0;
 		
-
-		double [] x = {v2, v3, v4, s2, s3, s4};
-		
-					
+		double [] x = { s2, s3, s4,v2, v3, v4};
 		double epsilon = 0.0001;
-		int maxiter = 10;
+		int maxiter = 30;
 		this.count = 1;
 		
+			
 		for (count = 1;count < maxiter;count++) {
-			System.out.print("start");
-			this.p2 =Math.pow(x[0], 2)/ra;
-			this.p3 =Math.pow(x[1], 2)/rb;
-			this.p4 =Math.pow(x[2], 2)/rc;
-			this.q2 =Math.pow(x[3], 2)/xa;
-			this.q3 =Math.pow(x[4], 2)/xb;
-			this.q4 =Math.pow(x[5], 2)/xc;
+			System.out.println();
+			System.out.print("start    ");
+			System.out.print(" iteration: ");
+			System.out.println(count);
+			
+		/*	System.out.println();
+			System.out.println("x:");
+			for(int i = 0;i<6;i++){
+				System.out.print(x[i]);
+				System.out.print("   ");
+			}
+		*/	
+			this.p2 =Math.pow(x[0], 2)/ra/pbase;
+			this.p3 =Math.pow(x[1], 2)/rb/pbase;
+			this.p4 =Math.pow(x[2], 2)/rc/pbase;
+			this.q2 =Math.pow(x[3], 2)/xa/qbase;
+			this.q3 =Math.pow(x[4], 2)/xb/qbase;
+			this.q4 =Math.pow(x[5], 2)/xc/qbase;
 			
 			double [] b = {p2, p3, p4, q2, q3, q4};
+			
 			
 			double f1;//p2
 			double f2;//p3
@@ -644,23 +668,40 @@ public class ACMGtest{
 			double f6;//q4
 	                                             
 			
-			f1 = Math.abs(v2)*(Math.abs(Y[1][0])*Math.cos(s2-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(v2)*Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(v3)*Math.cos(s2-s3-0)+Math.abs(Y[1][3])*Math.abs(v4)*Math.cos(s2-s4-0));
-			f2 = Math.abs(v3)*(Math.abs(Y[2][0])*Math.cos(s3-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(v2)*Math.cos(s3-s2-0)+Math.abs(Y[2][2])*Math.abs(v3)*Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(v4)*Math.cos(s3-s4-0));
-			f3 = Math.abs(v4)*(Math.abs(Y[3][0])*Math.cos(s4-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-0)+Math.abs(Y[3][2])*Math.abs(v3)*Math.cos(s4-s3-0)+Math.abs(Y[3][3])*Math.abs(v4)*Math.cos(Math.atan(xc/rc)));
-			f4 = Math.abs(v2)*(Math.abs(Y[1][0])*Math.sin(s2-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(v2)*Math.sin(Math.atan(xa/ra))+Math.abs(Y[2][3])*Math.abs(v3)*Math.sin(s2-s3-0)+Math.abs(Y[1][3])*Math.abs(v4)*Math.sin(s2-s4-0));
-			f5 = Math.abs(v3)*(Math.abs(Y[2][0])*Math.sin(s3-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(v2)*Math.sin(s3-s2-0)+Math.abs(Y[2][2])*Math.abs(v3)*Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(v4)*Math.sin(s3-s4-0));
-			f6 = Math.abs(v4)*(Math.abs(Y[3][0])*Math.sin(s4-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(v2)*Math.sin(s4-s2-0)+Math.abs(Y[3][2])*Math.abs(v3)*Math.sin(s4-s3-0)+Math.abs(Y[3][3])*Math.abs(v4)*Math.sin(Math.atan(xc/rc)));
-		
+			f1 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(x[3])*-Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0));
+			f2 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+Math.abs(Y[2][2])*Math.abs(x[4])*-Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0));
+			f3 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0)+Math.abs(Y[3][3])*Math.abs(x[5])*-Math.cos(Math.atan(xc/rc)));
+			f4 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(x[3])*-Math.sin(Math.atan(xa/ra))+Math.abs(Y[2][3])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0));
+			f5 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+Math.abs(Y[2][2])*Math.abs(x[4])*-Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0));
+			f6 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0)+Math.abs(Y[3][3])*Math.abs(x[5])*-Math.sin(Math.atan(xc/rc)));
+				
 			
 			double [] f_x = {f1,f2,f3,f4,f5,f6};
 			
-			
 			double [] Del_f = new double [6];
 			
+			System.out.println();
+			System.out.println("b:");
+			for(int i = 0;i<6;i++){
+				System.out.print(b[i]);
+				System.out.print("   ");
+			}
+			
+			System.out.println();
+			System.out.println("Del_f:");
 			for(int i = 0;i<6;i++){
 				Del_f[i] = b[i] - f_x[i];
+				System.out.print(Del_f[i]);
+				System.out.print("   ");
 			}
-
+			
+			System.out.println();
+			System.out.println("f_x:");
+			for(int i = 0;i<6;i++){
+				System.out.print(f_x[i]);
+				System.out.print("   ");
+			}
+			
 			
 			System.out.println();
 			if (Math.abs(Del_f[0])<epsilon && Math.abs(Del_f[1])<epsilon && Math.abs(Del_f[2])<epsilon && Math.abs(Del_f[3])<epsilon && Math.abs(Del_f[4])<epsilon && Math.abs(Del_f[5])<epsilon) {
@@ -711,70 +752,76 @@ public class ACMGtest{
 			double dq4dv3;
 			double dq4dv4;
 			
-			dp2ds2 = -Math.abs(x[0])*(Math.abs(Y[1][0])*Math.sin(x[3]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[1])*Math.sin(x[3]-x[4]-0)+Math.abs(Y[1][3])*Math.abs(x[2])*Math.sin(x[3]-x[5]-0));
-			dp2ds3 = Math.abs(x[0])*Math.abs(Y[1][2])*Math.abs(x[1])*Math.sin(x[3]-x[4]-0);
-			dp2ds4 = Math.abs(x[0])*Math.abs(Y[1][3])*Math.abs(x[2])*Math.sin(x[3]-x[5]-0);
-			dp2dv2 = Math.abs(Y[1][0])*Math.cos(x[3]-Math.atan(xa/ra))+2*Math.abs(x[0])*Math.abs(Y[1][1])*Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[1])*Math.cos(x[3]-x[4]-0)+Math.abs(Y[1][3])*Math.abs(x[2])*Math.cos(x[3]-x[5]-0);
-			dp2dv3 = Math.abs(x[0])*Math.abs(Y[1][2])*Math.cos(x[3]-x[4]-0);
-			dp2dv4 = Math.abs(x[0])*Math.abs(Y[1][3])*Math.cos(x[3]-x[5]-0);
+			dp2ds2 = -Math.abs(x[3])*(Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0));
+			dp2ds3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0);
+			dp2ds4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0);
+			dp2dv2 = Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+2*Math.abs(x[3])*Math.abs(Y[1][1])*-Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0);
+			dp2dv3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.cos(x[0]-x[1]-0);
+			dp2dv4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.cos(x[0]-x[2]-0);
 			
-			dq2ds2 = Math.abs(x[0])*(Math.abs(Y[1][0])*Math.cos(x[3]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[1])*Math.cos(x[3]-x[4]-0)+Math.abs(Y[1][3])*Math.abs(x[2])*Math.cos(x[3]-x[5]-0));
-			dq2ds3 = -Math.abs(x[0])*Math.abs(Y[1][2])*Math.abs(x[1])*Math.cos(x[3]-x[4]-0);
-			dq2ds4 = -Math.abs(x[0])*Math.abs(Y[1][3])*Math.abs(x[2])*Math.cos(x[3]-x[5]-0);
-			dq2dv2 = Math.abs(Y[1][0])*Math.sin(x[3]-Math.atan(xa/ra))-2*Math.abs(x[0])*Math.abs(Y[1][1])*Math.sin(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[1])*Math.sin(x[3]-x[4]-0)+Math.abs(Y[1][3])*Math.abs(x[2])*Math.sin(x[3]-x[5]-0);
-			dq2dv3 = Math.abs(x[0])*Math.abs(Y[1][2])*Math.sin(x[3]-x[4]-0);
-			dq2dv4 = Math.abs(x[0])*Math.abs(Y[1][3])*Math.sin(x[3]-x[5]-0);
+			dq2ds2 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0));
+			dq2ds3 = -Math.abs(x[3])*Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0);
+			dq2ds4 = -Math.abs(x[3])*Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0);
+			dq2dv2 = Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))-2*Math.abs(x[3])*Math.abs(Y[1][1])*-Math.sin(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0);
+			dq2dv3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.sin(x[0]-x[1]-0);
+			dq2dv4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.sin(x[0]-x[2]-0);
 			
-			dp3ds2 = Math.abs(x[1])*Math.abs(Y[2][1])*Math.abs(x[0])*Math.sin(x[4]-x[4]-0);
-			dp3ds3 = -Math.abs(x[1])*(Math.abs(Y[2][0])*Math.sin(x[4]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[0])*Math.sin(x[4]-x[3]-0)+Math.abs(Y[2][3])*Math.abs(x[2])*Math.sin(x[4]-x[5]-0));	
-			dp3ds4 = Math.abs(x[1])*Math.abs(Y[2][3])*Math.abs(x[2])*Math.sin(x[4]-x[5]-0);
-			dp3dv2 = Math.abs(x[1])*Math.abs(Y[2][1])*Math.cos(x[4]-x[3]-0); 
-			dp3dv3 = Math.abs(Y[2][0])*Math.cos(x[4]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[0])*Math.cos(x[4]-x[3]-0)+2*Math.abs(x[1])*Math.abs(Y[2][2])*Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[2])*Math.cos(x[4]-x[5]-0);
-			dp3dv4 = Math.abs(x[1])*Math.abs(Y[2][3])*Math.cos(x[4]-x[5]-0);
+			dp3ds2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0);
+			dp3ds3 = -Math.abs(x[4])*(Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0));	
+			dp3ds4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0);
+			dp3dv2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.cos(x[1]-x[0]-0); 
+			dp3dv3 = Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+2*Math.abs(x[4])*Math.abs(Y[2][2])*-Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0);
+			dp3dv4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.cos(x[1]-x[2]-0);
 	
-			dq3ds2 = -Math.abs(x[1])*Math.abs(Y[2][1])*Math.abs(x[0])*Math.cos(x[4]-x[4]-0);
-			dq3ds3 = Math.abs(x[1])*(Math.abs(Y[2][0])*Math.cos(x[4]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[0])*Math.cos(x[4]-x[3]-0)+Math.abs(Y[2][3])*Math.abs(x[2])*Math.cos(x[4]-x[5]-0));	
-			dq3ds4 = -Math.abs(x[1])*Math.abs(Y[2][3])*Math.abs(x[2])*Math.cos(x[4]-x[5]-0);
-			dq3dv2 = Math.abs(x[1])*Math.abs(Y[2][1])*Math.sin(x[4]-x[3]-0); 
-			dq3dv3 = Math.abs(Y[2][0])*Math.sin(x[4]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[0])*Math.sin(x[4]-x[3]-0)+2*Math.abs(x[1])*Math.abs(Y[2][2])*Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[2])*Math.sin(x[4]-x[5]-0);
-			dq3dv4 = Math.abs(x[1])*Math.abs(Y[2][3])*Math.sin(x[4]-x[5]-0);
+			dq3ds2 = -Math.abs(x[4])*Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0);
+			dq3ds3 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0));	
+			dq3ds4 = -Math.abs(x[4])*Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0);
+			dq3dv2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.sin(x[1]-x[0]-0); 
+			dq3dv3 = Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+2*Math.abs(x[4])*Math.abs(Y[2][2])*-Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0);
+			dq3dv4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.sin(x[1]-x[2]-0);
 	
-			dp4ds2 = Math.abs(x[2])*Math.abs(Y[3][1])*Math.abs(x[0])*Math.sin(x[5]-x[3]-0);
-			dp4ds3 = Math.abs(x[2])*Math.abs(Y[3][2])*Math.abs(x[1])*Math.sin(x[5]-x[4]-0);
-			dp4ds4 = -Math.abs(x[2])*(Math.abs(Y[3][0])*Math.sin(x[5]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[0])*Math.cos(x[5]-x[3]-0)+Math.abs(Y[3][2])*Math.abs(x[1])*Math.sin(x[5]-x[4]-0));
-			dp4dv2 = Math.abs(x[2])*Math.abs(Y[3][1])*Math.cos(x[5]-x[3]-0); 
-			dp4dv3 = Math.abs(x[2])*Math.abs(Y[3][2])*Math.cos(x[5]-x[4]-0);
-			dp4dv4 = Math.abs(Y[3][0])*Math.cos(x[5]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[0])*Math.cos(x[5]-x[3]-0)+Math.abs(Y[3][2])*Math.abs(x[1])*Math.cos(x[5]-x[4]-0)+2*Math.abs(x[2])*Math.abs(Y[3][3])*Math.cos(Math.atan(xc/rc));
+			dp4ds2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0);
+			dp4ds3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0);
+			dp4ds4 = -Math.abs(x[5])*(Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0));
+			dp4dv2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.cos(x[2]-x[0]-0); 
+			dp4dv3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.cos(x[2]-x[1]-0);
+			dp4dv4 = Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0)+2*Math.abs(x[5])*Math.abs(Y[3][3])*-Math.cos(Math.atan(xc/rc));
 			
-			dq4ds2 = -Math.abs(x[2])*Math.abs(Y[3][1])*Math.abs(x[0])*Math.cos(x[5]-x[3]-0);
-			dq4ds3 = -Math.abs(x[2])*Math.abs(Y[3][2])*Math.abs(x[1])*Math.cos(x[5]-x[4]-0);
-			dq4ds4 = Math.abs(x[2])*(Math.abs(Y[3][0])*Math.cos(x[5]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[0])*Math.cos(x[5]-x[3]-0)+Math.abs(Y[3][2])*Math.abs(x[1])*Math.cos(x[5]-x[4]-0));
-			dq4dv2 = Math.abs(x[2])*Math.abs(Y[3][1])*Math.sin(x[5]-x[3]-0); 
-			dq4dv3 = Math.abs(x[2])*Math.abs(Y[3][2])*Math.sin(x[5]-x[4]-0);
-			dq4dv4 = Math.abs(Y[3][0])*Math.sin(x[5]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[0])*Math.sin(x[5]-x[3]-0)+Math.abs(Y[3][2])*Math.abs(x[1])*Math.sin(x[5]-x[4]-0)+2*Math.abs(x[2])*Math.abs(Y[3][3])*Math.sin(Math.atan(xc/rc));
+			dq4ds2 = -Math.abs(x[5])*Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0);
+			dq4ds3 = -Math.abs(x[5])*Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0);
+			dq4ds4 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0));
+			dq4dv2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.sin(x[2]-x[0]-0); 
+			dq4dv3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.sin(x[2]-x[1]-0);
+			dq4dv4 = Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0)+2*Math.abs(x[5])*Math.abs(Y[3][3])*-Math.sin(Math.atan(xc/rc));
 			
-			double [][] J =  {{dp2ds2, dp2ds3, dp2ds4, dp2dv2, dp2dv3, dp2dv4}, {dq2ds2, dq2ds3,
-					 dq2ds4, dq2dv2, dq2dv3, dq2dv4}, {dp3ds2, dp3ds3, dp3ds4, dp3dv2,
-					 dp3dv3, dp3dv4}, {dq3ds2, dq3ds3, dq3ds4, dq3dv2, dq3dv3, dq3dv4},
-					 {dp4ds2, dp4ds3, dp4ds4, dp4dv2, dp4dv3, dp4dv4}, {dq4ds2, dq4ds3,
-					 dq4ds4, dq4dv2, dq4dv3, dq4dv4}
+			double [][] J =  {{dp2ds2, dp2ds3, dp2ds4, dp2dv2, dp2dv3, dp2dv4},  {dp3ds2, dp3ds3, dp3ds4, dp3dv2,
+					 dp3dv3, dp3dv4},{dp4ds2, dp4ds3, dp4ds4, dp4dv2, dp4dv3, dp4dv4},{dq2ds2, dq2ds3, dq2ds4, dq2dv2, dq2dv3, dq2dv4}, 
+					{dq3ds2, dq3ds3, dq3ds4, dq3dv2, dq3dv3, dq3dv4},  {dq4ds2, dq4ds3, dq4ds4, dq4dv2, dq4dv3, dq4dv4}
 				};
 						
+			System.out.println("J:");
+			Modelmath.printmat(J);
 			
-			//Modelmath.printmat(J);
 			
-			Inverse invert = new Inverse();
 			this.J1 = Inverse.invert(J); 
+			System.out.println("1/J:");
+			Modelmath.printmat(J1);
+		//	System.out.println("1/J*J:");
+		//	Modelmath.printmat(Inverse.Matrix2(J,J1));
 			
+			del_x =Matrix(J1,Del_f);
 			
-			del_x = Matrix(J1,Del_f);
-			
+			System.out.println("del_x:");
+			for(int i = 0; i<6;i++) {
+				System.out.print(del_x[i]);
+				System.out.print("   ");
+			}
+			System.out.println();
 			for(int i = 0; i<6;i++) {
 				x[i] = x[i] + del_x[i];
 			}
 			
-			
-			System.out.println("x");
+			System.out.println("x:");
 			for(int i = 0; i<6;i++) {
 				System.out.print(x[i]);
 				System.out.print("   ");
@@ -791,7 +838,7 @@ public class ACMGtest{
 		
 		
 		//source currents
-		
+/*		
 		if(SOURCE_1_User == 1){
 		if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
 				src1unregc = -U[SOURCE_1_connindex];
@@ -860,7 +907,8 @@ public class ACMGtest{
 			System.out.println(String.format("Industrial Main Bus: %f", IND_MAIN_VOLTAGE));	
 			System.out.println(String.format("Residential Main Bus: %f", RES_MAIN_VOLTAGE));
 		}
-*/		
+*/
+
 }
 
     
@@ -1352,26 +1400,21 @@ public class ACMGtest{
 	
     public double[] Matrix(double [][]a, double []b) {
     	dim = b.length;
-    	double [] c = new double [dim];
-    	double sum = 0;
+    	double []c = new double [dim];
+    	    			
     	for (int i=0;i<dim;i++) {
+    		double sum = 0;
 			for (int j=0;j<dim;j++) {
 				sum += a[i][j] * b [j];
 			}
-			c[i] = sum;
+			c[i]=sum;
 		}
+    	
     return c;
     }
    
 
-    
-  
        
     
 }
 
-		
-		
-		
-		
-						
