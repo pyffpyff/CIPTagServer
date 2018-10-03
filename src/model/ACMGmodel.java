@@ -7,20 +7,27 @@ import model.Modelmath;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
 import java.io.File;
-import model.Complex;
+//import model.Complex;
 import model.Inverse;
+
 
 public class ACMGmodel{
 	double r;
+	double rr;
 	double ra;
 	double rb;
 	double rc;
 	double rg;
 	double ro;
+	double xx;
 	double xa;
 	double xb;
 	double xc;
-	
+	double vbase;
+	double xbase;
+	double rbase;
+	double pbase;
+	double qbase;
 	//load resistances
 	double lr;
 	
@@ -37,7 +44,11 @@ public class ACMGmodel{
 	
 	double ly;
 	
-	
+	double a1;
+	double b1;
+	double c1;
+	double ll;
+	double sl;
 	//set p,q for power flow equation
 	double v1;
 	double v2;
@@ -48,8 +59,13 @@ public class ACMGmodel{
 	double s3;
 	double s4;
 	
-	double x;
-		
+	double []x;
+	double [] f_x;
+	double [][] J;
+	double [][] J1;
+	double []del_x;
+	double []del_f;
+	
 	double p2;
 	double p3;
 	double p4;
@@ -57,6 +73,7 @@ public class ACMGmodel{
 	double q3;
 	double q4;
 	
+	int count;
 	
 	int dim;
 	
@@ -123,8 +140,27 @@ public class ACMGmodel{
 	int SOURCE_2_User;
 	
  //	check PLC about all information about source 
-    
-    
+	ACSource src1;
+	
+	Batt src2;
+	
+	
+	double SOURCE_1_droopCoeff;
+	double SOURCE_1_noLoadVoltage;
+	double SOURCE_1_psetpoint;
+	int SOURCE_1_DROOP_SELECT;
+	double SOURCE_2_droopCoeff;
+	double SOURCE_2_noLoadVoltage;
+	double SOURCE_2_psetpoint;
+	int SOURCE_2_DROOP_SELECT;
+	int SOURCE_1_BATTERY_CHARGE_SELECT;
+	int SOURCE_2_BATTERY_CHARGE_SELECT;
+	
+	double src1unregc;
+	double src2unregc;
+	double src1regc;
+	double src2regc;
+	
     int src1loc;
 	int src2loc;
 	
@@ -295,14 +331,16 @@ public class ACMGmodel{
     public ACMGmodel() {
     	//radomly set value first
     	this.r = 0.05;
-		this.ra = 0.11;
-		this.rb = 0.12;
-		this.rc = 0.13;
+    	this.rr = 0;
+		this.ra = 1.1;
+		this.rb = 1.2;
+		this.rc = 1.3;
 		this.rg = 0.1;
 		this.ro = 0.1;
-		this.xa = 0.001;
-		this.xb = 0.001;
-		this.xc = 0.1;
+		this.xx = 0;
+		this.xa = 0.1;
+		this.xb = 0.2;
+		this.xc = 0.3;
 		
     	//load resistances the value is just random set now. need check
     	this.lr=10;
@@ -384,7 +422,7 @@ public class ACMGmodel{
         this.RES_BUS5_LOAD5_USER = 0;
     	
     	this.SOURCE_1_User = 1;
-    	this.SOURCE_2_User = 0;
+    	this.SOURCE_2_User = 1;
     	
     	this.src1loc = 1;
 		this.src2loc = 1;
@@ -447,6 +485,27 @@ public class ACMGmodel{
 	    this.RES_BUS5_LOAD4_FAULT = 0;   
 	    this.RES_BUS5_LOAD5_FAULT = 0;
 	    
+		this.src1loc = 1;
+		this.src2loc = 2;
+		
+		this.src1regv = 24;
+		this.src2regv = 24;
+		
+		this.src1unregv = 24;
+		this.src2unregv = 24;
+	
+		this.src1regc = 0;
+		this.src2regc = 0;
+		
+		this.src1unregc = 0;
+		this.src2unregc = 0;
+		
+	    this.vbase=24;
+	    this.rbase=1;
+	    this.xbase=0.2;
+	    this.pbase=576;
+	    this.qbase=2880;
+	       
 	  //print signal names for csv log file
 	  		try{
 	  			System.out.println("creating model log file");
@@ -481,30 +540,33 @@ public class ACMGmodel{
 		double[] U = new double[dim];
 		double[] K = new double[dim];
 		
-		//double[] gencurrents = new double[6];
-		//double[] busvoltages = new double[6];
-    
-		//build admittance matrix
-		Y[0][1] = -ya;
-		Y[0][2] = -yb;
-		Y[0][3] = -yc;
 		
+		a1 = Math.pow(ra, 2)+Math.pow(xa, 2);
 		
+		Y[0][1] = -Math.sqrt(a1);
+		b1 = Math.pow(rb, 2)+Math.pow(xb, 2);
+		Y[0][2] = -Math.sqrt(b1);
+		c1 = Math.pow(rc, 2)+Math.pow(xc, 2);
+		Y[0][3] = -Math.sqrt(c1);
+		ll = Math.pow(rr, 2)+Math.pow(xx, 2);
+		sl = Math.pow(c1, 2);
+			
+
 		int connindex = 4;
 		int SOURCE_1_connindex = -1;
-	//	int SOURCE_2_connindex = -1;
+		int SOURCE_2_connindex = -1;
 		   
 		if(SOURCE_1_User == 1){
-			Y[src1loc][connindex] = 1;	
+			Y[src1loc][connindex] =1;	
 			SOURCE_1_connindex = connindex;
 			connindex++;
 			
 		}
-	//	if(SOURCE_2_User == 1){
-	//		Y[src2loc][connindex] = 1;	
-	//		SOURCE_2_connindex = connindex;
-	//		connindex++;
-	//	}
+		if(SOURCE_2_User == 1){
+			Y[src2loc][connindex] =1;	
+			SOURCE_2_connindex = connindex;
+			connindex++;
+		}
     
 		//make the matrix symmetric
 				for(int i= 0;i<dim;i++){
@@ -514,21 +576,23 @@ public class ACMGmodel{
 				}
     
 		//sum elements of rows and negate to find diagonal
-		for(int i = 0;i<4;i++){
-			double sum = 0;
-			for(int j = 0;j<4;j++){
-				sum += Y[i][j];
-			}
-			Y[i][i] = -sum;
-		}		
-    
+		double a0;
+		a0 = Math.pow((ra+rb+rc), 2)+Math.pow((xa+xb+xc), 2);
+		Y[0][0] = -Math.sqrt(a0);
+				
+		
+		Y[1][1] = - Y[1][0] ;
+		Y[2][2] = - Y[2][0];
+		Y[3][3] = - Y[3][0] ;
+		
+		
     
 		for(int i = 0;i<K.length;i++){
-			if(i<4){
+			if(i<6){
 				K[i] = 0;
 			}
 			if(i == SOURCE_1_connindex){
-				if(SOURCE_1_?? == 1){
+				if(SOURCE_1_connindex == 1){
 					K[i] = src1unregv;
 				}
 				else{
@@ -536,7 +600,7 @@ public class ACMGmodel{
 				}				
 			}
 			else if(i == SOURCE_2_connindex){
-				if(SOURCE_2_?? == 1){
+				if(SOURCE_2_connindex == 1){
 					K[i] = src2unregv;
 				}
 				else{
@@ -549,47 +613,47 @@ public class ACMGmodel{
 		if(SOURCE_1_User == 1){
 			Y[SOURCE_1_connindex][SOURCE_1_connindex] = -ro * SOURCE_1_User;
 		}
-	//	if(SOURCE_2_User == 1){
-	//		Y[SOURCE_2_connindex][SOURCE_2_connindex] = -ro * SOURCE_2_User;
-	//	}
-					
+		if(SOURCE_2_User == 1){
+			Y[SOURCE_2_connindex][SOURCE_2_connindex] = -ro * SOURCE_2_User;
+		}
+		System.out.print("Y:");
+		Modelmath.printmat(Y);
+		System.out.println();
 		
 	
 		this.v1 = 1.0;
-		
 		this.s1 = 0;
+		
 		this.s2 = 0;
 		this.s3 = 0;
 		this.s4 = 0;
-		
-		
+			
 		this.v2 = 1.0;
 		this.v3 = 1.0;
 		this.v4 = 1.0;
 		
-		
-		
-		this.P2 = Math.pow(v2, 2)/ra;
-		this.p3 = Math.pow(v3, 2)/rb;
-		this.p4 = Math.pow(v4, 2)/rc;
-		this.q2 = Math.pow(v2, 2)/xa;
-		this.q3 = Math.pow(v3, 2)/xb;
-		this.q4 = Math.pow(v4, 2)/xc;
-		
-		//double [] x;
-		//double [] b;
-		
-		x = new double [6];
-		b = new double [6];
-		
-		x = {v2, v3, v4, s2, s3, s4};
-		b = {p2, p3, p4, q2, q3, q4};
-		
+		double [] x = { s2, s3, s4,v2, v3, v4};
 		double epsilon = 0.0001;
 		int maxiter = 30;
+		this.count = 1;
 		
+			
+		for (count = 1;count < maxiter;count++) {
+			System.out.println();
+			System.out.print("start    ");
+			System.out.print(" iteration: ");
+			System.out.println(count);
+			
 		
-		while (count < maxiter) {
+			this.p2 =Math.pow(x[0], 2)/ra/pbase;
+			this.p3 =Math.pow(x[1], 2)/rb/pbase;
+			this.p4 =Math.pow(x[2], 2)/rc/pbase;
+			this.q2 =Math.pow(x[3], 2)/xa/qbase;
+			this.q3 =Math.pow(x[4], 2)/xb/qbase;
+			this.q4 =Math.pow(x[5], 2)/xc/qbase;
+			
+			double [] b = {p2, p3, p4, q2, q3, q4};
+			
 			
 			double f1;//p2
 			double f2;//p3
@@ -599,28 +663,32 @@ public class ACMGmodel{
 			double f6;//q4
 	                                             
 			
-			f1 = Math.abs(v2)*(Math.abs(Y[1][0])*Math.cos(s2-Complex.phase(Y[1][0]))+Math.abs(Y[1][1])*Math.abs(v2)*Math.cos(Complex.phase(Y[1][1]))+Math.abs(Y[1][2])*Math.abs(v3)*Math.cos(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.cos(s2-s4-Complex.phase(Y[1][3])));
-			f2 = Math.abs(v3)*(Math.abs(Y[2][0])*Math.cos(s3-Complex.phase(Y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*Math.cos(s3-s2-Complex.phase(Y[2][1]))+Math.abs(Y[2][2])*Math.abs(v3)*Math.cos(Complex.phase(Y[2][2]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.cos(s3-s4-Complex.phase(Y[2][3])));
-			f3 = Math.abs(v4)*(Math.abs(Y[3][0])*Math.cos(s4-Complex.phase(Y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.cos(s4-s3-Complex.phase(Y[3][2]))+Math.abs(Y[3][3])*Math.abs(v4)*Math.cos(Complex.phase(Y[3][3])));
-			f4 = Math.abs(v2)*(Math.abs(Y[1][0])*Math.sin(s2-Complex.phase(Y[1][0]))+Math.abs(Y[1][1])*Math.abs(v2)*Math.sin(Complex.phase(Y[1][1]))+Math.abs(Y[2][3])*Math.abs(v3)*Math.sin(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.sin(s2-s4-Complex.phase(Y[1][3])));
-			f5 = Math.abs(v3)*(Math.abs(Y[2][0])*Math.sin(s3-Complex.phase(Y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*Math.sin(s3-s2-Complex.phase(Y[2][1]))+Math.abs(Y[2][2])*Math.abs(v3)*Math.sin(Complex.phase(Y[2][2]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.sin(s3-s4-Complex.phase(Y[2][3])));
-			f6 = Math.abs(v4)*(Math.abs(Y[3][0])*Math.sin(s4-Complex.phase(Y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.sin(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.sin(s4-s3-Complex.phase(Y[3][2]))+Math.abs(Y[3][3])*Math.abs(v4)*Math.sin(Complex.phase(Y[3][3])));
+			f1 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(x[3])*-Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0));
+			f2 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+Math.abs(Y[2][2])*Math.abs(x[4])*-Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0));
+			f3 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0)+Math.abs(Y[3][3])*Math.abs(x[5])*-Math.cos(Math.atan(xc/rc)));
+			f4 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][1])*Math.abs(x[3])*-Math.sin(Math.atan(xa/ra))+Math.abs(Y[2][3])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0));
+			f5 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+Math.abs(Y[2][2])*Math.abs(x[4])*-Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0));
+			f6 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0)+Math.abs(Y[3][3])*Math.abs(x[5])*-Math.sin(Math.atan(xc/rc)));
+				
 			
-			double [] f_x = new double [6];
-			f_x = {f1,f2,f3,f4,f5,f6};
+			double [] f_x = {f1,f2,f3,f4,f5,f6};
+			
 			double [] Del_f = new double [6];
 			
+		
+		
 			for(int i = 0;i<6;i++){
 				Del_f[i] = b[i] - f_x[i];
 			}
 			
+			System.out.println();
 			if (Math.abs(Del_f[0])<epsilon && Math.abs(Del_f[1])<epsilon && Math.abs(Del_f[2])<epsilon && Math.abs(Del_f[3])<epsilon && Math.abs(Del_f[4])<epsilon && Math.abs(Del_f[5])<epsilon) {
 				break;
-				
+			
 			}
 			
-			//caculate Jacobian
 			
+			//caculate Jacobian
 			
 			double dp2ds2;
 			double dp2ds3;
@@ -661,68 +729,67 @@ public class ACMGmodel{
 			double dq4dv3;
 			double dq4dv4;
 			
-			dp2ds2 = -Math.abs(v2)*(Math.abs(Y[1][0]*Math.sin(s2-Complex.phase(Y[1][0]))+Math.abs(Y[1][2])*Math.abs(v3)*Math.sin(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.sin(s2-s4-Complex.phase(Y[1][3]))));
-			dp2ds3 = Math.abs(v2)*Math.abs(Y[1][2])*Math.abs(v3)*Math.sin(s2-s3-Complex.phase(Y[1][2]));
-			dp2ds4 = Math.abs(v2)*Math.abs(Y[1][3])*Math.abs(v4)*Math.sin(s2-s4-Complex.phase(y[1][3]));
-			dp2dv2 = Math.abs(y[1][0])*Math.cos(s2-Complex.phase(y[1][0]))+2*Math.abs(v2)*Math.abs(y[1][1])*Math.cos(Complex.phase(Y[1][1]))+Math.abs(Y[1][2])*Math.abs(v3)*Math.cos(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.cos(s2-s4-Complex.phase(Y[1][3]));
-			dp2dv3 = Math.abs(v2)*Math.abs(Y[1][2])*Math.cos(s2-s3-Complex.phase(Y[1][2]));
-			dp2dv4 = Math.abs(v2)*Math.abs(Y[1][3])*Math.cos(s2-s4-Complex.phase(Y[1][3]));
+			dp2ds2 = -Math.abs(x[3])*(Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0));
+			dp2ds3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0);
+			dp2ds4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0);
+			dp2dv2 = Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+2*Math.abs(x[3])*Math.abs(Y[1][1])*-Math.cos(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0);
+			dp2dv3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.cos(x[0]-x[1]-0);
+			dp2dv4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.cos(x[0]-x[2]-0);
 			
-			dq2ds2 = Math.abs(v2)*(Math.abs(Y[1][0]*Math.cos(s2-Complex.phase(Y[1][0]))+Math.abs(Y[1][2])*Math.abs(v3)*Math.cos(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.cos(s2-s4-Complex.phase(Y[1][3]))));
-			dq2ds3 = -Math.abs(v2)*Math.abs(Y[1][2])*Math.abs(v3)*Math.cos(s2-s3-Complex.phase(Y[1][2]));
-			dq2ds4 = -Math.abs(v2)*Math.abs(Y[1][3])*Math.abs(v4)*Math.cos(s2-s4-Complex.phase(y[1][3]));
-			dq2dv2 = Math.abs(y[1][0])*Math.sin(s2-Complex.phase(y[1][0]))-2*Math.abs(v2)*Math.abs(y[1][1])*Math.sin(Complex.phase(Y[1][1]))+Math.abs(Y[1][2])*Math.abs(v3)*Math.sin(s2-s3-Complex.phase(Y[1][2]))+Math.abs(Y[1][3])*Math.abs(v4)*Math.sin(s2-s4-Complex.phase(Y[1][3]));
-			dq2dv3 = Math.abs(v2)*Math.abs(Y[1][2])*Math.sin(s2-s3-Complex.phase(Y[1][2]));
-			dq2dv4 = Math.abs(v2)*Math.abs(Y[1][3])*Math.sin(s2-s4-Complex.phase(Y[1][3]));
+			dq2ds2 = Math.abs(x[3])*(Math.abs(Y[1][0])*Math.cos(x[0]-Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0));
+			dq2ds3 = -Math.abs(x[3])*Math.abs(Y[1][2])*Math.abs(x[4])*Math.cos(x[0]-x[1]-0);
+			dq2ds4 = -Math.abs(x[3])*Math.abs(Y[1][3])*Math.abs(x[5])*Math.cos(x[0]-x[2]-0);
+			dq2dv2 = Math.abs(Y[1][0])*Math.sin(x[0]-Math.atan(xa/ra))-2*Math.abs(x[3])*Math.abs(Y[1][1])*-Math.sin(Math.atan(xa/ra))+Math.abs(Y[1][2])*Math.abs(x[4])*Math.sin(x[0]-x[1]-0)+Math.abs(Y[1][3])*Math.abs(x[5])*Math.sin(x[0]-x[2]-0);
+			dq2dv3 = Math.abs(x[3])*Math.abs(Y[1][2])*Math.sin(x[0]-x[1]-0);
+			dq2dv4 = Math.abs(x[3])*Math.abs(Y[1][3])*Math.sin(x[0]-x[2]-0);
 			
-			dp3ds2 = Math.abs(v3)*Math.abs(Y[2][1])*Math.abs(v2)*Math.sin(s3-s3-Compelx.phase(Y[2][1]));
-			dp3ds3 = -Math.abs(v3)*(Math.abs(Y[2][0]*Math.sin(s3-Complex.phase(Y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*Math.sin(s3-s2-Complex.phase(Y[2][1]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.sin(s3-s4-Complex.phase(Y[2][3]))));	
-			dp3ds4 = Math.abs(v3)*Math.abs(Y[2][3])*Math.abs(v4)*Math.sin(s3-s4-Complex.phase(y[2][3]));
-			dp3dv2 = Math.abs(v3)*Math.abs(Y[2][1])*Math.cos(s3-s2-Complex.phase(Y[2][1])); 
-			dp3dv3 = Math.abs(y[2][0])*Math.cos(s3-Complex.phase(y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*cos(s3-s2-Complex.phase(Y[2][1]))+2*Math.abs(v3)*Math.abs(y[2][2])*Math.cos(Complex.phase(Y[2][2]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.cos(s3-s4-Complex.phase(Y[2][3]));
-			dp3dv4 = Math.abs(v3)*Math.abs(Y[2][3])*Math.cos(s3-s4-Complex.phase(Y[2][3]));
+			dp3ds2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0);
+			dp3ds3 = -Math.abs(x[4])*(Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0));	
+			dp3ds4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0);
+			dp3dv2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.cos(x[1]-x[0]-0); 
+			dp3dv3 = Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+2*Math.abs(x[4])*Math.abs(Y[2][2])*-Math.cos(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0);
+			dp3dv4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.cos(x[1]-x[2]-0);
 	
-			dq3ds2 = -Math.abs(v3)*Math.abs(Y[2][1])*Math.abs(v2)*Math.cos(s3-s3-Compelx.phase(Y[2][1]));
-			dq3ds3 = Math.abs(v3)*(Math.abs(Y[2][0]*Math.cos(s3-Complex.phase(Y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*Math.cos(s3-s2-Complex.phase(Y[2][1]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.cos(s3-s4-Complex.phase(Y[2][3]))));	
-			dq3ds4 = -Math.abs(v3)*Math.abs(Y[2][3])*Math.abs(v4)*Math.cos(s3-s4-Complex.phase(y[2][3]));
-			dq3dv2 = Math.abs(v3)*Math.abs(Y[2][1])*Math.sin(s3-s2-Complex.phase(Y[2][1])); 
-			dq3dv3 = Math.abs(y[2][0])*Math.sin(s3-Complex.phase(y[2][0]))+Math.abs(Y[2][1])*Math.abs(v2)*sin(s3-s2-Complex.phase(Y[2][1]))+2*Math.abs(v3)*Math.abs(y[2][2])*Math.sin(Complex.phase(Y[2][2]))+Math.abs(Y[2][3])*Math.abs(v4)*Math.sin(s3-s4-Complex.phase(Y[2][3]));
-			dq3dv4 = Math.abs(v3)*Math.abs(Y[2][3])*Math.sin(s3-s4-Complex.phase(Y[2][3]));
+			dq3ds2 = -Math.abs(x[4])*Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0);
+			dq3ds3 = Math.abs(x[4])*(Math.abs(Y[2][0])*Math.cos(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.cos(x[1]-x[0]-0)+Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0));	
+			dq3ds4 = -Math.abs(x[4])*Math.abs(Y[2][3])*Math.abs(x[5])*Math.cos(x[1]-x[2]-0);
+			dq3dv2 = Math.abs(x[4])*Math.abs(Y[2][1])*Math.sin(x[1]-x[0]-0); 
+			dq3dv3 = Math.abs(Y[2][0])*Math.sin(x[1]-Math.atan(xb/rb))+Math.abs(Y[2][1])*Math.abs(x[3])*Math.sin(x[1]-x[0]-0)+2*Math.abs(x[4])*Math.abs(Y[2][2])*-Math.sin(Math.atan(xb/rb))+Math.abs(Y[2][3])*Math.abs(x[5])*Math.sin(x[1]-x[2]-0);
+			dq3dv4 = Math.abs(x[4])*Math.abs(Y[2][3])*Math.sin(x[1]-x[2]-0);
 	
-			dp4ds2 = Math.abs(v4)*Math.abs(Y[3][1])*Math.abs(v2)*Math.sin(s4-s2-Compelx.phase(Y[3][1]));
-			dp4ds3 = Math.abs(v4)*Math.abs(Y[3][2])*Math.abs(v3)*Math.sin(s4-s3-Complex.phase(Y[3][2]));
-			dp4ds4 = -Math.abs(v4)*(Math.abs(Y[3][0])*Math.sin(s4-Complex.phase(Y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.sin(s4-s3-Complex.phase(Y[3][2])));
-			dp4dv2 = Math.abs(v4)*Math.abs(Y[3][1])*Math.cos(s4-s2-Complex.phase(Y[3][1])); 
-			dp4dv3 = Math.abs(v4)*Math.abs(Y[3][2])*Math.cos(s4-s3-Complex.phase(Y[3][2]));
-			dp4dv4 = Math.abs(y[3][0])*Math.cos(s4-Complex.phase(y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.cos(s4-s3-Complex.phase(Y[3][2]))+2*Math.abs(v4)*Math.abs(y[3][3])*Math.cos(Complex.phase(Y[3][3]));
+			dp4ds2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0);
+			dp4ds3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0);
+			dp4ds4 = -Math.abs(x[5])*(Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0));
+			dp4dv2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.cos(x[2]-x[0]-0); 
+			dp4dv3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.cos(x[2]-x[1]-0);
+			dp4dv4 = Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0)+2*Math.abs(x[5])*Math.abs(Y[3][3])*-Math.cos(Math.atan(xc/rc));
 			
-			dq4ds2 = -Math.abs(v4)*Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-Compelx.phase(Y[3][1]));
-			dq4ds3 = -Math.abs(v4)*Math.abs(Y[3][2])*Math.abs(v3)*Math.cos(s4-s3-Complex.phase(Y[3][2]));
-			dq4ds4 = Math.abs(v4)*(Math.abs(Y[3][0])*Math.cos(s4-Complex.phase(Y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.cos(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.cos(s4-s3-Complex.phase(Y[3][2])));
-			dq4dv2 = Math.abs(v4)*Math.abs(Y[3][1])*Math.sin(s4-s2-Complex.phase(Y[3][1])); 
-			dq4dv3 = Math.abs(v4)*Math.abs(Y[3][2])*Math.sin(s4-s3-Complex.phase(Y[3][2]));
-			dq4dv4 = Math.abs(y[3][0])*Math.sin(s4-Complex.phase(y[3][0]))+Math.abs(Y[3][1])*Math.abs(v2)*Math.sin(s4-s2-Complex.phase(Y[3][1]))+Math.abs(Y[3][2])*Math.abs(v3)*Math.sin(s4-s3-Complex.phase(Y[3][2]))+2*Math.abs(v4)*Math.abs(y[3][3])*Math.sin(Complex.phase(Y[3][3]));
+			dq4ds2 = -Math.abs(x[5])*Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0);
+			dq4ds3 = -Math.abs(x[5])*Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0);
+			dq4ds4 = Math.abs(x[5])*(Math.abs(Y[3][0])*Math.cos(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.cos(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.cos(x[2]-x[1]-0));
+			dq4dv2 = Math.abs(x[5])*Math.abs(Y[3][1])*Math.sin(x[2]-x[0]-0); 
+			dq4dv3 = Math.abs(x[5])*Math.abs(Y[3][2])*Math.sin(x[2]-x[1]-0);
+			dq4dv4 = Math.abs(Y[3][0])*Math.sin(x[2]-Math.atan(xc/rc))+Math.abs(Y[3][1])*Math.abs(x[3])*Math.sin(x[2]-x[0]-0)+Math.abs(Y[3][2])*Math.abs(x[4])*Math.sin(x[2]-x[1]-0)+2*Math.abs(x[5])*Math.abs(Y[3][3])*-Math.sin(Math.atan(xc/rc));
 			
-			
-			double [][] J = new double [6][6];
-			J = {{dp2ds2, dp2ds3, dp2ds4, dp2dv2, dp2dv3, dp2dv4}, {dq2ds2, dq2ds3,
-					 dq2ds4, dq2dv2, dq2dv3, dq2dv4}, {dp3ds2, dp3ds3, dp3ds4, dp3dv2,
-					 dp3dv3, dp3dv4}, {dq3ds2, dq3ds3, dq3ds4, dq3dv2, dq3dv3, dq3dv4},
-					 {dp4ds2, dp4ds3, dp4ds4, dp4dv2, dp4dv3, dp4dv4}, {dq4ds2, dq4ds3,
-					 dq4ds4, dq4dv2, dq4dv3, dq4dv4}
+			double [][] J =  {{dp2ds2, dp2ds3, dp2ds4, dp2dv2, dp2dv3, dp2dv4},  {dp3ds2, dp3ds3, dp3ds4, dp3dv2,
+					 dp3dv3, dp3dv4},{dp4ds2, dp4ds3, dp4ds4, dp4dv2, dp4dv3, dp4dv4},{dq2ds2, dq2ds3, dq2ds4, dq2dv2, dq2dv3, dq2dv4}, 
+					{dq3ds2, dq3ds3, dq3ds4, dq3dv2, dq3dv3, dq3dv4},  {dq4ds2, dq4ds3, dq4ds4, dq4dv2, dq4dv3, dq4dv4}
 				};
 			
-			double [][] J1;
+			this.J1 = Inverse.invert(J); 
+			del_x =Matrix(J1,Del_f);
+			for(int i = 0; i<6;i++) {
+				x[i] = x[i] + del_x[i];
+			}
 			
-			Inverse invert = new Inverse();
-			this.J1 = Inverse.invert(J1); 
-					
-			
-			del_x = Modelmath.gausselim(J1,del_f);
-			x= x + del_x;
-			
+			System.out.println("x:");
+			for(int i = 0; i<6;i++) {
+				System.out.print(x[i]);
+				System.out.print("   ");
+			}
+			System.out.println();		
+						
 		}
-		
 		
 		COM_MAIN_CURRENT = -(MAIN_VOLTAGE - COM_MAIN_VOLTAGE)*Y[0][1];
 		IND_MAIN_CURRENT = -(MAIN_VOLTAGE - IND_MAIN_VOLTAGE)*Y[0][2];
@@ -732,8 +799,9 @@ public class ACMGmodel{
 		
 		
 		//source currents
+		
 		if(SOURCE_1_User == 1){
-			if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
+		if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
 				src1unregc = -U[SOURCE_1_connindex];
 			}
 			else{
@@ -788,17 +856,18 @@ public class ACMGmodel{
 		}
 			
 		//write to log
+	   
 		this.log.println(String.format("%s,%s,%s,%s,%s,%s,%s\n",
-				String.valueOf(busvoltages[0]),String.valueOf(busvoltages[1]),String.valueOf(busvoltages[2]),String.valueOf(busvoltages[3]),
+				String.valueOf(MAIN_VOLTAGE),String.valueOf(COM_MAIN_VOLTAGE),String.valueOf(IND_MAIN_VOLTAGE),String.valueOf(RES_MAIN_VOLTAGE),
 				String.valueOf(COM_MAIN_CURRENT),String.valueOf(IND_MAIN_CURRENT),String.valueOf(RES_MAIN_CURRENT)));
 		
 		if(debugging){
 			System.out.println("BUS VOLTAGES:");
-			System.out.println(String.format("Main bus: %f", busvoltages[0]));
-			System.out.println(String.format("Commercial Main Bus: %f", busvoltages[1]));
-			System.out.println(String.format("Industrial Main Bus: %f", busvoltages[2]));	
-			System.out.println(String.format("Residential Main Bus: %f", busvoltages[3]));
-			}
+			System.out.println(String.format("Main bus: %f", MAIN_VOLTAGE));
+			System.out.println(String.format("Commercial Main Bus: %f", COM_MAIN_VOLTAGE));
+			System.out.println(String.format("Industrial Main Bus: %f", IND_MAIN_VOLTAGE));	
+			System.out.println(String.format("Residential Main Bus: %f", RES_MAIN_VOLTAGE));
+		}
 		
 }
 
@@ -807,94 +876,94 @@ public class ACMGmodel{
 		Object[] retval = new Object[tags.length];
 		if(mode.equals("read")){
 				for(int i = 0;i<tags.length;i++){
-					if(tags[i].equals("???Current")){
+					if(tags[i].equals("COM_MAIN_CURRENT")){
 						retval[i] = new Float(COM_MAIN_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1_CURRENT")){
 						retval[i] = new Float(COM_B1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1L1_CURRENT")){
 					retval[i] = new Float(COM_B1L1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1L2_CURRENT")){
 					retval[i] = new Float(COM_B1L2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1L3_CURRENT")){
 					retval[i] = new Float(COM_B1L3_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1L4_CURRENT")){
 					retval[i] = new Float(COM_B1L4_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B1L5_CURRENT")){
 					retval[i] = new Float(COM_B1L5_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2_CURRENT")){
 					retval[i] = new Float(COM_B2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2L1_CURRENT")){
 					retval[i] = new Float(COM_B2L1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2L2_CURRENT")){
 					retval[i] = new Float(COM_B2L2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2L3_CURRENT")){
 					retval[i] = new Float(COM_B2L3_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2L4_CURRENT")){
 					retval[i] = new Float(COM_B2L4_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("COM_B2L5_CURRENT")){
 					retval[i] = new Float(COM_B2L5_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_MAIN_CURRENT")){
 					retval[i] = new Float(IND_MAIN_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1_CURRENT")){
 					retval[i] = new Float(IND_B1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1L1_CURRENT")){
 					retval[i] = new Float(IND_B1L1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1L2_CURRENT")){
 					retval[i] = new Float(IND_B1L2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1L3_CURRENT")){
 					retval[i] = new Float(IND_B1L3_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1L4_CURRENT")){
 					retval[i] = new Float(IND_B1L4_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B1L5_CURRENT")){
 					retval[i] = new Float(IND_B1L5_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2_CURRENT")){
 					retval[i] = new Float(IND_B2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2L1_CURRENT")){
 					retval[i] = new Float(IND_B2L1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2L2_CURRENT")){
 					retval[i] = new Float(IND_B2L2_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2L3_CURRENT")){
 					retval[i] = new Float(IND_B2L3_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2L4_CURRENT")){
 					retval[i] = new Float(IND_B2L4_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("IND_B2L5_CURRENT")){
 					retval[i] = new Float(IND_B2L5_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("RES_MAIN_CURRENT")){
 					retval[i] = new Float(RES_MAIN_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("RES_B1_CURRENT")){
 					retval[i] = new Float(RES_B1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("RES_B1L1_CURRENT")){
 					retval[i] = new Float(RES_B1L1_CURRENT);
 				}
-				else if(tags[i].equals("??Current")){
+				else if(tags[i].equals("RES_B1L2_CURRENT")){
 					retval[i] = new Float(RES_B1L2_CURRENT);
 				}
 				else if(tags[i].equals("??Current")){
@@ -1186,12 +1255,65 @@ public class ACMGmodel{
 				else if(tags[i].equals("??User")){
 					retval[i] = int2bool(RES_BUS5_LOAD5_USER);
 				}
+				else if(tags[i].equals("SOURCE_1_User")){
+					SOURCE_1_User = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_User")){
+					SOURCE_2_User = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_droopCoeff")){
+					SOURCE_1_droopCoeff = obj2double(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_droopCoeff")){
+					SOURCE_2_droopCoeff = obj2double(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
+					SOURCE_1_noLoadVoltage = obj2double(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
+					SOURCE_2_noLoadVoltage = obj2double(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
+					SOURCE_1_noLoadVoltage = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
+					SOURCE_2_noLoadVoltage = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
+					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
+					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
+					SOURCE_1_DROOP_SELECT = bool2int(values[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_DROOP_SELECT")){
+					SOURCE_2_DROOP_SELECT = bool2int(values[i]);
+				}
 				
 				
 				
 				}
+				retval = null;
 				//more tags need to be added	
-				}		
+				}	
+		if(retval != null){
+			System.out.println("fake interface returns the following:");
+			for(int i = 0;i<retval.length;i++){
+				if(retval[i] != null){
+					System.out.println(retval[i].toString());
+				}
+				else{
+					System.out.println(String.format("index %d is null", i));
+				}
+			}
+		}
+		else{
+			System.out.println("fake interface returns null");
+		}
+
+		return retval;
 				
 		}
     
@@ -1235,7 +1357,20 @@ public class ACMGmodel{
 		return retval;
 	}
 	
-	
+	 public double[] Matrix(double [][]a, double []b) {
+	    	dim = b.length;
+	    	double []c = new double [dim];
+	    	    			
+	    	for (int i=0;i<dim;i++) {
+	    		double sum = 0;
+				for (int j=0;j<dim;j++) {
+					sum += a[i][j] * b [j];
+				}
+				c[i]=sum;
+			}
+	    	
+	    return c;
+	    }
     
     
     
