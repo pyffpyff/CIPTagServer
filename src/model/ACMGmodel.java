@@ -1,3 +1,4 @@
+
 package model;
 import model.Source;
 
@@ -234,6 +235,7 @@ public class ACMGmodel{
     double IND_MAIN_VOLTAGE;
     double RES_MAIN_VOLTAGE;
     
+    double MAIN_CURRENT;
     double COM_MAIN_CURRENT;
     double COM_B1_CURRENT;
     double COM_B1L1_CURRENT;
@@ -537,6 +539,7 @@ public class ACMGmodel{
 		//size matrix based on number of sources connected
 		dim = 4 + SOURCE_1_User + SOURCE_2_User;
 		double[][] Y = new double[dim][dim];
+		double[][] T = new double[dim][dim];
 		double[] U = new double[dim];
 		double[] K = new double[dim];
 		
@@ -592,35 +595,43 @@ public class ACMGmodel{
 				K[i] = 0;
 			}
 			if(i == SOURCE_1_connindex){
-				if(SOURCE_1_connindex == 1){
-					K[i] = src1unregv;
-				}
-				else{
+				
 					K[i] = src1regv;
-				}				
+								
 			}
 			else if(i == SOURCE_2_connindex){
-				if(SOURCE_2_connindex == 1){
-					K[i] = src2unregv;
-				}
-				else{
+				
 					K[i] = src2regv;
 				}			
+			}		
+		
+		for(int m=0;m<6;m++) {
+			for(int n=0;n<6;n++) {
+				T[m][n]=Y[m][n];
 			}
 		}
 		
 		//these entries help us find the unknown currents
 		if(SOURCE_1_User == 1){
-			Y[SOURCE_1_connindex][SOURCE_1_connindex] = -ro * SOURCE_1_User;
+			T[SOURCE_1_connindex][SOURCE_1_connindex] = -ro * SOURCE_1_User;
 		}
 		if(SOURCE_2_User == 1){
-			Y[SOURCE_2_connindex][SOURCE_2_connindex] = -ro * SOURCE_2_User;
+			T[SOURCE_2_connindex][SOURCE_2_connindex] = -ro * SOURCE_2_User;
 		}
+		
 		System.out.print("Y:");
 		Modelmath.printmat(Y);
 		System.out.println();
+			
+		U = Modelmath.gausselim(T,K);
 		
-	
+		System.out.println("U: ");
+		for(int i=0;i<U.length;i++) {
+			System.out.println(U[i]);
+			
+		}
+		System.out.println();
+		
 		this.v1 = 1.0;
 		this.s1 = 0;
 		
@@ -791,69 +802,41 @@ public class ACMGmodel{
 						
 		}
 		
-		COM_MAIN_CURRENT = -(MAIN_VOLTAGE - COM_MAIN_VOLTAGE)*Y[0][1];
-		IND_MAIN_CURRENT = -(MAIN_VOLTAGE - IND_MAIN_VOLTAGE)*Y[0][2];
-		RES_MAIN_CURRENT = -(MAIN_VOLTAGE - RES_MAIN_VOLTAGE)*Y[0][3];
+		MAIN_VOLTAGE = 1.0 * 24;
+		COM_MAIN_VOLTAGE = x[3] * 24;
+		IND_MAIN_VOLTAGE = x[4] * 24;
+		RES_MAIN_VOLTAGE = x[5] * 24;
 		
+		COM_MAIN_CURRENT = -(MAIN_VOLTAGE - COM_MAIN_VOLTAGE)*Y[0][1]*24;
+		IND_MAIN_CURRENT = -(MAIN_VOLTAGE - IND_MAIN_VOLTAGE)*Y[0][2]*24;
+		RES_MAIN_CURRENT = -(MAIN_VOLTAGE - RES_MAIN_VOLTAGE)*Y[0][3]*24;
+		MAIN_CURRENT = COM_MAIN_CURRENT + IND_MAIN_CURRENT + RES_MAIN_CURRENT;
 		
 		
 		
 		//source currents
 		
 		if(SOURCE_1_User == 1){
-		if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
-				src1unregc = -U[SOURCE_1_connindex];
-			}
-			else{
-				src1regc = -U[SOURCE_1_connindex];
-			}			
-		}
-		else{
-			if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
-				src1unregc = 0;
-			}
-			else{
-				src1regc = 0;
-			}
-		}
-		if(SOURCE_2_User == 1){
-			if(SOURCE_2_BATTERY_CHARGE_SELECT == 1){
-				src2unregc = -U[SOURCE_2_connindex];
-			}
-			else{
-				src2regc = -U[SOURCE_2_connindex];
-			}			
-		}
-		else{
-			if(SOURCE_2_BATTERY_CHARGE_SELECT == 1){
-				src2unregc = 0;
-			}
-			else{
-				src2regc = 0;
-			}
-		}
+			
+			src1regc = -U[SOURCE_1_connindex];
+	}
+	else {
+			src1regc = 0;
+		
+	}
+	if(SOURCE_2_User == 1){
+		
+			src2regc = -U[SOURCE_2_connindex];
+		}			
+	
+	else{
+		
+			src2regc = 0;
+		
+	}
 		//System.out.println(String.format("regv: %f",src3regv));
 		//System.out.println(String.format("regc: %f",src3regc));
-		if(SOURCE_1_BATTERY_CHARGE_SELECT == 1){
-			src1unregv = src1.simstep(src1unregc, src1unregv);
-			src1regv = src1.outv;
-			src1regc = src1.outc;
-		}
-		else{
-			src1regv = src1.simstep(src1regc,src1regv);
-			src1unregv = src1.inv;
-			src1unregc = src1.ini;
-		}
-		if(SOURCE_2_BATTERY_CHARGE_SELECT == 1){
-			src2unregv = src2.simstep(src2unregc, src2unregv);
-			src2regv = src2.outv;
-			src2regc = src2.outc;
-		}
-		else{
-			src2regv = src2.simstep(src2regc,src2regv);
-			src2unregv = src2.inv;
-			src2unregc = src2.ini;
-		}
+		
 			
 		//write to log
 	   
@@ -867,6 +850,18 @@ public class ACMGmodel{
 			System.out.println(String.format("Commercial Main Bus: %f", COM_MAIN_VOLTAGE));
 			System.out.println(String.format("Industrial Main Bus: %f", IND_MAIN_VOLTAGE));	
 			System.out.println(String.format("Residential Main Bus: %f", RES_MAIN_VOLTAGE));
+			System.out.println("BUS CURRENT:");
+			System.out.println(String.format("Main bus: %f", MAIN_CURRENT));
+			System.out.println(String.format("Commercial Main Bus: %f", COM_MAIN_CURRENT));
+			System.out.println(String.format("Industrial Main Bus: %f", IND_MAIN_CURRENT));	
+			System.out.println(String.format("Residential Main Bus: %f", RES_MAIN_CURRENT));
+			System.out.println("Source VOLTAGES:");
+			System.out.println(String.format("Source 1: %f", src1regv));
+			System.out.println(String.format("Source 2: %f", src2regv));
+			System.out.println("Source CURRENT:");
+			System.out.println(String.format("Source 1: %f", src1regc));
+			System.out.println(String.format("Source 2: %f", src2regc));
+			
 		}
 		
 }
@@ -1387,5 +1382,3 @@ public class ACMGmodel{
   
     
         
-
- 
