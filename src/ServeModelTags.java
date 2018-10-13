@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.File;
 
 //import java.io.InputStreamReader;
-import model.DCMGmodel;
+import model.ACMGmodel;
 
 public class ServeModelTags{
 	public static void main(String[] args){
@@ -31,7 +31,7 @@ public class ServeModelTags{
 		String reqlogfname = "requests.log";
 
 		//create model object
-		DCMGmodel dcmg = new DCMGmodel();
+		ACMGmodel acmg = new ACMGmodel();
 		ByteBuffer recbuff = ByteBuffer.allocate(8192);
 		//ByteBuffer buffer = ByteBuffer.allocate(8192);
 		//CharBuffer charBuffer = CharBuffer.allocate(8192);
@@ -62,8 +62,9 @@ public class ServeModelTags{
 						now = System.currentTimeMillis();
 						modelet = now - prev;
 						if(modelet > modelinterval){
-							//System.out.println(now);
-							dcmg.solvemodel(false);
+							//System.out.println("modelet");
+							//System.out.println(modelet);
+							acmg.solvemodel(false);
 							prev = System.currentTimeMillis();
 							itrcounter++;
 							//System.out.println(itrcounter);
@@ -78,11 +79,11 @@ public class ServeModelTags{
 							reqlog.printf("\nFROM %s, RECEIVED NEW MESSAGE: %s\n   AT %d",tclient.socket().getRemoteSocketAddress(), line, System.currentTimeMillis()/1000);
 							
 							System.out.println(String.format("line: %s", line));
-							//System.out.println(recbytes);
-							//System.out.println(recbuff);
+							System.out.println(String.format("line: %s", recbytes));
+							//System.out.println(String.format("line: %s", recbuff));
 	
 							
-							retval = processInput(dcmg, line);
+							retval = processInput(acmg, line);
 							
 							if(retval != null){
 								System.out.println(retval);
@@ -118,12 +119,12 @@ public class ServeModelTags{
 			System.out.println(E);
 		}
 		finally{
-			dcmg.cleanup();
+			acmg.cleanup();
 			reqlog.close();
 		}
 	}
 
-	public static String processInput(DCMGmodel dcmg, String req){
+	public static String processInput(ACMGmodel acmg, String req){
 		try{
 			//System.out.println("processInput() called");
 			String[] items = req.split(" ");
@@ -132,7 +133,8 @@ public class ServeModelTags{
 			
 			String retval;
 			
-			
+			System.out.println("req(tag):");
+			System.out.println(req);
 			
 			
 			
@@ -152,14 +154,24 @@ public class ServeModelTags{
 			
 			
 			
-		if(plc.equals("SG")){
+		if(plc.equals("scenario")){
 				//retval = processMore(SG,method,items);
-				retval = processMore(dcmg,method,items);
+				retval = processMore(acmg,method,items);
 				return retval;
 			}
-			else if(plc.equals("user")){
+			else if(plc.equals("grid")){
 				//retval = processMore(user,method,items);
-				retval = processMore(dcmg,method,items);
+				retval = processMore(acmg,method,items);
+				return retval;
+			}
+			else if(plc.equals("loads")){
+				//retval = processMore(user,method,items);
+				retval = processMore(acmg,method,items);
+				return retval;
+			}
+			else if(plc.equals("source")){
+				//retval = processMore(user,method,items);
+				retval = processMore(acmg,method,items);
 				return retval;
 			}
 			else{
@@ -167,6 +179,7 @@ public class ServeModelTags{
 				return null;
 			}
 		}
+		
 		catch(Exception e){
 			System.out.println(e);
 		}
@@ -174,17 +187,17 @@ public class ServeModelTags{
 		return null;
 	}
 	
-	public static String processMore(DCMGmodel dcmg, String method, String[] items){
+	public static String processMore(ACMGmodel acmg, String method, String[] items){
 		String retval;
-		//System.out.println("processMore() called");
+		System.out.println("processMore() called");
 		if(method.equals("read")){
 			//retval = handleRead(w,items);
-			retval = handleRead(dcmg,items);
+			retval = handleRead(acmg,items);
 			return retval;
 		}
 		else if(method.equals("write")){
 			//retval = handleWrite(w,items);
-			retval = handleWrite(dcmg, items);
+			retval = handleWrite(acmg, items);
 			return retval;
 		}
 		else{
@@ -194,7 +207,7 @@ public class ServeModelTags{
 		
 	}
 	
-	public static String handleWrite(DCMGmodel dcmg, String[] items){
+	public static String handleWrite(ACMGmodel acmg, String[] items){
 		try{
 			//System.out.println("handleWrite() called");
 			List<String> tagNames = new ArrayList<String>();
@@ -227,14 +240,14 @@ public class ServeModelTags{
 			if(nameArray.length == 1){
 				String[] parts = items[2].split(":");
 				//w.writeTag(parts[0], parts[1]);  //commented for testing
-				writeModelTag(dcmg,nameArray[0],valueArray[0]);
+				writeModelTag(acmg,nameArray[0],valueArray[0]);
 				
 				//System.out.println(parts[0].toString());
 				//System.out.println(parts[1].toString());
 			}
 			else if(nameArray.length > 1){
 				//w.writeTags(nameArray, valueArray); //commented for testing
-				writeModelTags(dcmg,nameArray,valueArray);
+				writeModelTags(acmg,nameArray,valueArray);
 				
 				//System.out.println(nameArray.toString());
 				//System.out.println(valueArray.toString());
@@ -250,29 +263,35 @@ public class ServeModelTags{
 		return null;
 	}
 	
-	public static String handleRead(DCMGmodel dcmg, String[] items){
+	public static String handleRead(ACMGmodel acmg, String[] items){
 		try{
-			//System.out.println("handleRead() called");
+			System.out.println("handleRead() called");
 			List<String> tagNames = new ArrayList<String>();
 			
 			for(int i = 2;i < items.length; i++){
 				tagNames.add(items[i].trim());
+				
 			}
 			String[] nameArray = new String[tagNames.size()];
 			tagNames.toArray(nameArray);
-
-			//System.out.print(String.format("%d", nameArray.length));
+			
+			System.out.print(String.format("%d", nameArray.length));
+			
 			if(nameArray.length == 1){
 				//Object retval = w.readTag(items[2]); //commented for testing
 				//Object retval = new Boolean("true");   //inserted for testing
-				Object retval = readModelTag(dcmg,nameArray[0]);
+				
+				Object retval = readModelTag(acmg,nameArray[0]);
+				System.out.println("handleRead() nameArray.length == 1");
 				String output = String.format("%s:%s\n", nameArray[0] ,retval.toString());
+				
 				return output;
 			}
 			else if(nameArray.length > 1){
 				//Object[] retval = w.readTags(nameArray); //commented for testing
 				//Object[] retval = {new Boolean(false), new Boolean(true)};
-				Object[] retval = readModelTags(dcmg,nameArray);
+				System.out.println("handleRead() nameArray.length >1");
+				Object[] retval = readModelTags(acmg,nameArray);
 				String output = "";
 				for(int j = 0;j < retval.length; j++){					
 					output = output.concat(String.format("%s:%s",nameArray[j],retval[j].toString()));
@@ -297,40 +316,40 @@ public class ServeModelTags{
 		return null;
 	}
 	
-	public static Object[] readModelTags(DCMGmodel dcmg, String[] tags){
+	public static Object[] readModelTags(ACMGmodel acmg, String[] tags){
 		//System.out.println("readModelTags(); called");
 		Object[] results = new Object[tags.length];
 		Object[] dummyvals = new Object[1];
-		results = dcmg.fakeinterface("read",tags,dummyvals);
+		results = acmg.fakeinterface("read",tags,dummyvals);
 		
 		return results;
 	}
 	
-	public static Object readModelTag(DCMGmodel dcmg, String tag){
+	public static Object readModelTag(ACMGmodel acmg, String tag){
 		//System.out.println("readModelTag() called");
 		Object result = new Object();
 		Object[] dummyvals = new Object[1];
 		String[] tags = new String[1];
 		tags[0] = tag;
-		Object[] results = dcmg.fakeinterface("read", tags, dummyvals);
+		Object[] results = acmg.fakeinterface("read", tags, dummyvals);
 		result = results[0];
 		//System.out.println(result);
 		return result;		
 	}
 	
-	public static void writeModelTag(DCMGmodel dcmg, String tag, Object value){
+	public static void writeModelTag(ACMGmodel acmg, String tag, Object value){
 		//System.out.println("writeModelTag() called");
 		Object[] values = new Object[1];
 		String[] tags = new String[1];
 		values[0] = value;
 		tags[0] = tag;
-		dcmg.fakeinterface("write", tags, values);
+		acmg.fakeinterface("write", tags, values);
 		//System.out.println("writeModelTag() returning");
 	}
 	
-	public static void writeModelTags(DCMGmodel dcmg, String[] tags, Object[] values){
+	public static void writeModelTags(ACMGmodel acmg, String[] tags, Object[] values){
 		//System.out.println("writeModelTags() called");
-		dcmg.fakeinterface("write", tags, values);
+		acmg.fakeinterface("write", tags, values);
 		//System.out.println("writeModelTags() returning");
 	}
 	
