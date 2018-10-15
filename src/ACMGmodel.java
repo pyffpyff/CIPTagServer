@@ -867,426 +867,643 @@ public class ACMGmodel{
 				for(int i = 0;i<tags.length;i++){
 					if(tags[i].equals("COM_MAIN_CURRENT")){
 						retval[i] = new Float(COM_MAIN_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1_CURRENT")){
+					}
+					else if(tags[i].equals("COM_B1_CURRENT")){
 						retval[i] = new Float(COM_B1_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1L1_CURRENT")){
-					retval[i] = new Float(COM_B1L1_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1L2_CURRENT")){
-					retval[i] = new Float(COM_B1L2_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1L3_CURRENT")){
-					retval[i] = new Float(COM_B1L3_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1L4_CURRENT")){
-					retval[i] = new Float(COM_B1L4_CURRENT);
-				}
-				else if(tags[i].equals("COM_B1L5_CURRENT")){
-					retval[i] = new Float(COM_B1L5_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2_CURRENT")){
-					retval[i] = new Float(COM_B2_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2L1_CURRENT")){
-					retval[i] = new Float(COM_B2L1_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2L2_CURRENT")){
-					retval[i] = new Float(COM_B2L2_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2L3_CURRENT")){
-					retval[i] = new Float(COM_B2L3_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2L4_CURRENT")){
-					retval[i] = new Float(COM_B2L4_CURRENT);
-				}
-				else if(tags[i].equals("COM_B2L5_CURRENT")){
-					retval[i] = new Float(COM_B2L5_CURRENT);
-				}
-				else if(tags[i].equals("IND_MAIN_CURRENT")){
-					retval[i] = new Float(IND_MAIN_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1_CURRENT")){
-					retval[i] = new Float(IND_B1_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1L1_CURRENT")){
-					retval[i] = new Float(IND_B1L1_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1L2_CURRENT")){
-					retval[i] = new Float(IND_B1L2_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1L3_CURRENT")){
-					retval[i] = new Float(IND_B1L3_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1L4_CURRENT")){
-					retval[i] = new Float(IND_B1L4_CURRENT);
-				}
-				else if(tags[i].equals("IND_B1L5_CURRENT")){
-					retval[i] = new Float(IND_B1L5_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2_CURRENT")){
-					retval[i] = new Float(IND_B2_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2L1_CURRENT")){
-					retval[i] = new Float(IND_B2L1_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2L2_CURRENT")){
-					retval[i] = new Float(IND_B2L2_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2L3_CURRENT")){
-					retval[i] = new Float(IND_B2L3_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2L4_CURRENT")){
-					retval[i] = new Float(IND_B2L4_CURRENT);
-				}
-				else if(tags[i].equals("IND_B2L5_CURRENT")){
-					retval[i] = new Float(IND_B2L5_CURRENT);
-				}
-				else if(tags[i].equals("RES_MAIN_CURRENT")){
-					retval[i] = new Float(RES_MAIN_CURRENT);
-				}
-				else if(tags[i].equals("RES_B1_CURRENT")){
-					retval[i] = new Float(RES_B1_CURRENT);
-				}
-				else if(tags[i].equals("RES_B1L1_CURRENT")){
-					retval[i] = new Float(RES_B1L1_CURRENT);
-				}
-				else if(tags[i].equals("RES_B1L2_CURRENT")){
-					retval[i] = new Float(RES_B1L2_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B1L3_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B1L4_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B1L5_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2L1_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2L2_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2L3_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2L4_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B2L5_CURRENT);
+					}
+					else if(tags[i].equals("COM_B1L1_CURRENT")){
+						retval[i] = new Float(COM_B1L1_CURRENT);
+					}
+					else if(tags[i].equals("COM_B1L2_CURRENT")){
+						retval[i] = new Float(COM_B1L2_CURRENT);
+					}
+					else if(tags[i].equals("COM_B1L3_CURRENT")){
+						retval[i] = new Float(COM_B1L3_CURRENT);
+					}
+					else if(tags[i].equals("COM_B1L4_CURRENT")){
+						retval[i] = new Float(COM_B1L4_CURRENT);
+					}
+					else if(tags[i].equals("COM_B1L5_CURRENT")){
+						retval[i] = new Float(COM_B1L5_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2_CURRENT")){
+						retval[i] = new Float(COM_B2_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2L1_CURRENT")){
+						retval[i] = new Float(COM_B2L1_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2L2_CURRENT")){
+						retval[i] = new Float(COM_B2L2_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2L3_CURRENT")){
+						retval[i] = new Float(COM_B2L3_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2L4_CURRENT")){
+						retval[i] = new Float(COM_B2L4_CURRENT);
+					}
+					else if(tags[i].equals("COM_B2L5_CURRENT")){
+						retval[i] = new Float(COM_B2L5_CURRENT);
+					}
+					else if(tags[i].equals("IND_MAIN_CURRENT")){
+						retval[i] = new Float(IND_MAIN_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1_CURRENT")){
+						retval[i] = new Float(IND_B1_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1L1_CURRENT")){
+						retval[i] = new Float(IND_B1L1_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1L2_CURRENT")){
+						retval[i] = new Float(IND_B1L2_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1L3_CURRENT")){
+						retval[i] = new Float(IND_B1L3_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1L4_CURRENT")){
+						retval[i] = new Float(IND_B1L4_CURRENT);
+					}
+					else if(tags[i].equals("IND_B1L5_CURRENT")){
+						retval[i] = new Float(IND_B1L5_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2_CURRENT")){
+						retval[i] = new Float(IND_B2_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2L1_CURRENT")){
+						retval[i] = new Float(IND_B2L1_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2L2_CURRENT")){
+						retval[i] = new Float(IND_B2L2_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2L3_CURRENT")){
+						retval[i] = new Float(IND_B2L3_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2L4_CURRENT")){
+						retval[i] = new Float(IND_B2L4_CURRENT);
+					}
+					else if(tags[i].equals("IND_B2L5_CURRENT")){
+						retval[i] = new Float(IND_B2L5_CURRENT);
+					}
+					else if(tags[i].equals("RES_MAIN_CURRENT")){
+						retval[i] = new Float(RES_MAIN_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1_CURRENT")){
+						retval[i] = new Float(RES_B1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1L1_CURRENT")){
+						retval[i] = new Float(RES_B1L1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1L2_CURRENT")){
+						retval[i] = new Float(RES_B1L2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1L3_CURRENT")){
+						retval[i] = new Float(RES_B1L3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1L4_CURRENT")){
+						retval[i] = new Float(RES_B1L4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B1L5_CURRENT")){
+						retval[i] = new Float(RES_B1L5_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2_CURRENT")){
+						retval[i] = new Float(RES_B2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2L1_CURRENT")){
+						retval[i] = new Float(RES_B2L1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2L2_CURRENT")){
+						retval[i] = new Float(RES_B2L2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2L3_CURRENT")){
+						retval[i] = new Float(RES_B2L3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2L4_CURRENT")){
+						retval[i] = new Float(RES_B2L4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B2L5_CURRENT")){
+						retval[i] = new Float(RES_B2L5_CURRENT);
+					}	
+					else if(tags[i].equals("RES_B3_CURRENT")){
+						retval[i] = new Float(RES_B3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B3L1_CURRENT")){
+						retval[i] = new Float(RES_B3L1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B3L2_CURRENT")){
+						retval[i] = new Float(RES_B3L2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B3L3_CURRENT")){
+						retval[i] = new Float(RES_B3L3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B3L4_CURRENT")){
+						retval[i] = new Float(RES_B3L4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B3L5_CURRENT")){
+						retval[i] = new Float(RES_B3L5_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4_CURRENT")){
+						retval[i] = new Float(RES_B4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4L1_CURRENT")){
+						retval[i] = new Float(RES_B4L1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4L2_CURRENT")){
+						retval[i] = new Float(RES_B4L2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4L3_CURRENT")){
+						retval[i] = new Float(RES_B4L3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4L4_CURRENT")){
+						retval[i] = new Float(RES_B4L4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B4L5_CURRENT")){
+						retval[i] = new Float(RES_B4L5_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5_CURRENT")){
+						retval[i] = new Float(RES_B5_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5L1_CURRENT")){
+						retval[i] = new Float(RES_B5L1_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5L2_CURRENT")){
+						retval[i] = new Float(RES_B5L2_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5L3_CURRENT")){
+						retval[i] = new Float(RES_B5L3_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5L4_CURRENT")){
+						retval[i] = new Float(RES_B5L4_CURRENT);
+					}
+					else if(tags[i].equals("RES_B5L5_CURRENT")){
+						retval[i] = new Float(RES_B5L5_CURRENT);
+					}
+					else if(tags[i].equals("SOURCE_1_RegCurrent")){
+						retval[i] = new Float(src1regc);
+					}
+					else if(tags[i].equals("SOURCE_2_RegCurrent")){
+						retval[i] = new Float(src2regc);
+					}				
+					else if(tags[i].equals("SOURCE_1_RegVoltage")){
+						retval[i] = new Float(src1regv);
+					}
+					else if(tags[i].equals("SOURCE_2_RegVoltage")){
+						retval[i] = new Float(src2regv);
+					}
+					else if(tags[i].equals("SOURCE_1_UnregCurrent")){
+						retval[i] = new Float(src1unregc);
+					}
+					else if(tags[i].equals("SOURCE_2_UnregCurrent")){
+						retval[i] = new Float(src2unregc);
+					}				
+					else if(tags[i].equals("SOURCE_1_UnregVoltage")){
+						retval[i] = new Float(src1unregv);
+					}
+					else if(tags[i].equals("SOURCE_2_UnregVoltage")){
+						retval[i] = new Float(src2unregv);
+					}	
+					else if(tags[i].equals("MAIN_BUS_Voltage")){
+						retval[i] = new Float(MAIN_VOLTAGE);
+					}
+					else if(tags[i].equals("COM_MAIN_VOLTAGE")){
+						retval[i] = new Float(COM_MAIN_VOLTAGE);
+					}
+					else if(tags[i].equals("IND_MAIN_VOLTAGE")){
+						retval[i] = new Float(IND_MAIN_VOLTAGE);
+					}
+					else if(tags[i].equals("RES_MAIN_VOLTAGE")){
+						retval[i] = new Float(RES_MAIN_VOLTAGE);
+					}
+					else if(tags[i].equals("SOURCE_1_User")){
+						retval[i] = int2bool(SOURCE_1_User);
+					}	
+					else if(tags[i].equals("SOURCE_2_User")){
+						retval[i] = int2bool(SOURCE_2_User);
+					}	
+					else if(tags[i].equals("COM_MAIN_USER")){
+						retval[i] = int2bool(COM_MAIN_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_USER")){
+						retval[i] = int2bool(COM_BUS1_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_LOAD1_USER")){
+						retval[i] = int2bool(COM_BUS1_LOAD1_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_LOAD2_USER")){
+						retval[i] = int2bool(COM_BUS1_LOAD2_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_LOAD3_USER")){
+						retval[i] = int2bool(COM_BUS1_LOAD3_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_LOAD4_USER")){
+						retval[i] = int2bool(COM_BUS1_LOAD4_USER);
+					}
+					else if(tags[i].equals("COM_BUS1_LOAD5_USER")){
+						retval[i] = int2bool(COM_BUS1_LOAD5_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_USER")){
+						retval[i] = int2bool(COM_BUS2_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_LOAD1_USER")){
+						retval[i] = int2bool(COM_BUS2_LOAD1_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_LOAD2_USER")){
+						retval[i] = int2bool(COM_BUS2_LOAD2_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_LOAD3_USER")){
+						retval[i] = int2bool(COM_BUS2_LOAD3_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_LOAD4_USER")){
+						retval[i] = int2bool(COM_BUS2_LOAD4_USER);
+					}
+					else if(tags[i].equals("COM_BUS2_LOAD5_USER")){
+						retval[i] = int2bool(COM_BUS2_LOAD5_USER);
+					}	
+					else if(tags[i].equals("IND_MAIN_USER")){
+						retval[i] = int2bool(IND_MAIN_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_USER")){
+						retval[i] = int2bool(IND_BUS1_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_LOAD1_USER")){
+						retval[i] = int2bool(IND_BUS1_LOAD1_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_LOAD2_USER")){
+						retval[i] = int2bool(IND_BUS1_LOAD2_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_LOAD3_USER")){
+						retval[i] = int2bool(IND_BUS1_LOAD3_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_LOAD4_USER")){
+						retval[i] = int2bool(IND_BUS1_LOAD4_USER);
+					}
+					else if(tags[i].equals("IND_BUS1_LOAD5_USER")){
+						retval[i] = int2bool(IND_BUS1_LOAD5_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_USER")){
+						retval[i] = int2bool(IND_BUS2_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_LOAD1_USER")){
+						retval[i] = int2bool(IND_BUS2_LOAD1_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_LOAD2_USER")){
+						retval[i] = int2bool(IND_BUS2_LOAD2_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_LOAD3_USER")){
+						retval[i] = int2bool(IND_BUS2_LOAD3_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_LOAD4_USER")){
+						retval[i] = int2bool(IND_BUS2_LOAD4_USER);
+					}
+					else if(tags[i].equals("IND_BUS2_LOAD5_USER")){
+						retval[i] = int2bool(IND_BUS2_LOAD5_USER);
+					}
+					else if(tags[i].equals("RES_MAIN_USER")){
+						retval[i] = int2bool(RES_MAIN_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_USER")){
+						retval[i] = int2bool(RES_BUS1_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_LOAD1_USER")){
+						retval[i] = int2bool(RES_BUS1_LOAD1_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_LOAD2_USER")){
+						retval[i] = int2bool(RES_BUS1_LOAD2_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS1_LOAD3_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_LOAD4_USER")){
+						retval[i] = int2bool(RES_BUS1_LOAD4_USER);
+					}
+					else if(tags[i].equals("RES_BUS1_LOAD5_USER")){
+						retval[i] = int2bool(RES_BUS1_LOAD5_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_USER")){
+						retval[i] = int2bool(RES_BUS2_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_LOAD1_USER")){
+						retval[i] = int2bool(RES_BUS2_LOAD1_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_LOAD2_USER")){
+						retval[i] = int2bool(RES_BUS2_LOAD2_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS2_LOAD3_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_LOAD4_USER")){
+						retval[i] = int2bool(RES_BUS2_LOAD4_USER);
+					}
+					else if(tags[i].equals("RES_BUS2_LOAD5_USER")){
+						retval[i] = int2bool(RES_BUS2_LOAD5_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_USER")){
+						retval[i] = int2bool(RES_BUS3_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_LOAD1_USER")){
+						retval[i] = int2bool(RES_BUS3_LOAD1_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_LOAD2_USER")){
+						retval[i] = int2bool(RES_BUS3_LOAD2_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS3_LOAD3_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_LOAD4_USER")){
+						retval[i] = int2bool(RES_BUS3_LOAD4_USER);
+					}
+					else if(tags[i].equals("RES_BUS3_LOAD5_USER")){
+						retval[i] = int2bool(RES_BUS3_LOAD5_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_USER")){
+						retval[i] = int2bool(RES_BUS4_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_LOAD1_USER")){
+						retval[i] = int2bool(RES_BUS4_LOAD1_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_LOAD2_USER")){
+						retval[i] = int2bool(RES_BUS4_LOAD2_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS4_LOAD3_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_LOAD4_USER")){
+						retval[i] = int2bool(RES_BUS4_LOAD4_USER);
+					}
+					else if(tags[i].equals("RES_BUS4_LOAD5_USER")){
+						retval[i] = int2bool(RES_BUS4_LOAD5_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_USER")){
+						retval[i] = int2bool(RES_BUS5_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_LOAD1_USER")){
+						retval[i] = int2bool(RES_BUS5_LOAD1_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_LOAD2_USER")){
+						retval[i] = int2bool(RES_BUS5_LOAD2_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS5_LOAD3_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_LOAD4_USER")){
+						retval[i] = int2bool(RES_BUS5_LOAD4_USER);
+					}
+					else if(tags[i].equals("RES_BUS5_LOAD5_USER")){
+						retval[i] = int2bool(RES_BUS5_LOAD5_USER);
+					}	
+					else if(tags[i].equals("SOURCE_1_User")){
+						retval[i] = int2bool(SOURCE_1_User);
+					}
+					else if(tags[i].equals("SOURCE_2_User")){
+						retval[i] = int2bool(SOURCE_2_User);
+					}
+					else if(tags[i].equals("SOURCE_1_droopCoeff")){
+						retval[i] = new Float(SOURCE_1_droopCoeff);
+					}
+					else if(tags[i].equals("SOURCE_2_droopCoeff")){
+						retval[i] = new Float(SOURCE_2_droopCoeff);
+					}
+					else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
+						retval[i] = new Float(SOURCE_1_noLoadVoltage);
+					}
+					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
+						retval[i] = new Float(SOURCE_2_noLoadVoltage);
+					}
+					else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
+						retval[i] = new Float(SOURCE_1_noLoadVoltage);
+					}
+					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
+						retval[i] = new Float(SOURCE_2_noLoadVoltage);
+					}
+					else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
+						retval[i] = int2bool(SOURCE_1_DROOP_SELECT);
+					}
+					else if(tags[i].equals("SOURCE_2_DROOP_SELECT")){
+						retval[i] = int2bool(SOURCE_2_DROOP_SELECT);
+					}	
+					else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
+						retval[i] = int2bool(SOURCE_1_BATTERY_CHARGE_SELECT);
+					}	
+					else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
+						retval[i] = int2bool(SOURCE_2_BATTERY_CHARGE_SELECT);
+					}	
+			}	
+		}
+		else if (mode.equals("write")) {
+			for(int i = 0;i<tags.length;i++){
+				if(tags[i].equals("SOURCE_1_User")){
+					SOURCE_1_User = bool2int(retval[i]);
 				}	
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3_CURRENT);
+				else if(tags[i].equals("SOURCE_2_User")){
+					SOURCE_2_User = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3L1_CURRENT);
+				else if(tags[i].equals("COM_MAIN_USER")){
+					COM_MAIN_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3L2_CURRENT);
+				else if(tags[i].equals("COM_BUS1_USER")){
+					COM_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3L3_CURRENT);
+				else if(tags[i].equals("COM_BUS1_LOAD1_USER")){
+					COM_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3L4_CURRENT);
+				else if(tags[i].equals("COM_BUS1_LOAD2_USER")){
+					COM_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B3L5_CURRENT);
+				else if(tags[i].equals("COM_BUS1_LOAD3_USER")){
+					COM_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4_CURRENT);
+				else if(tags[i].equals("COM_BUS1_LOAD4_USER")){
+					COM_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4L1_CURRENT);
+				else if(tags[i].equals("COM_BUS1_LOAD5_USER")){
+					COM_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4L2_CURRENT);
+				else if(tags[i].equals("COM_BUS2_USER")){
+					COM_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4L3_CURRENT);
+				else if(tags[i].equals("COM_BUS2_LOAD1_USER")){
+					COM_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4L4_CURRENT);
+				else if(tags[i].equals("COM_BUS2_LOAD2_USER")){
+					COM_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B4L5_CURRENT);
+				else if(tags[i].equals("COM_BUS2_LOAD3_USER")){
+					COM_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5_CURRENT);
+				else if(tags[i].equals("COM_BUS2_LOAD4_USER")){
+					COM_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5L1_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5L2_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5L3_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5L4_CURRENT);
-				}
-				else if(tags[i].equals("??Current")){
-					retval[i] = new Float(RES_B5L5_CURRENT);
-				}
-				else if(tags[i].equals("???SOURCE_1_RegCurrent")){
-					retval[i] = new Float(src1regc);
-				}
-				else if(tags[i].equals("??SOURCE_2_RegCurrent")){
-					retval[i] = new Float(src2regc);
-				}				
-				else if(tags[i].equals("??SOURCE_1_RegVoltage")){
-					retval[i] = new Float(src1regv);
-				}
-				else if(tags[i].equals("??SOURCE_2_RegVoltage")){
-					retval[i] = new Float(src2regv);
-				}
-				else if(tags[i].equals("??SOURCE_1_UnregCurrent")){
-					retval[i] = new Float(src1unregc);
-				}
-				else if(tags[i].equals("??SOURCE_2_UnregCurrent")){
-					retval[i] = new Float(src2unregc);
-				}				
-				else if(tags[i].equals("??SOURCE_1_UnregVoltage")){
-					retval[i] = new Float(src1unregv);
-				}
-				else if(tags[i].equals("??SOURCE_2_UnregVoltage")){
-					retval[i] = new Float(src2unregv);
+				else if(tags[i].equals("COM_BUS2_LOAD5_USER")){
+					COM_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}	
-				else if(tags[i].equals("MAIN_BUS_Voltage")){
-					retval[i] = new Float(MAIN_VOLTAGE);
+				else if(tags[i].equals("IND_MAIN_USER")){
+					IND_MAIN_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("")){
-					retval[i] = new Float(COM_MAIN_VOLTAGE);
+				else if(tags[i].equals("IND_BUS1_USER")){
+					IND_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("")){
-					retval[i] = new Float(IND_MAIN_VOLTAGE);
+				else if(tags[i].equals("IND_BUS1_LOAD1_USER")){
+					IND_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("")){
-					retval[i] = new Float(RES_MAIN_VOLTAGE);
+				else if(tags[i].equals("IND_BUS1_LOAD2_USER")){
+					IND_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-					
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_MAIN_USER);
+				else if(tags[i].equals("IND_BUS1_LOAD3_USER")){
+					IND_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_USER);
+				else if(tags[i].equals("IND_BUS1_LOAD4_USER")){
+					IND_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_LOAD1_USER);
+				else if(tags[i].equals("IND_BUS1_LOAD5_USER")){
+					IND_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_LOAD2_USER);
+				else if(tags[i].equals("IND_BUS2_USER")){
+					IND_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_LOAD3_USER);
+				else if(tags[i].equals("IND_BUS2_LOAD1_USER")){
+					IND_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_LOAD4_USER);
+				else if(tags[i].equals("IND_BUS2_LOAD2_USER")){
+					IND_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS1_LOAD5_USER);
+				else if(tags[i].equals("IND_BUS2_LOAD3_USER")){
+					IND_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(COM_BUS2_USER);
+				else if(tags[i].equals("IND_BUS2_LOAD4_USER")){
+					IND_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_BUS2_LOAD1_USER);
+				else if(tags[i].equals("IND_BUS2_LOAD5_USER")){
+					IND_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_BUS2_LOAD2_USER);
+				else if(tags[i].equals("RES_MAIN_USER")){
+					RES_MAIN_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_BUS2_LOAD3_USER);
+				else if(tags[i].equals("RES_BUS1_USER")){
+					RES_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_BUS2_LOAD4_USER);
+				else if(tags[i].equals("RES_BUS1_LOAD1_USER")){
+					RES_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(COM_BUS2_LOAD5_USER);
-				}	
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_MAIN_USER);
+				else if(tags[i].equals("RES_BUS1_LOAD2_USER")){
+					RES_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_USER);
+				else if(tags[i].equals("RES_BUS1_LOAD3_USER")){
+					RES_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_LOAD1_USER);
+				else if(tags[i].equals("RES_BUS1_LOAD4_USER")){
+					RES_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_LOAD2_USER);
+				else if(tags[i].equals("RES_BUS1_LOAD5_USER")){
+					RES_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_LOAD3_USER);
+				else if(tags[i].equals("RES_BUS2_USER")){
+					RES_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_LOAD4_USER);
+				else if(tags[i].equals("RES_BUS2_LOAD1_USER")){
+					RES_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS1_LOAD5_USER);
+				else if(tags[i].equals("RES_BUS2_LOAD2_USER")){
+					RES_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(IND_BUS2_USER);
+				else if(tags[i].equals("RES_BUS2_LOAD3_USER")){
+					RES_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_BUS2_LOAD1_USER);
+				else if(tags[i].equals("RES_BUS2_LOAD4_USER")){
+					RES_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_BUS2_LOAD2_USER);
+				else if(tags[i].equals("RES_BUS2_LOAD5_USER")){
+					RES_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_BUS2_LOAD3_USER);
+				else if(tags[i].equals("RES_BUS3_USER")){
+					RES_BUS3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_BUS2_LOAD4_USER);
+				else if(tags[i].equals("RES_BUS3_LOAD1_USER")){
+					RES_BUS3_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(IND_BUS2_LOAD5_USER);
+				else if(tags[i].equals("RES_BUS3_LOAD2_USER")){
+					RES_BUS3_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_MAIN_USER);
+				else if(tags[i].equals("RES_BUS3_LOAD3_USER")){
+					RES_BUS3_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_USER);
+				else if(tags[i].equals("RES_BUS3_LOAD4_USER")){
+					RES_BUS3_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_LOAD1_USER);
+				else if(tags[i].equals("RES_BUS3_LOAD5_USER")){
+					RES_BUS3_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_LOAD2_USER);
+				else if(tags[i].equals("RES_BUS4_USER")){
+					RES_BUS4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_LOAD3_USER);
+				else if(tags[i].equals("RES_BUS4_LOAD1_USER")){
+					RES_BUS4_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_LOAD4_USER);
+				else if(tags[i].equals("RES_BUS4_LOAD2_USER")){
+					RES_BUS4_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS1_LOAD5_USER);
+				else if(tags[i].equals("RES_BUS4_LOAD3_USER")){
+					RES_BUS4_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS2_USER);
+				else if(tags[i].equals("RES_BUS4_LOAD4_USER")){
+					RES_BUS4_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS2_LOAD1_USER);
+				else if(tags[i].equals("RES_BUS4_LOAD5_USER")){
+					RES_BUS4_LOAD5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS2_LOAD2_USER);
+				else if(tags[i].equals("RES_BUS5_USER")){
+					RES_BUS5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS2_LOAD3_USER);
+				else if(tags[i].equals("RES_BUS5_LOAD1_USER")){
+					RES_BUS5_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS2_LOAD4_USER);
+				else if(tags[i].equals("RES_BUS5_LOAD2_USER")){
+					RES_BUS5_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS2_LOAD5_USER);
+				else if(tags[i].equals("RES_BUS5_LOAD3_USER")){
+					RES_BUS5_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS3_USER);
+				else if(tags[i].equals("RES_BUS5_LOAD4_USER")){
+					RES_BUS5_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS3_LOAD1_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS3_LOAD2_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS3_LOAD3_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS3_LOAD4_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS3_LOAD5_USER);
-				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS4_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS4_LOAD1_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS4_LOAD2_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS4_LOAD3_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS4_LOAD4_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS4_LOAD5_USER);
-				}
-				else if(tags[i].equals("??UserUser")){
-					retval[i] = int2bool(RES_BUS5_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS5_LOAD1_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS5_LOAD2_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS5_LOAD3_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS5_LOAD4_USER);
-				}
-				else if(tags[i].equals("??User")){
-					retval[i] = int2bool(RES_BUS5_LOAD5_USER);
+				else if(tags[i].equals("RES_BUS5_LOAD5_USER")){
+					RES_BUS5_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_User")){
-					SOURCE_1_User = bool2int(values[i]);
+					SOURCE_1_User = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_User")){
-					SOURCE_2_User = bool2int(values[i]);
+					SOURCE_2_User = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_droopCoeff")){
-					SOURCE_1_droopCoeff = obj2double(values[i]);
+					SOURCE_1_droopCoeff = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_droopCoeff")){
-					SOURCE_2_droopCoeff = obj2double(values[i]);
+					SOURCE_2_droopCoeff = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_noLoadVoltage = obj2double(values[i]);
+					SOURCE_1_noLoadVoltage = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_noLoadVoltage = obj2double(values[i]);
+					SOURCE_2_noLoadVoltage = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_noLoadVoltage = bool2int(values[i]);
+					SOURCE_1_noLoadVoltage = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_noLoadVoltage = bool2int(values[i]);
-				}
-				else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
-					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(values[i]);
-				}
-				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
-					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(values[i]);
+					SOURCE_2_noLoadVoltage = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
-					SOURCE_1_DROOP_SELECT = bool2int(values[i]);
+					SOURCE_1_DROOP_SELECT = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_DROOP_SELECT")){
-					SOURCE_2_DROOP_SELECT = bool2int(values[i]);
-				}
-				
-				
-				
-				}
-				retval = null;
-				//more tags need to be added	
+					SOURCE_2_DROOP_SELECT = bool2int(retval[i]);
 				}	
+				else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
+					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
+				}	
+				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
+					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
+				}	
+			}
+		}	
 		if(retval != null){
 			System.out.println("fake interface returns the following:");
 			for(int i = 0;i<retval.length;i++){
@@ -1366,12 +1583,3 @@ public class ACMGmodel{
 }
 
 		
-		
-		
-		
-						
-    
-    
-    
-  
-   
