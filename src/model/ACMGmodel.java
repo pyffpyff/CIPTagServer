@@ -73,6 +73,8 @@ public class ACMGmodel{
 	double q3;
 	double q4;
 	
+	double powerfactor;
+	
 	int count;
 	
 	int dim;
@@ -237,55 +239,55 @@ public class ACMGmodel{
     double MAIN_CURRENT;
     double COM_MAIN_CURRENT;
     double COM_B1_CURRENT;
-    double COMB1L1_CURRENT;
-    double COMB1L2_CURRENT;
-    double COMB1L3_CURRENT;
-    double COMB1L4_CURRENT;
-    double COMB1L5_CURRENT;
+    double COM_B1L1_CURRENT;
+    double COM_B1L2_CURRENT;
+    double COM_B1L3_CURRENT;
+    double COM_B1L4_CURRENT;
+    double COM_B1L5_CURRENT;
     double COM_B2_CURRENT;
-    double COMB2L1_CURRENT;
-    double COMB2L2_CURRENT;
-    double COMB2L3_CURRENT;
-    double COMB2L4_CURRENT;
-    double COMB2L5_CURRENT;
+    double COM_B2L1_CURRENT;
+    double COM_B2L2_CURRENT;
+    double COM_B2L3_CURRENT;
+    double COM_B2L4_CURRENT;
+    double COM_B2L5_CURRENT;
     double IND_MAIN_CURRENT;
     double IND_B1_CURRENT;
-    double INDB1L1_CURRENT;
-    double INDB1L2_CURRENT;
-    double INDB1L3_CURRENT;
-    double INDB1L4_CURRENT;
-    double INDB1L5_CURRENT;
+    double IND_B1L1_CURRENT;
+    double IND_B1L2_CURRENT;
+    double IND_B1L3_CURRENT;
+    double IND_B1L4_CURRENT;
+    double IND_B1L5_CURRENT;
     double IND_B2_CURRENT;
-    double INDB2L1_CURRENT;
-    double INDB2L2_CURRENT;
-    double INDB2L3_CURRENT;
-    double INDB2L4_CURRENT;
-    double INDB2L5_CURRENT;
+    double IND_B2L1_CURRENT;
+    double IND_B2L2_CURRENT;
+    double IND_B2L3_CURRENT;
+    double IND_B2L4_CURRENT;
+    double IND_B2L5_CURRENT;
     double RES_MAIN_CURRENT;
     double RES_B1_CURRENT;
-    double RESB1L1_CURRENT;
-    double RESB1L2_CURRENT;
-    double RESB1L3_CURRENT;
-    double RESB1L4_CURRENT;
-    double RESB1L5_CURRENT;
+    double RES_B1L1_CURRENT;
+    double RES_B1L2_CURRENT;
+    double RES_B1L3_CURRENT;
+    double RES_B1L4_CURRENT;
+    double RES_B1L5_CURRENT;
     double RES_B2_CURRENT;
-    double RESB2L1_CURRENT;
-    double RESB2L2_CURRENT;
-    double RESB2L3_CURRENT;
-    double RESB2L4_CURRENT;
-    double RESB2L5_CURRENT;
+    double RES_B2L1_CURRENT;
+    double RES_B2L2_CURRENT;
+    double RES_B2L3_CURRENT;
+    double RES_B2L4_CURRENT;
+    double RES_B2L5_CURRENT;
     double RES_B3_CURRENT;
-    double RESB3L1_CURRENT;
-    double RESB3L2_CURRENT;
-    double RESB3L3_CURRENT;
-    double RESB3L4_CURRENT;
-    double RESB3L5_CURRENT;
+    double RES_B3L1_CURRENT;
+    double RES_B3L2_CURRENT;
+    double RES_B3L3_CURRENT;
+    double RES_B3L4_CURRENT;
+    double RES_B3L5_CURRENT;
     double RES_B4_CURRENT;
-    double RESB4L1_CURRENT;
-    double RESB4L2_CURRENT;
-    double RESB4L3_CURRENT;
-    double RESB4L4_CURRENT;
-    double RESB4L5_CURRENT;
+    double RES_B4L1_CURRENT;
+    double RES_B4L2_CURRENT;
+    double RES_B4L3_CURRENT;
+    double RES_B4L4_CURRENT;
+    double RES_B4L5_CURRENT;
     
   //source currents
     
@@ -479,6 +481,8 @@ public class ACMGmodel{
 	    this.RES_BUS5_LOAD3_FAULT = 0;   
 	    this.RES_BUS5_LOAD4_FAULT = 0;   
 	    this.RES_BUS5_LOAD5_FAULT = 0;
+	    
+	    this.powerfactor = 0;
 	    
 		this.src1loc = 1;
 		this.src2loc = 2;
@@ -837,54 +841,54 @@ public class ACMGmodel{
 		
 		COM_B1_CURRENT = 0.5*COM_MAIN_CURRENT;
 		COM_B2_CURRENT = 0.5*COM_MAIN_CURRENT;
-		COMB1L1_CURRENT = 0.2*COM_B1_CURRENT;
-		COMB1L2_CURRENT = 0.2*COM_B1_CURRENT;
-		COMB1L3_CURRENT = 0.2*COM_B1_CURRENT;
-		COMB1L4_CURRENT = 0.2*COM_B1_CURRENT;
-		COMB1L5_CURRENT = 0.2*COM_B1_CURRENT;
-		COMB2L1_CURRENT = 0.2*COM_B2_CURRENT;
-		COMB2L2_CURRENT = 0.2*COM_B2_CURRENT;
-		COMB2L3_CURRENT = 0.2*COM_B2_CURRENT;
-		COMB2L4_CURRENT = 0.2*COM_B2_CURRENT;
-		COMB2L5_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_B1L1_CURRENT = 0.2*COM_B1_CURRENT;
+		COM_B1L2_CURRENT = 0.2*COM_B1_CURRENT;
+		COM_B1L3_CURRENT = 0.2*COM_B1_CURRENT;
+		COM_B1L4_CURRENT = 0.2*COM_B1_CURRENT;
+		COM_B1L5_CURRENT = 0.2*COM_B1_CURRENT;
+		COM_B2L1_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_B2L2_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_B2L3_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_B2L4_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_B2L5_CURRENT = 0.2*COM_B2_CURRENT;
 		
 		IND_B1_CURRENT = 0.5*IND_MAIN_CURRENT;
 		IND_B2_CURRENT = 0.5*IND_MAIN_CURRENT;
-		INDB1L1_CURRENT = 0.2*IND_B1_CURRENT;
-		INDB1L2_CURRENT = 0.2*IND_B1_CURRENT;
-		INDB1L3_CURRENT = 0.2*IND_B1_CURRENT;
-		INDB1L4_CURRENT = 0.2*IND_B1_CURRENT;
-		INDB1L5_CURRENT = 0.2*IND_B1_CURRENT;
-		INDB2L1_CURRENT = 0.2*IND_B2_CURRENT;
-		INDB2L2_CURRENT = 0.2*IND_B2_CURRENT;
-		INDB2L3_CURRENT = 0.2*IND_B2_CURRENT;
-		INDB2L4_CURRENT = 0.2*IND_B2_CURRENT;
-		INDB2L5_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_B1L1_CURRENT = 0.2*IND_B1_CURRENT;
+		IND_B1L2_CURRENT = 0.2*IND_B1_CURRENT;
+		IND_B1L3_CURRENT = 0.2*IND_B1_CURRENT;
+		IND_B1L4_CURRENT = 0.2*IND_B1_CURRENT;
+		IND_B1L5_CURRENT = 0.2*IND_B1_CURRENT;
+		IND_B2L1_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_B2L2_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_B2L3_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_B2L4_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_B2L5_CURRENT = 0.2*IND_B2_CURRENT;
 		
 		RES_B1_CURRENT = 0.25*RES_MAIN_CURRENT;
 		RES_B2_CURRENT = 0.25*RES_MAIN_CURRENT;
 		RES_B3_CURRENT = 0.25*RES_MAIN_CURRENT;
 		RES_B4_CURRENT = 0.25*RES_MAIN_CURRENT;
-		RESB1L1_CURRENT = 0.2*RES_B1_CURRENT;
-		RESB1L2_CURRENT = 0.2*RES_B1_CURRENT;
-		RESB1L3_CURRENT = 0.2*RES_B1_CURRENT;
-		RESB1L4_CURRENT = 0.2*RES_B1_CURRENT;
-		RESB1L5_CURRENT = 0.2*RES_B1_CURRENT;
-		RESB2L1_CURRENT = 0.2*RES_B2_CURRENT;
-		RESB2L2_CURRENT = 0.2*RES_B2_CURRENT;
-		RESB2L3_CURRENT = 0.2*RES_B2_CURRENT;
-		RESB2L4_CURRENT = 0.2*RES_B2_CURRENT;
-		RESB2L5_CURRENT = 0.2*RES_B2_CURRENT;
-		RESB3L1_CURRENT = 0.2*RES_B3_CURRENT;
-		RESB3L2_CURRENT = 0.2*RES_B3_CURRENT;
-		RESB3L3_CURRENT = 0.2*RES_B3_CURRENT;
-		RESB3L4_CURRENT = 0.2*RES_B3_CURRENT;
-		RESB3L5_CURRENT = 0.2*RES_B3_CURRENT;
-		RESB4L1_CURRENT = 0.2*RES_B4_CURRENT;
-		RESB4L2_CURRENT = 0.2*RES_B4_CURRENT;
-		RESB4L3_CURRENT = 0.2*RES_B4_CURRENT;
-		RESB4L4_CURRENT = 0.2*RES_B4_CURRENT;
-		RESB4L5_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_B1L1_CURRENT = 0.2*RES_B1_CURRENT;
+		RES_B1L2_CURRENT = 0.2*RES_B1_CURRENT;
+		RES_B1L3_CURRENT = 0.2*RES_B1_CURRENT;
+		RES_B1L4_CURRENT = 0.2*RES_B1_CURRENT;
+		RES_B1L5_CURRENT = 0.2*RES_B1_CURRENT;
+		RES_B2L1_CURRENT = 0.2*RES_B2_CURRENT;
+		RES_B2L2_CURRENT = 0.2*RES_B2_CURRENT;
+		RES_B2L3_CURRENT = 0.2*RES_B2_CURRENT;
+		RES_B2L4_CURRENT = 0.2*RES_B2_CURRENT;
+		RES_B2L5_CURRENT = 0.2*RES_B2_CURRENT;
+		RES_B3L1_CURRENT = 0.2*RES_B3_CURRENT;
+		RES_B3L2_CURRENT = 0.2*RES_B3_CURRENT;
+		RES_B3L3_CURRENT = 0.2*RES_B3_CURRENT;
+		RES_B3L4_CURRENT = 0.2*RES_B3_CURRENT;
+		RES_B3L5_CURRENT = 0.2*RES_B3_CURRENT;
+		RES_B4L1_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_B4L2_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_B4L3_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_B4L4_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_B4L5_CURRENT = 0.2*RES_B4_CURRENT;
 		
 		
 		//source currents
@@ -953,38 +957,38 @@ public class ACMGmodel{
 					else if(tags[i].equals("COM_B1_CURRENT")){
 						retval[i] = new Float(COM_B1_CURRENT);
 					}
-					else if(tags[i].equals("COMB1L1_CURRENT")){
-						retval[i] = new Float(COMB1L1_CURRENT);
+					else if(tags[i].equals("COM_B1L1_CURRENT")){
+						retval[i] = new Float(COM_B1L1_CURRENT);
 					}
-					else if(tags[i].equals("COMB1L2_CURRENT")){
-						retval[i] = new Float(COMB1L2_CURRENT);
+					else if(tags[i].equals("COM_B1L2_CURRENT")){
+						retval[i] = new Float(COM_B1L2_CURRENT);
 					}
-					else if(tags[i].equals("COMB1L3_CURRENT")){
-						retval[i] = new Float(COMB1L3_CURRENT);
+					else if(tags[i].equals("COM_B1L3_CURRENT")){
+						retval[i] = new Float(COM_B1L3_CURRENT);
 					}
-					else if(tags[i].equals("COMB1L4_CURRENT")){
-						retval[i] = new Float(COMB1L4_CURRENT);
+					else if(tags[i].equals("COM_B1L4_CURRENT")){
+						retval[i] = new Float(COM_B1L4_CURRENT);
 					}
-					else if(tags[i].equals("COMB1L5_CURRENT")){
-						retval[i] = new Float(COMB1L5_CURRENT);
+					else if(tags[i].equals("COM_B1L5_CURRENT")){
+						retval[i] = new Float(COM_B1L5_CURRENT);
 					}
 					else if(tags[i].equals("COM_B2_CURRENT")){
 						retval[i] = new Float(COM_B2_CURRENT);
 					}
-					else if(tags[i].equals("COMB2L1_CURRENT")){
-						retval[i] = new Float(COMB2L1_CURRENT);
+					else if(tags[i].equals("COM_B2L1_CURRENT")){
+						retval[i] = new Float(COM_B2L1_CURRENT);
 					}
-					else if(tags[i].equals("COMB2L2_CURRENT")){
-						retval[i] = new Float(COMB2L2_CURRENT);
+					else if(tags[i].equals("COM_B2L2_CURRENT")){
+						retval[i] = new Float(COM_B2L2_CURRENT);
 					}
-					else if(tags[i].equals("COMB2L3_CURRENT")){
-						retval[i] = new Float(COMB2L3_CURRENT);
+					else if(tags[i].equals("COM_B2L3_CURRENT")){
+						retval[i] = new Float(COM_B2L3_CURRENT);
 					}
-					else if(tags[i].equals("COMB2L4_CURRENT")){
-						retval[i] = new Float(COMB2L4_CURRENT);
+					else if(tags[i].equals("COM_B2L4_CURRENT")){
+						retval[i] = new Float(COM_B2L4_CURRENT);
 					}
-					else if(tags[i].equals("COMB2L5_CURRENT")){
-						retval[i] = new Float(COMB2L5_CURRENT);
+					else if(tags[i].equals("COM_B2L5_CURRENT")){
+						retval[i] = new Float(COM_B2L5_CURRENT);
 					}
 					else if(tags[i].equals("IND_MAIN_CURRENT")){
 						retval[i] = new Float(IND_MAIN_CURRENT);
@@ -992,38 +996,38 @@ public class ACMGmodel{
 					else if(tags[i].equals("IND_B1_CURRENT")){
 						retval[i] = new Float(IND_B1_CURRENT);
 					}
-					else if(tags[i].equals("INDB1L1_CURRENT")){
-						retval[i] = new Float(INDB1L1_CURRENT);
+					else if(tags[i].equals("IND_B1L1_CURRENT")){
+						retval[i] = new Float(IND_B1L1_CURRENT);
 					}
-					else if(tags[i].equals("INDB1L2_CURRENT")){
-						retval[i] = new Float(INDB1L2_CURRENT);
+					else if(tags[i].equals("IND_B1L2_CURRENT")){
+						retval[i] = new Float(IND_B1L2_CURRENT);
 					}
-					else if(tags[i].equals("INDB1L3_CURRENT")){
-						retval[i] = new Float(INDB1L3_CURRENT);
+					else if(tags[i].equals("IND_B1L3_CURRENT")){
+						retval[i] = new Float(IND_B1L3_CURRENT);
 					}
-					else if(tags[i].equals("INDB1L4_CURRENT")){
-						retval[i] = new Float(INDB1L4_CURRENT);
+					else if(tags[i].equals("IND_B1L4_CURRENT")){
+						retval[i] = new Float(IND_B1L4_CURRENT);
 					}
-					else if(tags[i].equals("INDB1L5_CURRENT")){
-						retval[i] = new Float(INDB1L5_CURRENT);
+					else if(tags[i].equals("IND_B1L5_CURRENT")){
+						retval[i] = new Float(IND_B1L5_CURRENT);
 					}
 					else if(tags[i].equals("IND_B2_CURRENT")){
 						retval[i] = new Float(IND_B2_CURRENT);
 					}
-					else if(tags[i].equals("INDB2L1_CURRENT")){
-						retval[i] = new Float(INDB2L1_CURRENT);
+					else if(tags[i].equals("IND_B2L1_CURRENT")){
+						retval[i] = new Float(IND_B2L1_CURRENT);
 					}
-					else if(tags[i].equals("INDB2L2_CURRENT")){
-						retval[i] = new Float(INDB2L2_CURRENT);
+					else if(tags[i].equals("IND_B2L2_CURRENT")){
+						retval[i] = new Float(IND_B2L2_CURRENT);
 					}
-					else if(tags[i].equals("INDB2L3_CURRENT")){
-						retval[i] = new Float(INDB2L3_CURRENT);
+					else if(tags[i].equals("IND_B2L3_CURRENT")){
+						retval[i] = new Float(IND_B2L3_CURRENT);
 					}
-					else if(tags[i].equals("INDB2L4_CURRENT")){
-						retval[i] = new Float(INDB2L4_CURRENT);
+					else if(tags[i].equals("IND_B2L4_CURRENT")){
+						retval[i] = new Float(IND_B2L4_CURRENT);
 					}
-					else if(tags[i].equals("INDB2L5_CURRENT")){
-						retval[i] = new Float(INDB2L5_CURRENT);
+					else if(tags[i].equals("IND_B2L5_CURRENT")){
+						retval[i] = new Float(IND_B2L5_CURRENT);
 					}
 					else if(tags[i].equals("RES_MAIN_CURRENT")){
 						retval[i] = new Float(RES_MAIN_CURRENT);
@@ -1031,74 +1035,74 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_B1_CURRENT")){
 						retval[i] = new Float(RES_B1_CURRENT);
 					}
-					else if(tags[i].equals("RESB1L1_CURRENT")){
-						retval[i] = new Float(RESB1L1_CURRENT);
+					else if(tags[i].equals("RES_B1L1_CURRENT")){
+						retval[i] = new Float(RES_B1L1_CURRENT);
 					}
-					else if(tags[i].equals("RESB1L2_CURRENT")){
-						retval[i] = new Float(RESB1L2_CURRENT);
+					else if(tags[i].equals("RES_B1L2_CURRENT")){
+						retval[i] = new Float(RES_B1L2_CURRENT);
 					}
-					else if(tags[i].equals("RESB1L3_CURRENT")){
-						retval[i] = new Float(RESB1L3_CURRENT);
+					else if(tags[i].equals("RES_B1L3_CURRENT")){
+						retval[i] = new Float(RES_B1L3_CURRENT);
 					}
-					else if(tags[i].equals("RESB1L4_CURRENT")){
-						retval[i] = new Float(RESB1L4_CURRENT);
+					else if(tags[i].equals("RES_B1L4_CURRENT")){
+						retval[i] = new Float(RES_B1L4_CURRENT);
 					}
-					else if(tags[i].equals("RESB1L5_CURRENT")){
-						retval[i] = new Float(RESB1L5_CURRENT);
+					else if(tags[i].equals("RES_B1L5_CURRENT")){
+						retval[i] = new Float(RES_B1L5_CURRENT);
 					}
 					else if(tags[i].equals("RES_B2_CURRENT")){
 						retval[i] = new Float(RES_B2_CURRENT);
 					}
-					else if(tags[i].equals("RESB2L1_CURRENT")){
-						retval[i] = new Float(RESB2L1_CURRENT);
+					else if(tags[i].equals("RES_B2L1_CURRENT")){
+						retval[i] = new Float(RES_B2L1_CURRENT);
 					}
-					else if(tags[i].equals("RESB2L2_CURRENT")){
-						retval[i] = new Float(RESB2L2_CURRENT);
+					else if(tags[i].equals("RES_B2L2_CURRENT")){
+						retval[i] = new Float(RES_B2L2_CURRENT);
 					}
-					else if(tags[i].equals("RESB2L3_CURRENT")){
-						retval[i] = new Float(RESB2L3_CURRENT);
+					else if(tags[i].equals("RES_B2L3_CURRENT")){
+						retval[i] = new Float(RES_B2L3_CURRENT);
 					}
-					else if(tags[i].equals("RESB2L4_CURRENT")){
-						retval[i] = new Float(RESB2L4_CURRENT);
+					else if(tags[i].equals("RES_B2L4_CURRENT")){
+						retval[i] = new Float(RES_B2L4_CURRENT);
 					}
-					else if(tags[i].equals("RESB2L5_CURRENT")){
-						retval[i] = new Float(RESB2L5_CURRENT);
+					else if(tags[i].equals("RES_B2L5_CURRENT")){
+						retval[i] = new Float(RES_B2L5_CURRENT);
 					}	
 					else if(tags[i].equals("RES_B3_CURRENT")){
 						retval[i] = new Float(RES_B3_CURRENT);
 					}
-					else if(tags[i].equals("RESB3L1_CURRENT")){
-						retval[i] = new Float(RESB3L1_CURRENT);
+					else if(tags[i].equals("RES_B3L1_CURRENT")){
+						retval[i] = new Float(RES_B3L1_CURRENT);
 					}
-					else if(tags[i].equals("RESB3L2_CURRENT")){
-						retval[i] = new Float(RESB3L2_CURRENT);
+					else if(tags[i].equals("RES_B3L2_CURRENT")){
+						retval[i] = new Float(RES_B3L2_CURRENT);
 					}
-					else if(tags[i].equals("RESB3L3_CURRENT")){
-						retval[i] = new Float(RESB3L3_CURRENT);
+					else if(tags[i].equals("RES_B3L3_CURRENT")){
+						retval[i] = new Float(RES_B3L3_CURRENT);
 					}
-					else if(tags[i].equals("RESB3L4_CURRENT")){
-						retval[i] = new Float(RESB3L4_CURRENT);
+					else if(tags[i].equals("RES_B3L4_CURRENT")){
+						retval[i] = new Float(RES_B3L4_CURRENT);
 					}
-					else if(tags[i].equals("RESB3L5_CURRENT")){
-						retval[i] = new Float(RESB3L5_CURRENT);
+					else if(tags[i].equals("RES_B3L5_CURRENT")){
+						retval[i] = new Float(RES_B3L5_CURRENT);
 					}
 					else if(tags[i].equals("RES_B4_CURRENT")){
 						retval[i] = new Float(RES_B4_CURRENT);
 					}
-					else if(tags[i].equals("RESB4L1_CURRENT")){
-						retval[i] = new Float(RESB4L1_CURRENT);
+					else if(tags[i].equals("RES_B4L1_CURRENT")){
+						retval[i] = new Float(RES_B4L1_CURRENT);
 					}
-					else if(tags[i].equals("RESB4L2_CURRENT")){
-						retval[i] = new Float(RESB4L2_CURRENT);
+					else if(tags[i].equals("RES_B4L2_CURRENT")){
+						retval[i] = new Float(RES_B4L2_CURRENT);
 					}
-					else if(tags[i].equals("RESB4L3_CURRENT")){
-						retval[i] = new Float(RESB4L3_CURRENT);
+					else if(tags[i].equals("RES_B4L3_CURRENT")){
+						retval[i] = new Float(RES_B4L3_CURRENT);
 					}
-					else if(tags[i].equals("RESB4L4_CURRENT")){
-						retval[i] = new Float(RESB4L4_CURRENT);
+					else if(tags[i].equals("RES_B4L4_CURRENT")){
+						retval[i] = new Float(RES_B4L4_CURRENT);
 					}
-					else if(tags[i].equals("RESB4L5_CURRENT")){
-						retval[i] = new Float(RESB4L5_CURRENT);
+					else if(tags[i].equals("RES_B4L5_CURRENT")){
+						retval[i] = new Float(RES_B4L5_CURRENT);
 					}
 					else if(tags[i].equals("SOURCE_1_RegCurrent")){
 						retval[i] = new Float(src1regc);
@@ -1148,37 +1152,37 @@ public class ACMGmodel{
 					else if(tags[i].equals("COM_BUS1_USER")){
 						retval[i] = int2bool(COM_BUS1_USER);
 					}
-					else if(tags[i].equals("COM_BUS1_LOAD1_USER")){
+					else if(tags[i].equals("COM_BUS1LOAD1_USER")){
 						retval[i] = int2bool(COM_BUS1_LOAD1_USER);
 					}
-					else if(tags[i].equals("COM_BUS1_LOAD2_USER")){
+					else if(tags[i].equals("COM_BUS1LOAD2_USER")){
 						retval[i] = int2bool(COM_BUS1_LOAD2_USER);
 					}
-					else if(tags[i].equals("COM_BUS1_LOAD3_USER")){
+					else if(tags[i].equals("COM_BUS1LOAD3_USER")){
 						retval[i] = int2bool(COM_BUS1_LOAD3_USER);
 					}
-					else if(tags[i].equals("COM_BUS1_LOAD4_USER")){
+					else if(tags[i].equals("COM_BUS1LOAD4_USER")){
 						retval[i] = int2bool(COM_BUS1_LOAD4_USER);
 					}
-					else if(tags[i].equals("COM_BUS1_LOAD5_USER")){
+					else if(tags[i].equals("COM_BUS1LOAD5_USER")){
 						retval[i] = int2bool(COM_BUS1_LOAD5_USER);
 					}
 					else if(tags[i].equals("COM_BUS2_USER")){
 						retval[i] = int2bool(COM_BUS2_USER);
 					}
-					else if(tags[i].equals("COM_BUS2_LOAD1_USER")){
+					else if(tags[i].equals("COM_BUS2LOAD1_USER")){
 						retval[i] = int2bool(COM_BUS2_LOAD1_USER);
 					}
-					else if(tags[i].equals("COM_BUS2_LOAD2_USER")){
+					else if(tags[i].equals("COM_BUS2LOAD2_USER")){
 						retval[i] = int2bool(COM_BUS2_LOAD2_USER);
 					}
-					else if(tags[i].equals("COM_BUS2_LOAD3_USER")){
+					else if(tags[i].equals("COM_BUS2LOAD3_USER")){
 						retval[i] = int2bool(COM_BUS2_LOAD3_USER);
 					}
-					else if(tags[i].equals("COM_BUS2_LOAD4_USER")){
+					else if(tags[i].equals("COM_BUS2LOAD4_USER")){
 						retval[i] = int2bool(COM_BUS2_LOAD4_USER);
 					}
-					else if(tags[i].equals("COM_BUS2_LOAD5_USER")){
+					else if(tags[i].equals("COM_BUS2LOAD5_USER")){
 						retval[i] = int2bool(COM_BUS2_LOAD5_USER);
 					}	
 					else if(tags[i].equals("IND_MAIN_USER")){
@@ -1187,37 +1191,37 @@ public class ACMGmodel{
 					else if(tags[i].equals("IND_BUS1_USER")){
 						retval[i] = int2bool(IND_BUS1_USER);
 					}
-					else if(tags[i].equals("IND_BUS1_LOAD1_USER")){
+					else if(tags[i].equals("IND_BUS1LOAD1_USER")){
 						retval[i] = int2bool(IND_BUS1_LOAD1_USER);
 					}
-					else if(tags[i].equals("IND_BUS1_LOAD2_USER")){
+					else if(tags[i].equals("IND_BUS1LOAD2_USER")){
 						retval[i] = int2bool(IND_BUS1_LOAD2_USER);
 					}
-					else if(tags[i].equals("IND_BUS1_LOAD3_USER")){
+					else if(tags[i].equals("IND_BUS1LOAD3_USER")){
 						retval[i] = int2bool(IND_BUS1_LOAD3_USER);
 					}
-					else if(tags[i].equals("IND_BUS1_LOAD4_USER")){
+					else if(tags[i].equals("IND_BUS1LOAD4_USER")){
 						retval[i] = int2bool(IND_BUS1_LOAD4_USER);
 					}
-					else if(tags[i].equals("IND_BUS1_LOAD5_USER")){
+					else if(tags[i].equals("IND_BUS1LOAD5_USER")){
 						retval[i] = int2bool(IND_BUS1_LOAD5_USER);
 					}
 					else if(tags[i].equals("IND_BUS2_USER")){
 						retval[i] = int2bool(IND_BUS2_USER);
 					}
-					else if(tags[i].equals("IND_BUS2_LOAD1_USER")){
+					else if(tags[i].equals("IND_BUS2LOAD1_USER")){
 						retval[i] = int2bool(IND_BUS2_LOAD1_USER);
 					}
-					else if(tags[i].equals("IND_BUS2_LOAD2_USER")){
+					else if(tags[i].equals("IND_BUS2LOAD2_USER")){
 						retval[i] = int2bool(IND_BUS2_LOAD2_USER);
 					}
-					else if(tags[i].equals("IND_BUS2_LOAD3_USER")){
+					else if(tags[i].equals("IND_BUS2LOAD3_USER")){
 						retval[i] = int2bool(IND_BUS2_LOAD3_USER);
 					}
-					else if(tags[i].equals("IND_BUS2_LOAD4_USER")){
+					else if(tags[i].equals("IND_BUS2LOAD4_USER")){
 						retval[i] = int2bool(IND_BUS2_LOAD4_USER);
 					}
-					else if(tags[i].equals("IND_BUS2_LOAD5_USER")){
+					else if(tags[i].equals("IND_BUS2LOAD5_USER")){
 						retval[i] = int2bool(IND_BUS2_LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_MAIN_USER")){
@@ -1226,91 +1230,91 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_BUS1_USER")){
 						retval[i] = int2bool(RES_BUS1_USER);
 					}
-					else if(tags[i].equals("RES_BUS1_LOAD1_USER")){
+					else if(tags[i].equals("RES_BUS1LOAD1_USER")){
 						retval[i] = int2bool(RES_BUS1_LOAD1_USER);
 					}
-					else if(tags[i].equals("RES_BUS1_LOAD2_USER")){
+					else if(tags[i].equals("RES_BUS1LOAD2_USER")){
 						retval[i] = int2bool(RES_BUS1_LOAD2_USER);
 					}
-					else if(tags[i].equals("RES_BUS1_LOAD3_USER")){
+					else if(tags[i].equals("RES_BUS1LOAD3_USER")){
 						retval[i] = int2bool(RES_BUS1_LOAD3_USER);
 					}
-					else if(tags[i].equals("RES_BUS1_LOAD4_USER")){
+					else if(tags[i].equals("RES_BUS1LOAD4_USER")){
 						retval[i] = int2bool(RES_BUS1_LOAD4_USER);
 					}
-					else if(tags[i].equals("RES_BUS1_LOAD5_USER")){
+					else if(tags[i].equals("RES_BUS1LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS1_LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS2_USER")){
 						retval[i] = int2bool(RES_BUS2_USER);
 					}
-					else if(tags[i].equals("RES_BUS2_LOAD1_USER")){
+					else if(tags[i].equals("RES_BUS2LOAD1_USER")){
 						retval[i] = int2bool(RES_BUS2_LOAD1_USER);
 					}
-					else if(tags[i].equals("RES_BUS2_LOAD2_USER")){
+					else if(tags[i].equals("RES_BUS2LOAD2_USER")){
 						retval[i] = int2bool(RES_BUS2_LOAD2_USER);
 					}
-					else if(tags[i].equals("RES_BUS2_LOAD3_USER")){
+					else if(tags[i].equals("RES_BUS2LOAD3_USER")){
 						retval[i] = int2bool(RES_BUS2_LOAD3_USER);
 					}
-					else if(tags[i].equals("RES_BUS2_LOAD4_USER")){
+					else if(tags[i].equals("RES_BUS2LOAD4_USER")){
 						retval[i] = int2bool(RES_BUS2_LOAD4_USER);
 					}
-					else if(tags[i].equals("RES_BUS2_LOAD5_USER")){
+					else if(tags[i].equals("RES_BUS2LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS2_LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS3_USER")){
 						retval[i] = int2bool(RES_BUS3_USER);
 					}
-					else if(tags[i].equals("RES_BUS3_LOAD1_USER")){
+					else if(tags[i].equals("RES_BUS3LOAD1_USER")){
 						retval[i] = int2bool(RES_BUS3_LOAD1_USER);
 					}
-					else if(tags[i].equals("RES_BUS3_LOAD2_USER")){
+					else if(tags[i].equals("RES_BUS3LOAD2_USER")){
 						retval[i] = int2bool(RES_BUS3_LOAD2_USER);
 					}
-					else if(tags[i].equals("RES_BUS3_LOAD3_USER")){
+					else if(tags[i].equals("RES_BUS3LOAD3_USER")){
 						retval[i] = int2bool(RES_BUS3_LOAD3_USER);
 					}
-					else if(tags[i].equals("RES_BUS3_LOAD4_USER")){
+					else if(tags[i].equals("RES_BUS3LOAD4_USER")){
 						retval[i] = int2bool(RES_BUS3_LOAD4_USER);
 					}
-					else if(tags[i].equals("RES_BUS3_LOAD5_USER")){
+					else if(tags[i].equals("RES_BUS3LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS3_LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS4_USER")){
 						retval[i] = int2bool(RES_BUS4_USER);
 					}
-					else if(tags[i].equals("RES_BUS4_LOAD1_USER")){
+					else if(tags[i].equals("RES_BUS4LOAD1_USER")){
 						retval[i] = int2bool(RES_BUS4_LOAD1_USER);
 					}
-					else if(tags[i].equals("RES_BUS4_LOAD2_USER")){
+					else if(tags[i].equals("RES_BUS4LOAD2_USER")){
 						retval[i] = int2bool(RES_BUS4_LOAD2_USER);
 					}
 					else if(tags[i].equals("RES_BUS4_LOAD3_USER")){
 						retval[i] = int2bool(RES_BUS4_LOAD3_USER);
 					}
-					else if(tags[i].equals("RES_BUS4_LOAD4_USER")){
+					else if(tags[i].equals("RES_BUS4LOAD4_USER")){
 						retval[i] = int2bool(RES_BUS4_LOAD4_USER);
 					}
-					else if(tags[i].equals("RES_BUS4_LOAD5_USER")){
+					else if(tags[i].equals("RES_BUS4LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS4_LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS5_USER")){
 						retval[i] = int2bool(RES_BUS5_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_LOAD1_USER")){
+					else if(tags[i].equals("RES_BUS5LOAD1_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD1_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_LOAD2_USER")){
+					else if(tags[i].equals("RES_BUS5LOAD2_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD2_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_LOAD3_USER")){
+					else if(tags[i].equals("RES_BUS5LOAD3_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD3_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_LOAD4_USER")){
+					else if(tags[i].equals("RES_BUS5LOAD4_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD4_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_LOAD5_USER")){
+					else if(tags[i].equals("RES_BUS5LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD5_USER);
 					}	
 					else if(tags[i].equals("SOURCE_1_User")){
@@ -1348,15 +1352,18 @@ public class ACMGmodel{
 					}	
 					else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
 						retval[i] = int2bool(SOURCE_2_BATTERY_CHARGE_SELECT);
-					}	
+					}
+					else if(tags[i].equals("powerfactor")){
+						retval[i] = new Float(powerfactor);
+					}
 			}	
 		}
 		else if (mode.equals("write")) {
 			for(int i = 0;i<tags.length;i++){
-				if(tags[i].equals("SOURCE_1_User")){
+				if(tags[i].equals("SOURCE_1_USER")){
 					SOURCE_1_User = bool2int(retval[i]);
 				}	
-				else if(tags[i].equals("SOURCE_2_User")){
+				else if(tags[i].equals("SOURCE_2_USER")){
 					SOURCE_2_User = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("COM_MAIN_USER")){
@@ -1365,37 +1372,37 @@ public class ACMGmodel{
 				else if(tags[i].equals("COM_BUS1_USER")){
 					COM_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS1_LOAD1_USER")){
+				else if(tags[i].equals("COM_BUS1LOAD1_USER")){
 					COM_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS1_LOAD2_USER")){
+				else if(tags[i].equals("COM_BUS1LOAD2_USER")){
 					COM_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS1_LOAD3_USER")){
+				else if(tags[i].equals("COM_BUS1LOAD3_USER")){
 					COM_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS1_LOAD4_USER")){
+				else if(tags[i].equals("COM_BUS1LOAD4_USER")){
 					COM_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS1_LOAD5_USER")){
+				else if(tags[i].equals("COM_BUS1LOAD5_USER")){
 					COM_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("COM_BUS2_USER")){
 					COM_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS2_LOAD1_USER")){
+				else if(tags[i].equals("COM_BUS2LOAD1_USER")){
 					COM_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS2_LOAD2_USER")){
+				else if(tags[i].equals("COM_BUS2LOAD2_USER")){
 					COM_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS2_LOAD3_USER")){
+				else if(tags[i].equals("COM_BUS2LOAD3_USER")){
 					COM_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS2_LOAD4_USER")){
+				else if(tags[i].equals("COM_BUS2LOAD4_USER")){
 					COM_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("COM_BUS2_LOAD5_USER")){
+				else if(tags[i].equals("COM_BUS2LOAD5_USER")){
 					COM_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}	
 				else if(tags[i].equals("IND_MAIN_USER")){
@@ -1404,37 +1411,37 @@ public class ACMGmodel{
 				else if(tags[i].equals("IND_BUS1_USER")){
 					IND_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS1_LOAD1_USER")){
+				else if(tags[i].equals("IND_BUS1LOAD1_USER")){
 					IND_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS1_LOAD2_USER")){
+				else if(tags[i].equals("IND_BUS1LOAD2_USER")){
 					IND_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS1_LOAD3_USER")){
+				else if(tags[i].equals("IND_BUS1LOAD3_USER")){
 					IND_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS1_LOAD4_USER")){
+				else if(tags[i].equals("IND_BUS1LOAD4_USER")){
 					IND_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS1_LOAD5_USER")){
+				else if(tags[i].equals("IND_BUS1LOAD5_USER")){
 					IND_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("IND_BUS2_USER")){
 					IND_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS2_LOAD1_USER")){
+				else if(tags[i].equals("IND_BUS2LOAD1_USER")){
 					IND_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS2_LOAD2_USER")){
+				else if(tags[i].equals("IND_BUS2LOAD2_USER")){
 					IND_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS2_LOAD3_USER")){
+				else if(tags[i].equals("IND_BUS2LOAD3_USER")){
 					IND_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS2_LOAD4_USER")){
+				else if(tags[i].equals("IND_BUS2LOAD4_USER")){
 					IND_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("IND_BUS2_LOAD5_USER")){
+				else if(tags[i].equals("IND_BUS2LOAD5_USER")){
 					IND_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("RES_MAIN_USER")){
@@ -1443,91 +1450,91 @@ public class ACMGmodel{
 				else if(tags[i].equals("RES_BUS1_USER")){
 					RES_BUS1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS1_LOAD1_USER")){
+				else if(tags[i].equals("RES_BUS1LOAD1_USER")){
 					RES_BUS1_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS1_LOAD2_USER")){
+				else if(tags[i].equals("RES_BUS1LOAD2_USER")){
 					RES_BUS1_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS1_LOAD3_USER")){
+				else if(tags[i].equals("RES_BUS1LOAD3_USER")){
 					RES_BUS1_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS1_LOAD4_USER")){
+				else if(tags[i].equals("RES_BUS1LOAD4_USER")){
 					RES_BUS1_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS1_LOAD5_USER")){
+				else if(tags[i].equals("RES_BUS1LOAD5_USER")){
 					RES_BUS1_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("RES_BUS2_USER")){
 					RES_BUS2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS2_LOAD1_USER")){
+				else if(tags[i].equals("RES_BUS2LOAD1_USER")){
 					RES_BUS2_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS2_LOAD2_USER")){
+				else if(tags[i].equals("RES_BUS2LOAD2_USER")){
 					RES_BUS2_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS2_LOAD3_USER")){
+				else if(tags[i].equals("RES_BUS2LOAD3_USER")){
 					RES_BUS2_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS2_LOAD4_USER")){
+				else if(tags[i].equals("RES_BUS2LOAD4_USER")){
 					RES_BUS2_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS2_LOAD5_USER")){
+				else if(tags[i].equals("RES_BUS2LOAD5_USER")){
 					RES_BUS2_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("RES_BUS3_USER")){
 					RES_BUS3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS3_LOAD1_USER")){
+				else if(tags[i].equals("RES_BUS3LOAD1_USER")){
 					RES_BUS3_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS3_LOAD2_USER")){
+				else if(tags[i].equals("RES_BUS3LOAD2_USER")){
 					RES_BUS3_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS3_LOAD3_USER")){
+				else if(tags[i].equals("RES_BUS3LOAD3_USER")){
 					RES_BUS3_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS3_LOAD4_USER")){
+				else if(tags[i].equals("RES_BUS3LOAD4_USER")){
 					RES_BUS3_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS3_LOAD5_USER")){
+				else if(tags[i].equals("RES_BUS3LOAD5_USER")){
 					RES_BUS3_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("RES_BUS4_USER")){
 					RES_BUS4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS4_LOAD1_USER")){
+				else if(tags[i].equals("RES_BUS4LOAD1_USER")){
 					RES_BUS4_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS4_LOAD2_USER")){
+				else if(tags[i].equals("RES_BUS4LOAD2_USER")){
 					RES_BUS4_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS4_LOAD3_USER")){
+				else if(tags[i].equals("RES_BUS4LOAD3_USER")){
 					RES_BUS4_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS4_LOAD4_USER")){
+				else if(tags[i].equals("RES_BUS4LOAD4_USER")){
 					RES_BUS4_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS4_LOAD5_USER")){
+				else if(tags[i].equals("RES_BUS4LOAD5_USER")){
 					RES_BUS4_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("RES_BUS5_USER")){
 					RES_BUS5_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS5_LOAD1_USER")){
+				else if(tags[i].equals("RES_BUS5LOAD1_USER")){
 					RES_BUS5_LOAD1_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS5_LOAD2_USER")){
+				else if(tags[i].equals("RES_BUS5LOAD2_USER")){
 					RES_BUS5_LOAD2_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS5_LOAD3_USER")){
+				else if(tags[i].equals("RES_BUS5LOAD3_USER")){
 					RES_BUS5_LOAD3_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS5_LOAD4_USER")){
+				else if(tags[i].equals("RES_BUS5LOAD4_USER")){
 					RES_BUS5_LOAD4_USER = bool2int(retval[i]);
 				}
-				else if(tags[i].equals("RES_BUS5_LOAD5_USER")){
+				else if(tags[i].equals("RES_BUS5LOAD5_USER")){
 					RES_BUS5_LOAD5_USER = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_User")){
@@ -1647,9 +1654,6 @@ public class ACMGmodel{
 }
 
 		
-
-
-
 
 
 
