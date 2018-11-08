@@ -148,11 +148,11 @@ public class ACMGmodel{
 	
 	
 	double SOURCE_1_droopCoeff;
-	double SOURCE_1_noLoadVoltage;
+	double SOURCE_1_unregVtag;
 	double SOURCE_1_psetpoint;
 	int SOURCE_1_DROOP_SELECT;
 	double SOURCE_2_droopCoeff;
-	double SOURCE_2_noLoadVoltage;
+	double SOURCE_2_unregVtag;
 	double SOURCE_2_psetpoint;
 	int SOURCE_2_DROOP_SELECT;
 	int SOURCE_1_BATTERY_CHARGE_SELECT;
@@ -162,7 +162,8 @@ public class ACMGmodel{
 	double src2unregc;
 	double src1regc;
 	double src2regc;
-	
+	double src1noloadv;
+	double src2noloadv;
     int src1loc;
 	int src2loc;
 	
@@ -238,51 +239,51 @@ public class ACMGmodel{
     
     double MAIN_CURRENT;
     double COM_MAIN_CURRENT;
-    double COM_B1_CURRENT;
+    double COM_BUS1_CURRENT;
     double COM_B1L1_CURRENT;
     double COM_B1L2_CURRENT;
     double COM_B1L3_CURRENT;
     double COM_B1L4_CURRENT;
     double COM_B1L5_CURRENT;
-    double COM_B2_CURRENT;
+    double COM_BUS2_CURRENT;
     double COM_B2L1_CURRENT;
     double COM_B2L2_CURRENT;
     double COM_B2L3_CURRENT;
     double COM_B2L4_CURRENT;
     double COM_B2L5_CURRENT;
     double IND_MAIN_CURRENT;
-    double IND_B1_CURRENT;
+    double IND_BUS1_CURRENT;
     double IND_B1L1_CURRENT;
     double IND_B1L2_CURRENT;
     double IND_B1L3_CURRENT;
     double IND_B1L4_CURRENT;
     double IND_B1L5_CURRENT;
-    double IND_B2_CURRENT;
+    double IND_BUS2_CURRENT;
     double IND_B2L1_CURRENT;
     double IND_B2L2_CURRENT;
     double IND_B2L3_CURRENT;
     double IND_B2L4_CURRENT;
     double IND_B2L5_CURRENT;
     double RES_MAIN_CURRENT;
-    double RES_B1_CURRENT;
+    double RES_BUS1_CURRENT;
     double RES_B1L1_CURRENT;
     double RES_B1L2_CURRENT;
     double RES_B1L3_CURRENT;
     double RES_B1L4_CURRENT;
     double RES_B1L5_CURRENT;
-    double RES_B2_CURRENT;
+    double RES_BUS2_CURRENT;
     double RES_B2L1_CURRENT;
     double RES_B2L2_CURRENT;
     double RES_B2L3_CURRENT;
     double RES_B2L4_CURRENT;
     double RES_B2L5_CURRENT;
-    double RES_B3_CURRENT;
+    double RES_BUS3_CURRENT;
     double RES_B3L1_CURRENT;
     double RES_B3L2_CURRENT;
     double RES_B3L3_CURRENT;
     double RES_B3L4_CURRENT;
     double RES_B3L5_CURRENT;
-    double RES_B4_CURRENT;
+    double RES_BUS4_CURRENT;
     double RES_B4L1_CURRENT;
     double RES_B4L2_CURRENT;
     double RES_B4L3_CURRENT;
@@ -294,28 +295,63 @@ public class ACMGmodel{
     
     String logfilename = "modellog.csv";
 	PrintWriter log = null;
-	String[] signallist =  {"Main Bus Voltage", "COM Main Bus Voltage",
-			"IND Main Bus Voltage", "RES Main Bus Voltage",
-			"COM_MAIN_CURRENT", "COM_B1_CURRENT", "COM_B1L1_CURRENT",
+	String[] signallist =  {
+			"COM_MAIN_CURRENT", "COM_BUS1_CURRENT", "COM_B1L1_CURRENT",
 		    "COM_B1L2_CURRENT", "COM_B1L3_CURRENT", "COM_B1L4_CURRENT",
-		    "COM_B1L5_CURRENT", "COM_B2_CURRENT", "COM_B2L1_CURRENT",
+		    "COM_B1L5_CURRENT", "COM_BUS2_CURRENT", "COM_B2L1_CURRENT",
 		    "COM_B2L2_CURRENT", "COM_B2L3_CURRENT", "COM_B2L4_CURRENT",
-		    "COM_B2L5_CURRENT", "IND_MAIN_CURRENT", "IND_B1_CURRENT",
+		    "COM_B2L5_CURRENT", "IND_MAIN_CURRENT", "IND_BUS1_CURRENT",
 		    "IND_B1L1_CURRENT", "IND_B1L2_CURRENT", "IND_B1L3_CURRENT",
-		    "IND_B1L4_CURRENT", "IND_B1L5_CURRENT", "IND_B2_CURRENT",
+		    "IND_B1L4_CURRENT", "IND_B1L5_CURRENT", "IND_BUS2_CURRENT",
 		    "IND_B2L1_CURRENT", "IND_B2L2_CURRENT", "IND_B2L3_CURRENT",
 		    "IND_B2L4_CURRENT", "IND_B2L5_CURRENT", "RES_MAIN_CURRENT",
-		    "RES_B1_CURRENT",  "RES_B1L1_CURRENT", "RES_B1L2_CURRENT",
+		    "RES_BUS1_CURRENT",  "RES_B1L1_CURRENT", "RES_B1L2_CURRENT",
 		    "RES_B1L3_CURRENT", "RES_B1L4_CURRENT", "RES_B1L5_CURRENT",
-		    "RES_B2_CURRENT", "RES_B2L1_CURRENT", "RES_B2L2_CURRENT",
+		    "RES_BUS2_CURRENT", "RES_B2L1_CURRENT", "RES_B2L2_CURRENT",
 		    "RES_B2L3_CURRENT", "RES_B2L4_CURRENT", "RES_B2L5_CURRENT",
-		    "RES_B3_CURRENT", "RES_B3L1_CURRENT", "RES_B3L2_CURRENT",
+		    "RES_BUS3_CURRENT", "RES_B3L1_CURRENT", "RES_B3L2_CURRENT",
 		    "RES_B3L3_CURRENT", "RES_B3L4_CURRENT", "RES_B3L5_CURRENT",
-		    "RES_B4_CURRENT", "RES_B4L1_CURRENT", "RES_B4L2_CURRENT",
+		    "RES_BUS4_CURRENT", "RES_B4L1_CURRENT", "RES_B4L2_CURRENT",
 		    "RES_B4L3_CURRENT", "RES_B4L4_CURRENT", "RES_B4L5_CURRENT",
 		    "RES_B5_CURRENT", "RES_B5L1_CURRENT", "RES_B5L2_CURRENT",
 		    "RES_B5L3_CURRENT", "RES_B5L4_CURRENT", "RES_B5L5_CURRENT",
-		    "Source 1 Current", "Source 2 Current"
+		    
+		    "SOURCE_1_RegCurrent","SOURCE_2_RegCurrent","SOURCE_1_RegVoltage","SOURCE_2_RegVoltage",
+			"SOURCE_1_UnregCurrent","SOURCE_2_UnregCurrent","SOURCE_1_UnregVoltage","SOURCE_2_UnregVoltage",
+			"SOURCE_1_noLoadVoltage", "SOURCE_2_noLoadVoltage",
+			
+			"COM_MAIN_VOLTAGE",	"IND_MAIN_VOLTAGE", "RES_MAIN_VOLTAGE",
+			"SOURCE_1_User","SOURCE_2_User",
+			
+			"COM_MAIN_USER", "COM_BUS1_USER", "COM_BUS1LOAD1_USER",
+            "COM_BUS1LOAD2_USER", "COM_BUS1LOAD3_USER", "COM_BUS1LOAD4_USER",
+            "COM_BUS1LOAD5_USER", "COM_BUS2_USER", "COM_BUS2LOAD1_USER",
+            "COM_BUS1LOAD2_USER", "COM_BUS1LOAD3_USER", "COM_BUS1LOAD4_USER",
+            "COM_BUS1LOAD5_USER", "IND_MAIN_USER", "IND_BUS1_USER",
+            "IND_BUS1LOAD1_USER", "IND_BUS1LOAD2_USER", "IND_BUS1LOAD3_USER",
+            "IND_BUS1LOAD4_USER", "IND_BUS1LOAD5_USER", "IND_BUS2_USER",
+            "IND_BUS2LOAD1_USER", "IND_BUS1LOAD2_USER", "IND_BUS1LOAD3_USER",
+            "IND_BUS1LOAD4_USER", "IND_BUS1LOAD5_USER", "RES_MAIN_USER",
+            "RES_BUS1_USER", "RES_BUS1LOAD1_USER", "RES_BUS1LOAD2_USER",
+            "RES_BUS1LOAD3_USER", "RES_BUS1LOAD4_USER", "RES_BUS1LOAD5_USER",
+            "RES_BUS2_USER", "RES_BUS2LOAD1_USER", "RES_BUS2LOAD2_USER",
+            "RES_BUS2LOAD3_USER", "RES_BUS2LOAD4_USER", "RES_BUS2LOAD5_USER",
+            "RES_BUS3_USER", "RES_BUS3LOAD1_USER", "RES_BUS3LOAD2_USER",
+            "RES_BUS3LOAD3_USER", "RES_BUS3LOAD4_USER", "RES_BUS3LOAD5_USER",
+            "RES_BUS4_USER", "RES_BUS4LOAD1_USER", "RES_BUS4LOAD2_USER",
+            "RES_BUS4LOAD3_USER", "RES_BUS4LOAD4_USER", "RES_BUS4LOAD5_USER",
+            "RES_BUS5_USER", "RES_BUS5LOAD1_USER", "RES_BUS5LOAD2_USER",
+            "RES_BUS5LOAD3_USER", "RES_BUS5LOAD4_USER", "RES_BUS5LOAD5_USER",
+			
+            "SOURCE_1_droopCoeff", "SOURCE_2_droopCoeff","SOURCE_1_unregVtag",
+			"SOURCE_2_unregVtag", "SOURCE_1_DROOP_SELECT",
+			"SOURCE_2_DROOP_SELECT", "SOURCE_1_BATTERY_CHARGE_SELECT",
+			"SOURCE_2_BATTERY_CHARGE_SELECT", "powerfactor",
+			
+			
+				
+						
+		    
 	};
 
 	public static void main(String[] args){		
@@ -420,10 +456,7 @@ public class ACMGmodel{
     	
     	this.SOURCE_1_User = 1;
     	this.SOURCE_2_User = 1;
-    	
-    	this.src1loc = 1;
-		this.src2loc = 1;
-		
+    			
 		this.COM_MAIN_FAULT = 0;
 	    this.COM_BUS1_FAULT = 0;   
 	    this.COM_BUS1_LOAD1_FAULT = 0;   
@@ -492,6 +525,9 @@ public class ACMGmodel{
 		
 		this.src1unregv = 24;
 		this.src2unregv = 24;
+		
+		this.src1noloadv = 24;
+		this.src2noloadv = 24;
 	
 		this.src1regc = 0;
 		this.src2regc = 0;
@@ -839,56 +875,56 @@ public class ACMGmodel{
 		RES_MAIN_CURRENT = -(MAIN_VOLTAGE - RES_MAIN_VOLTAGE)*Y[0][3]*24;
 		MAIN_CURRENT = COM_MAIN_CURRENT + IND_MAIN_CURRENT + RES_MAIN_CURRENT;
 		
-		COM_B1_CURRENT = 0.5*COM_MAIN_CURRENT;
-		COM_B2_CURRENT = 0.5*COM_MAIN_CURRENT;
-		COM_B1L1_CURRENT = 0.2*COM_B1_CURRENT;
-		COM_B1L2_CURRENT = 0.2*COM_B1_CURRENT;
-		COM_B1L3_CURRENT = 0.2*COM_B1_CURRENT;
-		COM_B1L4_CURRENT = 0.2*COM_B1_CURRENT;
-		COM_B1L5_CURRENT = 0.2*COM_B1_CURRENT;
-		COM_B2L1_CURRENT = 0.2*COM_B2_CURRENT;
-		COM_B2L2_CURRENT = 0.2*COM_B2_CURRENT;
-		COM_B2L3_CURRENT = 0.2*COM_B2_CURRENT;
-		COM_B2L4_CURRENT = 0.2*COM_B2_CURRENT;
-		COM_B2L5_CURRENT = 0.2*COM_B2_CURRENT;
+		COM_BUS1_CURRENT = 0.5*COM_MAIN_CURRENT;
+		COM_BUS2_CURRENT = 0.5*COM_MAIN_CURRENT;
+		COM_B1L1_CURRENT = 0.2*COM_BUS1_CURRENT;
+		COM_B1L2_CURRENT = 0.2*COM_BUS1_CURRENT;
+		COM_B1L3_CURRENT = 0.2*COM_BUS1_CURRENT;
+		COM_B1L4_CURRENT = 0.2*COM_BUS1_CURRENT;
+		COM_B1L5_CURRENT = 0.2*COM_BUS1_CURRENT;
+		COM_B2L1_CURRENT = 0.2*COM_BUS2_CURRENT;
+		COM_B2L2_CURRENT = 0.2*COM_BUS2_CURRENT;
+		COM_B2L3_CURRENT = 0.2*COM_BUS2_CURRENT;
+		COM_B2L4_CURRENT = 0.2*COM_BUS2_CURRENT;
+		COM_B2L5_CURRENT = 0.2*COM_BUS2_CURRENT;
 		
-		IND_B1_CURRENT = 0.5*IND_MAIN_CURRENT;
-		IND_B2_CURRENT = 0.5*IND_MAIN_CURRENT;
-		IND_B1L1_CURRENT = 0.2*IND_B1_CURRENT;
-		IND_B1L2_CURRENT = 0.2*IND_B1_CURRENT;
-		IND_B1L3_CURRENT = 0.2*IND_B1_CURRENT;
-		IND_B1L4_CURRENT = 0.2*IND_B1_CURRENT;
-		IND_B1L5_CURRENT = 0.2*IND_B1_CURRENT;
-		IND_B2L1_CURRENT = 0.2*IND_B2_CURRENT;
-		IND_B2L2_CURRENT = 0.2*IND_B2_CURRENT;
-		IND_B2L3_CURRENT = 0.2*IND_B2_CURRENT;
-		IND_B2L4_CURRENT = 0.2*IND_B2_CURRENT;
-		IND_B2L5_CURRENT = 0.2*IND_B2_CURRENT;
+		IND_BUS1_CURRENT = 0.5*IND_MAIN_CURRENT;
+		IND_BUS2_CURRENT = 0.5*IND_MAIN_CURRENT;
+		IND_B1L1_CURRENT = 0.2*IND_BUS1_CURRENT;
+		IND_B1L2_CURRENT = 0.2*IND_BUS1_CURRENT;
+		IND_B1L3_CURRENT = 0.2*IND_BUS1_CURRENT;
+		IND_B1L4_CURRENT = 0.2*IND_BUS1_CURRENT;
+		IND_B1L5_CURRENT = 0.2*IND_BUS1_CURRENT;
+		IND_B2L1_CURRENT = 0.2*IND_BUS2_CURRENT;
+		IND_B2L2_CURRENT = 0.2*IND_BUS2_CURRENT;
+		IND_B2L3_CURRENT = 0.2*IND_BUS2_CURRENT;
+		IND_B2L4_CURRENT = 0.2*IND_BUS2_CURRENT;
+		IND_B2L5_CURRENT = 0.2*IND_BUS2_CURRENT;
 		
-		RES_B1_CURRENT = 0.25*RES_MAIN_CURRENT;
-		RES_B2_CURRENT = 0.25*RES_MAIN_CURRENT;
-		RES_B3_CURRENT = 0.25*RES_MAIN_CURRENT;
-		RES_B4_CURRENT = 0.25*RES_MAIN_CURRENT;
-		RES_B1L1_CURRENT = 0.2*RES_B1_CURRENT;
-		RES_B1L2_CURRENT = 0.2*RES_B1_CURRENT;
-		RES_B1L3_CURRENT = 0.2*RES_B1_CURRENT;
-		RES_B1L4_CURRENT = 0.2*RES_B1_CURRENT;
-		RES_B1L5_CURRENT = 0.2*RES_B1_CURRENT;
-		RES_B2L1_CURRENT = 0.2*RES_B2_CURRENT;
-		RES_B2L2_CURRENT = 0.2*RES_B2_CURRENT;
-		RES_B2L3_CURRENT = 0.2*RES_B2_CURRENT;
-		RES_B2L4_CURRENT = 0.2*RES_B2_CURRENT;
-		RES_B2L5_CURRENT = 0.2*RES_B2_CURRENT;
-		RES_B3L1_CURRENT = 0.2*RES_B3_CURRENT;
-		RES_B3L2_CURRENT = 0.2*RES_B3_CURRENT;
-		RES_B3L3_CURRENT = 0.2*RES_B3_CURRENT;
-		RES_B3L4_CURRENT = 0.2*RES_B3_CURRENT;
-		RES_B3L5_CURRENT = 0.2*RES_B3_CURRENT;
-		RES_B4L1_CURRENT = 0.2*RES_B4_CURRENT;
-		RES_B4L2_CURRENT = 0.2*RES_B4_CURRENT;
-		RES_B4L3_CURRENT = 0.2*RES_B4_CURRENT;
-		RES_B4L4_CURRENT = 0.2*RES_B4_CURRENT;
-		RES_B4L5_CURRENT = 0.2*RES_B4_CURRENT;
+		RES_BUS1_CURRENT = 0.25*RES_MAIN_CURRENT;
+		RES_BUS2_CURRENT = 0.25*RES_MAIN_CURRENT;
+		RES_BUS3_CURRENT = 0.25*RES_MAIN_CURRENT;
+		RES_BUS4_CURRENT = 0.25*RES_MAIN_CURRENT;
+		RES_B1L1_CURRENT = 0.2*RES_BUS1_CURRENT;
+		RES_B1L2_CURRENT = 0.2*RES_BUS1_CURRENT;
+		RES_B1L3_CURRENT = 0.2*RES_BUS1_CURRENT;
+		RES_B1L4_CURRENT = 0.2*RES_BUS1_CURRENT;
+		RES_B1L5_CURRENT = 0.2*RES_BUS1_CURRENT;
+		RES_B2L1_CURRENT = 0.2*RES_BUS2_CURRENT;
+		RES_B2L2_CURRENT = 0.2*RES_BUS2_CURRENT;
+		RES_B2L3_CURRENT = 0.2*RES_BUS2_CURRENT;
+		RES_B2L4_CURRENT = 0.2*RES_BUS2_CURRENT;
+		RES_B2L5_CURRENT = 0.2*RES_BUS2_CURRENT;
+		RES_B3L1_CURRENT = 0.2*RES_BUS3_CURRENT;
+		RES_B3L2_CURRENT = 0.2*RES_BUS3_CURRENT;
+		RES_B3L3_CURRENT = 0.2*RES_BUS3_CURRENT;
+		RES_B3L4_CURRENT = 0.2*RES_BUS3_CURRENT;
+		RES_B3L5_CURRENT = 0.2*RES_BUS3_CURRENT;
+		RES_B4L1_CURRENT = 0.2*RES_BUS4_CURRENT;
+		RES_B4L2_CURRENT = 0.2*RES_BUS4_CURRENT;
+		RES_B4L3_CURRENT = 0.2*RES_BUS4_CURRENT;
+		RES_B4L4_CURRENT = 0.2*RES_BUS4_CURRENT;
+		RES_B4L5_CURRENT = 0.2*RES_BUS4_CURRENT;
 		
 		
 		//source currents
@@ -954,8 +990,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("COM_MAIN_CURRENT")){
 						retval[i] = new Float(COM_MAIN_CURRENT);
 					}
-					else if(tags[i].equals("COM_B1_CURRENT")){
-						retval[i] = new Float(COM_B1_CURRENT);
+					else if(tags[i].equals("COM_BUS1_CURRENT")){
+						retval[i] = new Float(COM_BUS1_CURRENT);
 					}
 					else if(tags[i].equals("COM_B1L1_CURRENT")){
 						retval[i] = new Float(COM_B1L1_CURRENT);
@@ -972,8 +1008,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("COM_B1L5_CURRENT")){
 						retval[i] = new Float(COM_B1L5_CURRENT);
 					}
-					else if(tags[i].equals("COM_B2_CURRENT")){
-						retval[i] = new Float(COM_B2_CURRENT);
+					else if(tags[i].equals("COM_BUS2_CURRENT")){
+						retval[i] = new Float(COM_BUS2_CURRENT);
 					}
 					else if(tags[i].equals("COM_B2L1_CURRENT")){
 						retval[i] = new Float(COM_B2L1_CURRENT);
@@ -993,8 +1029,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("IND_MAIN_CURRENT")){
 						retval[i] = new Float(IND_MAIN_CURRENT);
 					}
-					else if(tags[i].equals("IND_B1_CURRENT")){
-						retval[i] = new Float(IND_B1_CURRENT);
+					else if(tags[i].equals("IND_BUS1_CURRENT")){
+						retval[i] = new Float(IND_BUS1_CURRENT);
 					}
 					else if(tags[i].equals("IND_B1L1_CURRENT")){
 						retval[i] = new Float(IND_B1L1_CURRENT);
@@ -1011,8 +1047,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("IND_B1L5_CURRENT")){
 						retval[i] = new Float(IND_B1L5_CURRENT);
 					}
-					else if(tags[i].equals("IND_B2_CURRENT")){
-						retval[i] = new Float(IND_B2_CURRENT);
+					else if(tags[i].equals("IND_BUS2_CURRENT")){
+						retval[i] = new Float(IND_BUS2_CURRENT);
 					}
 					else if(tags[i].equals("IND_B2L1_CURRENT")){
 						retval[i] = new Float(IND_B2L1_CURRENT);
@@ -1032,8 +1068,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_MAIN_CURRENT")){
 						retval[i] = new Float(RES_MAIN_CURRENT);
 					}
-					else if(tags[i].equals("RES_B1_CURRENT")){
-						retval[i] = new Float(RES_B1_CURRENT);
+					else if(tags[i].equals("RES_BUS1_CURRENT")){
+						retval[i] = new Float(RES_BUS1_CURRENT);
 					}
 					else if(tags[i].equals("RES_B1L1_CURRENT")){
 						retval[i] = new Float(RES_B1L1_CURRENT);
@@ -1050,8 +1086,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_B1L5_CURRENT")){
 						retval[i] = new Float(RES_B1L5_CURRENT);
 					}
-					else if(tags[i].equals("RES_B2_CURRENT")){
-						retval[i] = new Float(RES_B2_CURRENT);
+					else if(tags[i].equals("RES_BUS2_CURRENT")){
+						retval[i] = new Float(RES_BUS2_CURRENT);
 					}
 					else if(tags[i].equals("RES_B2L1_CURRENT")){
 						retval[i] = new Float(RES_B2L1_CURRENT);
@@ -1068,8 +1104,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_B2L5_CURRENT")){
 						retval[i] = new Float(RES_B2L5_CURRENT);
 					}	
-					else if(tags[i].equals("RES_B3_CURRENT")){
-						retval[i] = new Float(RES_B3_CURRENT);
+					else if(tags[i].equals("RES_BUS3_CURRENT")){
+						retval[i] = new Float(RES_BUS3_CURRENT);
 					}
 					else if(tags[i].equals("RES_B3L1_CURRENT")){
 						retval[i] = new Float(RES_B3L1_CURRENT);
@@ -1086,8 +1122,8 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_B3L5_CURRENT")){
 						retval[i] = new Float(RES_B3L5_CURRENT);
 					}
-					else if(tags[i].equals("RES_B4_CURRENT")){
-						retval[i] = new Float(RES_B4_CURRENT);
+					else if(tags[i].equals("RES_BUS4_CURRENT")){
+						retval[i] = new Float(RES_BUS4_CURRENT);
 					}
 					else if(tags[i].equals("RES_B4L1_CURRENT")){
 						retval[i] = new Float(RES_B4L1_CURRENT);
@@ -1128,6 +1164,12 @@ public class ACMGmodel{
 					else if(tags[i].equals("SOURCE_2_UnregVoltage")){
 						retval[i] = new Float(src2unregv);
 					}	
+					else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
+						retval[i] = new Float(src1unregv);
+					}
+					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
+						retval[i] = new Float(src2unregv);
+					}
 					else if(tags[i].equals("MAIN_BUS_Voltage")){
 						retval[i] = new Float(MAIN_VOLTAGE);
 					}
@@ -1317,29 +1359,35 @@ public class ACMGmodel{
 					else if(tags[i].equals("RES_BUS5LOAD5_USER")){
 						retval[i] = int2bool(RES_BUS5_LOAD5_USER);
 					}	
-					else if(tags[i].equals("SOURCE_1_User")){
-						retval[i] = int2bool(SOURCE_1_User);
-					}
-					else if(tags[i].equals("SOURCE_2_User")){
-						retval[i] = int2bool(SOURCE_2_User);
-					}
 					else if(tags[i].equals("SOURCE_1_droopCoeff")){
 						retval[i] = new Float(SOURCE_1_droopCoeff);
 					}
 					else if(tags[i].equals("SOURCE_2_droopCoeff")){
 						retval[i] = new Float(SOURCE_2_droopCoeff);
 					}
-					else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-						retval[i] = new Float(SOURCE_1_noLoadVoltage);
+					else if(tags[i].equals("SOURCE_1_regVtag")){
+						retval[i] = new Float(src1regv);
 					}
-					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-						retval[i] = new Float(SOURCE_2_noLoadVoltage);
+					else if(tags[i].equals("SOURCE_2_regVtag")){
+						retval[i] = new Float(src2regv);
 					}
-					else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-						retval[i] = new Float(SOURCE_1_noLoadVoltage);
+					else if(tags[i].equals("SOURCE_1_unregVtag")){
+						retval[i] = new Float(src1unregv);
 					}
-					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-						retval[i] = new Float(SOURCE_2_noLoadVoltage);
+					else if(tags[i].equals("SOURCE_2_unregVtag")){
+						retval[i] = new Float(src2unregv);
+					}
+					else if(tags[i].equals("SOURCE_1_regItag")){
+						retval[i] = new Float(src1regc);
+					}
+					else if(tags[i].equals("SOURCE_2_regItag")){
+						retval[i] = new Float(src2regc);
+					}
+					else if(tags[i].equals("SOURCE_1_unregItag")){
+						retval[i] = new Float(src1unregc);
+					}
+					else if(tags[i].equals("SOURCE_2_unregItag")){
+						retval[i] = new Float(src2unregc);
 					}
 					else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
 						retval[i] = int2bool(SOURCE_1_DROOP_SELECT);
@@ -1549,17 +1597,23 @@ public class ACMGmodel{
 				else if(tags[i].equals("SOURCE_2_droopCoeff")){
 					SOURCE_2_droopCoeff = bool2int(retval[i]);
 				}
+				else if(tags[i].equals("SOURCE_1_unregVtag")){
+					SOURCE_1_unregVtag = bool2int(retval[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_unregVtag")){
+					SOURCE_2_unregVtag = bool2int(retval[i]);
+				}
+				else if(tags[i].equals("SOURCE_1_unregVtag")){
+					SOURCE_1_unregVtag = bool2int(retval[i]);
+				}
+				else if(tags[i].equals("SOURCE_2_unregVtag")){
+					SOURCE_2_unregVtag = bool2int(retval[i]);
+				}
 				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_noLoadVoltage = bool2int(retval[i]);
+					SOURCE_1_unregVtag = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_noLoadVoltage = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_noLoadVoltage = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_noLoadVoltage = bool2int(retval[i]);
+					SOURCE_2_unregVtag = bool2int(retval[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
 					SOURCE_1_DROOP_SELECT = bool2int(retval[i]);
@@ -1579,6 +1633,8 @@ public class ACMGmodel{
 			System.out.println("fake interface returns the following:");
 			for(int i = 0;i<retval.length;i++){
 				if(retval[i] != null){
+					System.out.print(tags[i]);
+					System.out.print(" : ");
 					System.out.println(retval[i].toString());
 				}
 				else{
