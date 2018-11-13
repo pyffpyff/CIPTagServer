@@ -93,7 +93,8 @@ public class ServeModelTags{
 							else{
 								String nullmsg = "null";
 								tclient.write(ByteBuffer.wrap(nullmsg.getBytes()));
-								//System.out.println("return value is null");
+								
+								System.out.println("return value is null");
 							}
 	
 							System.out.println("closing client socket");
@@ -145,7 +146,7 @@ public class ServeModelTags{
 			
 			
 			
-//plc name	change for resource, grid ...	
+//plc name should change for loads ...	
 			
 			
 			
@@ -164,7 +165,7 @@ public class ServeModelTags{
 				retval = processMore(acmg,method,items);
 				return retval;
 			}
-			else if(plc.equals("loads")){
+			else if(plc.equals("load")){
 				//retval = processMore(user,method,items);
 				retval = processMore(acmg,method,items);
 				return retval;
@@ -356,3 +357,5 @@ public class ServeModelTags{
 	
 
 }
+
+   
