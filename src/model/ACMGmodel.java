@@ -549,11 +549,11 @@ public class ACMGmodel{
 	  			{
 	  				if(i < this.signallist.length-1)
 	  				{
-	  					log.printf("%s,",this.signallist[i]);
+	  				//	log.printf("%s,",this.signallist[i]);
 	  				}
 	  				else
 	  				{
-	  					log.printf("%s\n", this.signallist[i]);
+	  				//	log.printf("%s\n", this.signallist[i]);
 	  				}
 	  			}	
 	  		}
@@ -1170,7 +1170,7 @@ public class ACMGmodel{
 					else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
 						retval[i] = new Float(src2unregv);
 					}
-					else if(tags[i].equals("MAIN_BUS_Voltage")){
+					else if(tags[i].equals("MAIN_BUS_VOLTAGE")){
 						retval[i] = new Float(MAIN_VOLTAGE);
 					}
 					else if(tags[i].equals("COM_MAIN_VOLTAGE")){
@@ -1404,6 +1404,9 @@ public class ACMGmodel{
 					else if(tags[i].equals("powerfactor")){
 						retval[i] = new Float(powerfactor);
 					}
+					else
+						System.out.println("readtag:missing tag name");
+						
 			}	
 		}
 		else if (mode.equals("write")) {
@@ -1626,7 +1629,10 @@ public class ACMGmodel{
 				}	
 				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
 					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
-				}	
+				}
+				else
+					System.out.println("writetag:missing tag name");
+				
 			}
 		}	
 		if(retval != null){
@@ -1710,6 +1716,4 @@ public class ACMGmodel{
 }
 
 		
-
-
 
