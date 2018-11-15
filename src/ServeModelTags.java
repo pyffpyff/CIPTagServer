@@ -95,6 +95,7 @@ public class ServeModelTags{
 								tclient.write(ByteBuffer.wrap(nullmsg.getBytes()));
 								
 								System.out.println("return value is null");
+								tclient.close();
 							}
 	
 							System.out.println("closing client socket");
@@ -127,7 +128,7 @@ public class ServeModelTags{
 
 	public static String processInput(ACMGmodel acmg, String req){
 		try{
-			//System.out.println("processInput() called");
+			System.out.println("processInput() called");
 			String[] items = req.split(" ");
 			String method = items[0].trim();
 			String plc = items[1].trim();
@@ -138,21 +139,8 @@ public class ServeModelTags{
 			System.out.println(req);
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
 //plc name should change for loads ...	
-			
-			
-			
-			
-			
-			
+				
 			
 			
 		if(plc.equals("scenario")){
@@ -276,7 +264,7 @@ public class ServeModelTags{
 			String[] nameArray = new String[tagNames.size()];
 			tagNames.toArray(nameArray);
 			
-			System.out.print(String.format("%d", nameArray.length));
+			//System.out.print(String.format("%d", nameArray.length));
 			
 			if(nameArray.length == 1){
 				//Object retval = w.readTag(items[2]); //commented for testing
