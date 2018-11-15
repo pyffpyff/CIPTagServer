@@ -1405,7 +1405,8 @@ public class ACMGmodel{
 						retval[i] = new Float(powerfactor);
 					}
 					else
-						System.out.println("readtag:missing tag name");
+						System.out.println("readtag:missing tag name: ");
+						System.out.println(tags[i]);
 						
 			}	
 		}
@@ -1631,7 +1632,8 @@ public class ACMGmodel{
 					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
 				}
 				else
-					System.out.println("writetag:missing tag name");
+					System.out.println("writetag:missing tag name:");
+					System.out.println(tags[i]);
 				
 			}
 		}	
