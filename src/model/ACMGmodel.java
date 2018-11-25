@@ -81,61 +81,55 @@ public class ACMGmodel{
 	
 	int COM_MAIN_USER;
     int COM_BUS1_USER;   
-    int COM_BUS1_LOAD1_USER;   
-    int COM_BUS1_LOAD2_USER; 
-    int COM_BUS1_LOAD3_USER;   
-    int COM_BUS1_LOAD4_USER;   
-    int COM_BUS1_LOAD5_USER;   
+    int COM_BUS1LOAD1_USER;   
+    int COM_BUS1LOAD2_USER; 
+    int COM_BUS1LOAD3_USER;   
+    int COM_BUS1LOAD4_USER;   
+    int COM_BUS1LOAD5_USER;   
     int COM_BUS2_USER;   
-    int COM_BUS2_LOAD1_USER;   
-    int COM_BUS2_LOAD2_USER;   
-    int COM_BUS2_LOAD3_USER;   
-    int COM_BUS2_LOAD4_USER;   
-    int COM_BUS2_LOAD5_USER;  
+    int COM_BUS2LOAD1_USER;   
+    int COM_BUS2LOAD2_USER;   
+    int COM_BUS2LOAD3_USER;   
+    int COM_BUS2LOAD4_USER;   
+    int COM_BUS2LOAD5_USER;  
     int IND_MAIN_USER;   
     int IND_BUS1_USER;   
-    int IND_BUS1_LOAD1_USER;   
-    int IND_BUS1_LOAD2_USER;   
-    int IND_BUS1_LOAD3_USER;   
-    int IND_BUS1_LOAD4_USER;   
-    int IND_BUS1_LOAD5_USER;   
+    int IND_BUS1LOAD1_USER;   
+    int IND_BUS1LOAD2_USER;   
+    int IND_BUS1LOAD3_USER;   
+    int IND_BUS1LOAD4_USER;   
+    int IND_BUS1LOAD5_USER;   
     int IND_BUS2_USER;   
-    int IND_BUS2_LOAD1_USER;   
-    int IND_BUS2_LOAD2_USER;   
-    int IND_BUS2_LOAD3_USER;   
-    int IND_BUS2_LOAD4_USER;   
-    int IND_BUS2_LOAD5_USER;   
+    int IND_BUS2LOAD1_USER;   
+    int IND_BUS2LOAD2_USER;   
+    int IND_BUS2LOAD3_USER;   
+    int IND_BUS2LOAD4_USER;   
+    int IND_BUS2LOAD5_USER;   
     int RES_MAIN_USER;   
     int RES_BUS1_USER;   
-    int RES_BUS1_LOAD1_USER;   
-    int RES_BUS1_LOAD2_USER;   
-    int RES_BUS1_LOAD3_USER;   
-    int RES_BUS1_LOAD4_USER;   
-    int RES_BUS1_LOAD5_USER;   
+    int RES_BUS1LOAD1_USER;   
+    int RES_BUS1LOAD2_USER;   
+    int RES_BUS1LOAD3_USER;   
+    int RES_BUS1LOAD4_USER;   
+    int RES_BUS1LOAD5_USER;   
     int RES_BUS2_USER;   
-    int RES_BUS2_LOAD1_USER;   
-    int RES_BUS2_LOAD2_USER;   
-    int RES_BUS2_LOAD3_USER;   
-    int RES_BUS2_LOAD4_USER;   
-    int RES_BUS2_LOAD5_USER;   
+    int RES_BUS2LOAD1_USER;   
+    int RES_BUS2LOAD2_USER;   
+    int RES_BUS2LOAD3_USER;   
+    int RES_BUS2LOAD4_USER;   
+    int RES_BUS2LOAD5_USER;   
     int RES_BUS3_USER;   
-    int RES_BUS3_LOAD1_USER;   
-    int RES_BUS3_LOAD2_USER;  
-    int RES_BUS3_LOAD3_USER;   
-    int RES_BUS3_LOAD4_USER;   
-    int RES_BUS3_LOAD5_USER;   
+    int RES_BUS3LOAD1_USER;   
+    int RES_BUS3LOAD2_USER;  
+    int RES_BUS3LOAD3_USER;   
+    int RES_BUS3LOAD4_USER;   
+    int RES_BUS3LOAD5_USER;   
     int RES_BUS4_USER;   
-    int RES_BUS4_LOAD1_USER;   
-    int RES_BUS4_LOAD2_USER;   
-    int RES_BUS4_LOAD3_USER;   
-    int RES_BUS4_LOAD4_USER;   
-    int RES_BUS4_LOAD5_USER;   
-    int RES_BUS5_USER;   
-    int RES_BUS5_LOAD1_USER;  
-    int RES_BUS5_LOAD2_USER;   
-    int RES_BUS5_LOAD3_USER;   
-    int RES_BUS5_LOAD4_USER;   
-    int RES_BUS5_LOAD5_USER;
+    int RES_BUS4LOAD1_USER;   
+    int RES_BUS4LOAD2_USER;   
+    int RES_BUS4LOAD3_USER;   
+    int RES_BUS4LOAD4_USER;   
+    int RES_BUS4LOAD5_USER;   
     
  //   int source1_user;
     int SOURCE_1_User;
@@ -403,57 +397,51 @@ public class ACMGmodel{
         this.RES_BUS2_USER = 1;  
         this.RES_BUS3_USER = 1; 
         this.RES_BUS4_USER = 1; 
-        this.RES_BUS5_USER = 1;
+       
         
         
-        
-        this.COM_BUS1_LOAD1_USER = 0;   
-        this.COM_BUS1_LOAD2_USER = 0; 
-        this.COM_BUS1_LOAD3_USER = 0;   
-        this.COM_BUS1_LOAD4_USER = 0;   
-        this.COM_BUS1_LOAD5_USER = 0;           
-        this.COM_BUS2_LOAD1_USER = 0;   
-        this.COM_BUS2_LOAD2_USER = 0;   
-        this.COM_BUS2_LOAD3_USER = 0;   
-        this.COM_BUS2_LOAD4_USER = 0;   
-        this.COM_BUS2_LOAD5_USER = 0;            
-        this.IND_BUS1_LOAD1_USER = 0;   
-        this.IND_BUS1_LOAD2_USER = 0;   
-        this.IND_BUS1_LOAD3_USER = 0;   
-        this.IND_BUS1_LOAD4_USER = 0;   
-        this.IND_BUS1_LOAD5_USER = 0;   
+        this.COM_BUS1LOAD1_USER = 0;   
+        this.COM_BUS1LOAD2_USER = 0; 
+        this.COM_BUS1LOAD3_USER = 0;   
+        this.COM_BUS1LOAD4_USER = 0;   
+        this.COM_BUS1LOAD5_USER = 0;           
+        this.COM_BUS2LOAD1_USER = 0;   
+        this.COM_BUS2LOAD2_USER = 0;   
+        this.COM_BUS2LOAD3_USER = 0;   
+        this.COM_BUS2LOAD4_USER = 0;   
+        this.COM_BUS2LOAD5_USER = 0;            
+        this.IND_BUS1LOAD1_USER = 0;   
+        this.IND_BUS1LOAD2_USER = 0;   
+        this.IND_BUS1LOAD3_USER = 0;   
+        this.IND_BUS1LOAD4_USER = 0;   
+        this.IND_BUS1LOAD5_USER = 0;   
         this.IND_BUS2_USER = 0;   
-        this.IND_BUS2_LOAD1_USER = 0;   
-        this.IND_BUS2_LOAD2_USER = 0;   
-        this.IND_BUS2_LOAD3_USER = 0;   
-        this.IND_BUS2_LOAD4_USER = 0;   
-        this.IND_BUS2_LOAD5_USER = 0;            
-        this.RES_BUS1_LOAD1_USER = 0;   
-        this.RES_BUS1_LOAD2_USER = 0;   
-        this.RES_BUS1_LOAD3_USER = 0;   
-        this.RES_BUS1_LOAD4_USER = 0;   
-        this.RES_BUS1_LOAD5_USER = 0;          
-        this.RES_BUS2_LOAD1_USER = 0;   
-        this.RES_BUS2_LOAD2_USER = 0;   
-        this.RES_BUS2_LOAD3_USER = 0;   
-        this.RES_BUS2_LOAD4_USER = 0;   
-        this.RES_BUS2_LOAD5_USER = 0;            
-        this.RES_BUS3_LOAD1_USER = 0;   
-        this.RES_BUS3_LOAD2_USER = 0;  
-        this.RES_BUS3_LOAD3_USER = 0;   
-        this.RES_BUS3_LOAD4_USER = 0;   
-        this.RES_BUS3_LOAD5_USER = 0;          
-        this.RES_BUS4_LOAD1_USER = 0;   
-        this.RES_BUS4_LOAD2_USER = 0;   
-        this.RES_BUS4_LOAD3_USER = 0;   
-        this.RES_BUS4_LOAD4_USER = 0;   
-        this.RES_BUS4_LOAD5_USER = 0;              
-        this.RES_BUS5_LOAD1_USER = 0;  
-        this.RES_BUS5_LOAD2_USER = 0;   
-        this.RES_BUS5_LOAD3_USER = 0;   
-        this.RES_BUS5_LOAD4_USER = 0;   
-        this.RES_BUS5_LOAD5_USER = 0;
-    	
+        this.IND_BUS2LOAD1_USER = 0;   
+        this.IND_BUS2LOAD2_USER = 0;   
+        this.IND_BUS2LOAD3_USER = 0;   
+        this.IND_BUS2LOAD4_USER = 0;   
+        this.IND_BUS2LOAD5_USER = 0;            
+        this.RES_BUS1LOAD1_USER = 0;   
+        this.RES_BUS1LOAD2_USER = 0;   
+        this.RES_BUS1LOAD3_USER = 0;   
+        this.RES_BUS1LOAD4_USER = 0;   
+        this.RES_BUS1LOAD5_USER = 0;          
+        this.RES_BUS2LOAD1_USER = 0;   
+        this.RES_BUS2LOAD2_USER = 0;   
+        this.RES_BUS2LOAD3_USER = 0;   
+        this.RES_BUS2LOAD4_USER = 0;   
+        this.RES_BUS2LOAD5_USER = 0;            
+        this.RES_BUS3LOAD1_USER = 0;   
+        this.RES_BUS3LOAD2_USER = 0;  
+        this.RES_BUS3LOAD3_USER = 0;   
+        this.RES_BUS3LOAD4_USER = 0;   
+        this.RES_BUS3LOAD5_USER = 0;          
+        this.RES_BUS4LOAD1_USER = 0;   
+        this.RES_BUS4LOAD2_USER = 0;   
+        this.RES_BUS4LOAD3_USER = 0;   
+        this.RES_BUS4LOAD4_USER = 0;   
+        this.RES_BUS4LOAD5_USER = 0;              
+        
     	this.SOURCE_1_User = 1;
     	this.SOURCE_2_User = 1;
     			
@@ -1195,37 +1183,37 @@ public class ACMGmodel{
 						retval[i] = int2bool(COM_BUS1_USER);
 					}
 					else if(tags[i].equals("COM_BUS1LOAD1_USER")){
-						retval[i] = int2bool(COM_BUS1_LOAD1_USER);
+						retval[i] = int2bool(COM_BUS1LOAD1_USER);
 					}
 					else if(tags[i].equals("COM_BUS1LOAD2_USER")){
-						retval[i] = int2bool(COM_BUS1_LOAD2_USER);
+						retval[i] = int2bool(COM_BUS1LOAD2_USER);
 					}
 					else if(tags[i].equals("COM_BUS1LOAD3_USER")){
-						retval[i] = int2bool(COM_BUS1_LOAD3_USER);
+						retval[i] = int2bool(COM_BUS1LOAD3_USER);
 					}
 					else if(tags[i].equals("COM_BUS1LOAD4_USER")){
-						retval[i] = int2bool(COM_BUS1_LOAD4_USER);
+						retval[i] = int2bool(COM_BUS1LOAD4_USER);
 					}
 					else if(tags[i].equals("COM_BUS1LOAD5_USER")){
-						retval[i] = int2bool(COM_BUS1_LOAD5_USER);
+						retval[i] = int2bool(COM_BUS1LOAD5_USER);
 					}
 					else if(tags[i].equals("COM_BUS2_USER")){
 						retval[i] = int2bool(COM_BUS2_USER);
 					}
 					else if(tags[i].equals("COM_BUS2LOAD1_USER")){
-						retval[i] = int2bool(COM_BUS2_LOAD1_USER);
+						retval[i] = int2bool(COM_BUS2LOAD1_USER);
 					}
 					else if(tags[i].equals("COM_BUS2LOAD2_USER")){
-						retval[i] = int2bool(COM_BUS2_LOAD2_USER);
+						retval[i] = int2bool(COM_BUS2LOAD2_USER);
 					}
 					else if(tags[i].equals("COM_BUS2LOAD3_USER")){
-						retval[i] = int2bool(COM_BUS2_LOAD3_USER);
+						retval[i] = int2bool(COM_BUS2LOAD3_USER);
 					}
 					else if(tags[i].equals("COM_BUS2LOAD4_USER")){
-						retval[i] = int2bool(COM_BUS2_LOAD4_USER);
+						retval[i] = int2bool(COM_BUS2LOAD4_USER);
 					}
 					else if(tags[i].equals("COM_BUS2LOAD5_USER")){
-						retval[i] = int2bool(COM_BUS2_LOAD5_USER);
+						retval[i] = int2bool(COM_BUS2LOAD5_USER);
 					}	
 					else if(tags[i].equals("IND_MAIN_USER")){
 						retval[i] = int2bool(IND_MAIN_USER);
@@ -1234,37 +1222,37 @@ public class ACMGmodel{
 						retval[i] = int2bool(IND_BUS1_USER);
 					}
 					else if(tags[i].equals("IND_BUS1LOAD1_USER")){
-						retval[i] = int2bool(IND_BUS1_LOAD1_USER);
+						retval[i] = int2bool(IND_BUS1LOAD1_USER);
 					}
 					else if(tags[i].equals("IND_BUS1LOAD2_USER")){
-						retval[i] = int2bool(IND_BUS1_LOAD2_USER);
+						retval[i] = int2bool(IND_BUS1LOAD2_USER);
 					}
 					else if(tags[i].equals("IND_BUS1LOAD3_USER")){
-						retval[i] = int2bool(IND_BUS1_LOAD3_USER);
+						retval[i] = int2bool(IND_BUS1LOAD3_USER);
 					}
 					else if(tags[i].equals("IND_BUS1LOAD4_USER")){
-						retval[i] = int2bool(IND_BUS1_LOAD4_USER);
+						retval[i] = int2bool(IND_BUS1LOAD4_USER);
 					}
 					else if(tags[i].equals("IND_BUS1LOAD5_USER")){
-						retval[i] = int2bool(IND_BUS1_LOAD5_USER);
+						retval[i] = int2bool(IND_BUS1LOAD5_USER);
 					}
 					else if(tags[i].equals("IND_BUS2_USER")){
 						retval[i] = int2bool(IND_BUS2_USER);
 					}
 					else if(tags[i].equals("IND_BUS2LOAD1_USER")){
-						retval[i] = int2bool(IND_BUS2_LOAD1_USER);
+						retval[i] = int2bool(IND_BUS2LOAD1_USER);
 					}
 					else if(tags[i].equals("IND_BUS2LOAD2_USER")){
-						retval[i] = int2bool(IND_BUS2_LOAD2_USER);
+						retval[i] = int2bool(IND_BUS2LOAD2_USER);
 					}
 					else if(tags[i].equals("IND_BUS2LOAD3_USER")){
-						retval[i] = int2bool(IND_BUS2_LOAD3_USER);
+						retval[i] = int2bool(IND_BUS2LOAD3_USER);
 					}
 					else if(tags[i].equals("IND_BUS2LOAD4_USER")){
-						retval[i] = int2bool(IND_BUS2_LOAD4_USER);
+						retval[i] = int2bool(IND_BUS2LOAD4_USER);
 					}
 					else if(tags[i].equals("IND_BUS2LOAD5_USER")){
-						retval[i] = int2bool(IND_BUS2_LOAD5_USER);
+						retval[i] = int2bool(IND_BUS2LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_MAIN_USER")){
 						retval[i] = int2bool(RES_MAIN_USER);
@@ -1273,92 +1261,74 @@ public class ACMGmodel{
 						retval[i] = int2bool(RES_BUS1_USER);
 					}
 					else if(tags[i].equals("RES_BUS1LOAD1_USER")){
-						retval[i] = int2bool(RES_BUS1_LOAD1_USER);
+						retval[i] = int2bool(RES_BUS1LOAD1_USER);
 					}
 					else if(tags[i].equals("RES_BUS1LOAD2_USER")){
-						retval[i] = int2bool(RES_BUS1_LOAD2_USER);
+						retval[i] = int2bool(RES_BUS1LOAD2_USER);
 					}
 					else if(tags[i].equals("RES_BUS1LOAD3_USER")){
-						retval[i] = int2bool(RES_BUS1_LOAD3_USER);
+						retval[i] = int2bool(RES_BUS1LOAD3_USER);
 					}
 					else if(tags[i].equals("RES_BUS1LOAD4_USER")){
-						retval[i] = int2bool(RES_BUS1_LOAD4_USER);
+						retval[i] = int2bool(RES_BUS1LOAD4_USER);
 					}
 					else if(tags[i].equals("RES_BUS1LOAD5_USER")){
-						retval[i] = int2bool(RES_BUS1_LOAD5_USER);
+						retval[i] = int2bool(RES_BUS1LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS2_USER")){
 						retval[i] = int2bool(RES_BUS2_USER);
 					}
 					else if(tags[i].equals("RES_BUS2LOAD1_USER")){
-						retval[i] = int2bool(RES_BUS2_LOAD1_USER);
+						retval[i] = int2bool(RES_BUS2LOAD1_USER);
 					}
 					else if(tags[i].equals("RES_BUS2LOAD2_USER")){
-						retval[i] = int2bool(RES_BUS2_LOAD2_USER);
+						retval[i] = int2bool(RES_BUS2LOAD2_USER);
 					}
 					else if(tags[i].equals("RES_BUS2LOAD3_USER")){
-						retval[i] = int2bool(RES_BUS2_LOAD3_USER);
+						retval[i] = int2bool(RES_BUS2LOAD3_USER);
 					}
 					else if(tags[i].equals("RES_BUS2LOAD4_USER")){
-						retval[i] = int2bool(RES_BUS2_LOAD4_USER);
+						retval[i] = int2bool(RES_BUS2LOAD4_USER);
 					}
 					else if(tags[i].equals("RES_BUS2LOAD5_USER")){
-						retval[i] = int2bool(RES_BUS2_LOAD5_USER);
+						retval[i] = int2bool(RES_BUS2LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS3_USER")){
 						retval[i] = int2bool(RES_BUS3_USER);
 					}
 					else if(tags[i].equals("RES_BUS3LOAD1_USER")){
-						retval[i] = int2bool(RES_BUS3_LOAD1_USER);
+						retval[i] = int2bool(RES_BUS3LOAD1_USER);
 					}
 					else if(tags[i].equals("RES_BUS3LOAD2_USER")){
-						retval[i] = int2bool(RES_BUS3_LOAD2_USER);
+						retval[i] = int2bool(RES_BUS3LOAD2_USER);
 					}
 					else if(tags[i].equals("RES_BUS3LOAD3_USER")){
-						retval[i] = int2bool(RES_BUS3_LOAD3_USER);
+						retval[i] = int2bool(RES_BUS3LOAD3_USER);
 					}
 					else if(tags[i].equals("RES_BUS3LOAD4_USER")){
-						retval[i] = int2bool(RES_BUS3_LOAD4_USER);
+						retval[i] = int2bool(RES_BUS3LOAD4_USER);
 					}
 					else if(tags[i].equals("RES_BUS3LOAD5_USER")){
-						retval[i] = int2bool(RES_BUS3_LOAD5_USER);
+						retval[i] = int2bool(RES_BUS3LOAD5_USER);
 					}
 					else if(tags[i].equals("RES_BUS4_USER")){
 						retval[i] = int2bool(RES_BUS4_USER);
 					}
 					else if(tags[i].equals("RES_BUS4LOAD1_USER")){
-						retval[i] = int2bool(RES_BUS4_LOAD1_USER);
+						retval[i] = int2bool(RES_BUS4LOAD1_USER);
 					}
 					else if(tags[i].equals("RES_BUS4LOAD2_USER")){
-						retval[i] = int2bool(RES_BUS4_LOAD2_USER);
+						retval[i] = int2bool(RES_BUS4LOAD2_USER);
 					}
-					else if(tags[i].equals("RES_BUS4_LOAD3_USER")){
-						retval[i] = int2bool(RES_BUS4_LOAD3_USER);
+					else if(tags[i].equals("RES_BUS4LOAD3_USER")){
+						retval[i] = int2bool(RES_BUS4LOAD3_USER);
 					}
 					else if(tags[i].equals("RES_BUS4LOAD4_USER")){
-						retval[i] = int2bool(RES_BUS4_LOAD4_USER);
+						retval[i] = int2bool(RES_BUS4LOAD4_USER);
 					}
 					else if(tags[i].equals("RES_BUS4LOAD5_USER")){
-						retval[i] = int2bool(RES_BUS4_LOAD5_USER);
+						retval[i] = int2bool(RES_BUS4LOAD5_USER);
 					}
-					else if(tags[i].equals("RES_BUS5_USER")){
-						retval[i] = int2bool(RES_BUS5_USER);
-					}
-					else if(tags[i].equals("RES_BUS5LOAD1_USER")){
-						retval[i] = int2bool(RES_BUS5_LOAD1_USER);
-					}
-					else if(tags[i].equals("RES_BUS5LOAD2_USER")){
-						retval[i] = int2bool(RES_BUS5_LOAD2_USER);
-					}
-					else if(tags[i].equals("RES_BUS5LOAD3_USER")){
-						retval[i] = int2bool(RES_BUS5_LOAD3_USER);
-					}
-					else if(tags[i].equals("RES_BUS5LOAD4_USER")){
-						retval[i] = int2bool(RES_BUS5_LOAD4_USER);
-					}
-					else if(tags[i].equals("RES_BUS5LOAD5_USER")){
-						retval[i] = int2bool(RES_BUS5_LOAD5_USER);
-					}	
 					else if(tags[i].equals("SOURCE_1_droopCoeff")){
 						retval[i] = new Float(SOURCE_1_droopCoeff);
 					}
@@ -1405,236 +1375,216 @@ public class ACMGmodel{
 						retval[i] = new Float(powerfactor);
 					}
 					else
-						System.out.println("readtag:missing tag name: ");
-						System.out.println(tags[i]);
+						System.out.println("readtag:missing tag name");
 						
 			}	
 		}
 		else if (mode.equals("write")) {
 			for(int i = 0;i<tags.length;i++){
 				if(tags[i].equals("SOURCE_1_USER")){
-					SOURCE_1_User = bool2int(retval[i]);
+					SOURCE_1_User = bool2int(values[i]);
 				}	
 				else if(tags[i].equals("SOURCE_2_USER")){
-					SOURCE_2_User = bool2int(retval[i]);
+					SOURCE_2_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_MAIN_USER")){
-					COM_MAIN_USER = bool2int(retval[i]);
+					COM_MAIN_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1_USER")){
-					COM_BUS1_USER = bool2int(retval[i]);
+					COM_BUS1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1LOAD1_USER")){
-					COM_BUS1_LOAD1_USER = bool2int(retval[i]);
+					COM_BUS1LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1LOAD2_USER")){
-					COM_BUS1_LOAD2_USER = bool2int(retval[i]);
+					COM_BUS1LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1LOAD3_USER")){
-					COM_BUS1_LOAD3_USER = bool2int(retval[i]);
+					COM_BUS1LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1LOAD4_USER")){
-					COM_BUS1_LOAD4_USER = bool2int(retval[i]);
+					COM_BUS1LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS1LOAD5_USER")){
-					COM_BUS1_LOAD5_USER = bool2int(retval[i]);
+					COM_BUS1LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2_USER")){
-					COM_BUS2_USER = bool2int(retval[i]);
+					COM_BUS2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2LOAD1_USER")){
-					COM_BUS2_LOAD1_USER = bool2int(retval[i]);
+					COM_BUS2LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2LOAD2_USER")){
-					COM_BUS2_LOAD2_USER = bool2int(retval[i]);
+					COM_BUS2LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2LOAD3_USER")){
-					COM_BUS2_LOAD3_USER = bool2int(retval[i]);
+					COM_BUS2LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2LOAD4_USER")){
-					COM_BUS2_LOAD4_USER = bool2int(retval[i]);
+					COM_BUS2LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_BUS2LOAD5_USER")){
-					COM_BUS2_LOAD5_USER = bool2int(retval[i]);
+					COM_BUS2LOAD5_USER = bool2int(values[i]);
 				}	
 				else if(tags[i].equals("IND_MAIN_USER")){
-					IND_MAIN_USER = bool2int(retval[i]);
+					IND_MAIN_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1_USER")){
-					IND_BUS1_USER = bool2int(retval[i]);
+					IND_BUS1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1LOAD1_USER")){
-					IND_BUS1_LOAD1_USER = bool2int(retval[i]);
+					IND_BUS1LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1LOAD2_USER")){
-					IND_BUS1_LOAD2_USER = bool2int(retval[i]);
+					IND_BUS1LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1LOAD3_USER")){
-					IND_BUS1_LOAD3_USER = bool2int(retval[i]);
+					IND_BUS1LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1LOAD4_USER")){
-					IND_BUS1_LOAD4_USER = bool2int(retval[i]);
+					IND_BUS1LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS1LOAD5_USER")){
-					IND_BUS1_LOAD5_USER = bool2int(retval[i]);
+					IND_BUS1LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2_USER")){
-					IND_BUS2_USER = bool2int(retval[i]);
+					IND_BUS2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2LOAD1_USER")){
-					IND_BUS2_LOAD1_USER = bool2int(retval[i]);
+					IND_BUS2LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2LOAD2_USER")){
-					IND_BUS2_LOAD2_USER = bool2int(retval[i]);
+					IND_BUS2LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2LOAD3_USER")){
-					IND_BUS2_LOAD3_USER = bool2int(retval[i]);
+					IND_BUS2LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2LOAD4_USER")){
-					IND_BUS2_LOAD4_USER = bool2int(retval[i]);
+					IND_BUS2LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("IND_BUS2LOAD5_USER")){
-					IND_BUS2_LOAD5_USER = bool2int(retval[i]);
+					IND_BUS2LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_MAIN_USER")){
-					RES_MAIN_USER = bool2int(retval[i]);
+					RES_MAIN_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1_USER")){
-					RES_BUS1_USER = bool2int(retval[i]);
+					RES_BUS1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1LOAD1_USER")){
-					RES_BUS1_LOAD1_USER = bool2int(retval[i]);
+					RES_BUS1LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1LOAD2_USER")){
-					RES_BUS1_LOAD2_USER = bool2int(retval[i]);
+					RES_BUS1LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1LOAD3_USER")){
-					RES_BUS1_LOAD3_USER = bool2int(retval[i]);
+					RES_BUS1LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1LOAD4_USER")){
-					RES_BUS1_LOAD4_USER = bool2int(retval[i]);
+					RES_BUS1LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS1LOAD5_USER")){
-					RES_BUS1_LOAD5_USER = bool2int(retval[i]);
+					RES_BUS1LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2_USER")){
-					RES_BUS2_USER = bool2int(retval[i]);
+					RES_BUS2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2LOAD1_USER")){
-					RES_BUS2_LOAD1_USER = bool2int(retval[i]);
+					RES_BUS2LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2LOAD2_USER")){
-					RES_BUS2_LOAD2_USER = bool2int(retval[i]);
+					RES_BUS2LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2LOAD3_USER")){
-					RES_BUS2_LOAD3_USER = bool2int(retval[i]);
+					RES_BUS2LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2LOAD4_USER")){
-					RES_BUS2_LOAD4_USER = bool2int(retval[i]);
+					RES_BUS2LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS2LOAD5_USER")){
-					RES_BUS2_LOAD5_USER = bool2int(retval[i]);
+					RES_BUS2LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3_USER")){
-					RES_BUS3_USER = bool2int(retval[i]);
+					RES_BUS3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3LOAD1_USER")){
-					RES_BUS3_LOAD1_USER = bool2int(retval[i]);
+					RES_BUS3LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3LOAD2_USER")){
-					RES_BUS3_LOAD2_USER = bool2int(retval[i]);
+					RES_BUS3LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3LOAD3_USER")){
-					RES_BUS3_LOAD3_USER = bool2int(retval[i]);
+					RES_BUS3LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3LOAD4_USER")){
-					RES_BUS3_LOAD4_USER = bool2int(retval[i]);
+					RES_BUS3LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS3LOAD5_USER")){
-					RES_BUS3_LOAD5_USER = bool2int(retval[i]);
+					RES_BUS3LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4_USER")){
-					RES_BUS4_USER = bool2int(retval[i]);
+					RES_BUS4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4LOAD1_USER")){
-					RES_BUS4_LOAD1_USER = bool2int(retval[i]);
+					RES_BUS4LOAD1_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4LOAD2_USER")){
-					RES_BUS4_LOAD2_USER = bool2int(retval[i]);
+					RES_BUS4LOAD2_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4LOAD3_USER")){
-					RES_BUS4_LOAD3_USER = bool2int(retval[i]);
+					RES_BUS4LOAD3_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4LOAD4_USER")){
-					RES_BUS4_LOAD4_USER = bool2int(retval[i]);
+					RES_BUS4LOAD4_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("RES_BUS4LOAD5_USER")){
-					RES_BUS4_LOAD5_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5_USER")){
-					RES_BUS5_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5LOAD1_USER")){
-					RES_BUS5_LOAD1_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5LOAD2_USER")){
-					RES_BUS5_LOAD2_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5LOAD3_USER")){
-					RES_BUS5_LOAD3_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5LOAD4_USER")){
-					RES_BUS5_LOAD4_USER = bool2int(retval[i]);
-				}
-				else if(tags[i].equals("RES_BUS5LOAD5_USER")){
-					RES_BUS5_LOAD5_USER = bool2int(retval[i]);
+					RES_BUS4LOAD5_USER = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_User")){
-					SOURCE_1_User = bool2int(retval[i]);
+					SOURCE_1_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_User")){
-					SOURCE_2_User = bool2int(retval[i]);
+					SOURCE_2_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_droopCoeff")){
-					SOURCE_1_droopCoeff = bool2int(retval[i]);
+					SOURCE_1_droopCoeff = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_droopCoeff")){
-					SOURCE_2_droopCoeff = bool2int(retval[i]);
+					SOURCE_2_droopCoeff = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_unregVtag")){
-					SOURCE_1_unregVtag = bool2int(retval[i]);
+					SOURCE_1_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_unregVtag")){
-					SOURCE_2_unregVtag = bool2int(retval[i]);
+					SOURCE_2_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_unregVtag")){
-					SOURCE_1_unregVtag = bool2int(retval[i]);
+					SOURCE_1_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_unregVtag")){
-					SOURCE_2_unregVtag = bool2int(retval[i]);
+					SOURCE_2_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_unregVtag = bool2int(retval[i]);
+					SOURCE_1_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_unregVtag = bool2int(retval[i]);
+					SOURCE_2_unregVtag = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
-					SOURCE_1_DROOP_SELECT = bool2int(retval[i]);
+					SOURCE_1_DROOP_SELECT = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_DROOP_SELECT")){
-					SOURCE_2_DROOP_SELECT = bool2int(retval[i]);
+					SOURCE_2_DROOP_SELECT = bool2int(values[i]);
 				}	
 				else if(tags[i].equals("SOURCE_1_BATTERY_CHARGE_SELECT")){
-					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
+					SOURCE_1_BATTERY_CHARGE_SELECT = bool2int(values[i]);
 				}	
 				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
-					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(retval[i]);
+					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(values[i]);
 				}
 				else
-					System.out.println("writetag:missing tag name:");
-					System.out.println(tags[i]);
-				
+					System.out.println("writetag:missing tag name");
+					retval = null;
 			}
 		}	
 		if(retval != null){
