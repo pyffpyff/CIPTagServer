@@ -1,3 +1,4 @@
+
 //import com.ab.gti.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +16,12 @@ import java.io.File;
 
 //import java.io.InputStreamReader;
 import model.ACMGmodel;
-
+import model.ModelRunner;
 public class ServeModelTags{
 	public static void main(String[] args){
 		int lpnum = 12897;
-		long prev = System.currentTimeMillis();
 		long now = 0;
-		long modelet = 0;
-		long modelinterval = 20;
-		long itrcounter = 0;
+		int modelinterval = 20;
 		long recbytes;
 		String line;
 		String retval;
@@ -41,34 +39,29 @@ public class ServeModelTags{
 		
 		PrintWriter reqlog = null;
 		
+		Thread modelthread = null;
+		
 		try{
 			//create log file
 			reqlog = new PrintWriter(new FileOutputStream(new File(reqlogfname),false));
 			
 			//create listening socket
 			ServerSocketChannel tserver = ServerSocketChannel.open();
-			tserver.socket().bind(new InetSocketAddress(lpnum));
-			tserver.configureBlocking(false);
+			tserver.socket().bind(new InetSocketAddress("localhost",lpnum), 50);
+			tserver.configureBlocking(true);
 			
+			
+			System.out.println("Launching model thread");
+			modelthread = new ModelRunner(acmg, modelinterval);
+			modelthread.start();
 			
 			System.out.println("Should be connected");
 			try{
 				while(true){
-					try{
-	
-						SocketChannel tclient = tserver.accept();
+					try{	
+						SocketChannel tclient = tserver.accept();						
+						//now = System.currentTimeMillis();
 						
-						
-						now = System.currentTimeMillis();
-						modelet = now - prev;
-						if(modelet > modelinterval){
-							//System.out.println("modelet");
-							//System.out.println(modelet);
-							acmg.solvemodel(false);
-							prev = System.currentTimeMillis();
-							itrcounter++;
-							//System.out.println(itrcounter);
-						}
 						if(tclient != null){
 							recbuff.position(0);
 							recbuff.limit(8192);
@@ -76,29 +69,27 @@ public class ServeModelTags{
 							recbuff.flip();
 							line = decoder.decode(recbuff).toString();
 							
-							reqlog.printf("\nFROM %s, RECEIVED NEW MESSAGE: %s\n   AT %d",tclient.socket().getRemoteSocketAddress(), line, System.currentTimeMillis()/1000);
+							reqlog.printf("\nFROM %s, RECEIVED NEW MESSAGE: %s\n   AT %d",tclient.socket().getRemoteSocketAddress(), line, System.currentTimeMillis());
 							
 							System.out.println(String.format("line: %s", line));
-							System.out.println(String.format("line: %s", recbytes));
-							//System.out.println(String.format("line: %s", recbuff));
+							//System.out.println(recbytes);
+							//System.out.println(recbuff);
 	
 							
 							retval = processInput(acmg, line);
 							
 							if(retval != null){
 								System.out.println(retval);
-								reqlog.printf("\nRESPONSE: %s\n     AT %d", retval, System.currentTimeMillis()/1000);
+								reqlog.printf("\nRESPONSE: %s\n     AT %d", retval, System.currentTimeMillis());
 								tclient.write(ByteBuffer.wrap(retval.getBytes()));
 							}
 							else{
 								String nullmsg = "null";
 								tclient.write(ByteBuffer.wrap(nullmsg.getBytes()));
-								
-								System.out.println("return value is null");
-								tclient.close();
+								//System.out.println("return value is null");
 							}
 	
-							System.out.println("closing client socket");
+							//System.out.println("closing client socket");
 							tclient.close();
 						}
 					}
@@ -124,7 +115,7 @@ public class ServeModelTags{
 			acmg.cleanup();
 			reqlog.close();
 		}
-	}
+}
 
 	public static String processInput(ACMGmodel acmg, String req){
 		try{
@@ -327,19 +318,20 @@ public class ServeModelTags{
 	}
 	
 	public static void writeModelTag(ACMGmodel acmg, String tag, Object value){
-		//System.out.println("writeModelTag() called");
+	//	System.out.println("writeModelTag() called");
 		Object[] values = new Object[1];
 		String[] tags = new String[1];
 		values[0] = value;
 		tags[0] = tag;
+	//	System.out.println("everything is ok");
 		acmg.fakeinterface("write", tags, values);
-		//System.out.println("writeModelTag() returning");
+	//	System.out.println("writeModelTag() returning");
 	}
 	
 	public static void writeModelTags(ACMGmodel acmg, String[] tags, Object[] values){
-		//System.out.println("writeModelTags() called");
+	//	System.out.println("writeModelTags() called");
 		acmg.fakeinterface("write", tags, values);
-		//System.out.println("writeModelTags() returning");
+	//	System.out.println("writeModelTags() returning");
 	}
 	
 	
