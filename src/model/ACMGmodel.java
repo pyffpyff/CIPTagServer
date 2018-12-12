@@ -130,6 +130,12 @@ public class ACMGmodel{
     int RES_BUS4LOAD3_USER;   
     int RES_BUS4LOAD4_USER;   
     int RES_BUS4LOAD5_USER;   
+    int RES_BUS5_USER;   
+    int RES_BUS5_LOAD1_USER;  
+    int RES_BUS5_LOAD2_USER;   
+    int RES_BUS5_LOAD3_USER;   
+    int RES_BUS5_LOAD4_USER;   
+    int RES_BUS5_LOAD5_USER;
     
  //   int source1_user;
     int SOURCE_1_User;
@@ -284,6 +290,7 @@ public class ACMGmodel{
     double RES_B4L4_CURRENT;
     double RES_B4L5_CURRENT;
     
+    double TOTAL_CAP_DEMAND;
   //source currents
     
     
@@ -397,7 +404,8 @@ public class ACMGmodel{
         this.RES_BUS2_USER = 1;  
         this.RES_BUS3_USER = 1; 
         this.RES_BUS4_USER = 1; 
-       
+        this.RES_BUS5_USER = 1;
+        
         
         
         this.COM_BUS1LOAD1_USER = 0;   
@@ -441,7 +449,12 @@ public class ACMGmodel{
         this.RES_BUS4LOAD3_USER = 0;   
         this.RES_BUS4LOAD4_USER = 0;   
         this.RES_BUS4LOAD5_USER = 0;              
-        
+        this.RES_BUS5_LOAD1_USER = 0;  
+        this.RES_BUS5_LOAD2_USER = 0;   
+        this.RES_BUS5_LOAD3_USER = 0;   
+        this.RES_BUS5_LOAD4_USER = 0;   
+        this.RES_BUS5_LOAD5_USER = 0;
+    	
     	this.SOURCE_1_User = 1;
     	this.SOURCE_2_User = 1;
     			
@@ -503,7 +516,7 @@ public class ACMGmodel{
 	    this.RES_BUS5_LOAD4_FAULT = 0;   
 	    this.RES_BUS5_LOAD5_FAULT = 0;
 	    
-	    this.powerfactor = 0;
+	    this.powerfactor = 0.85;
 	    
 		this.src1loc = 1;
 		this.src2loc = 2;
@@ -528,6 +541,8 @@ public class ACMGmodel{
 	    this.xbase=0.2;
 	    this.pbase=576;
 	    this.qbase=2880;
+	    
+	  //  this.TOTAL_CAP_DEMAND = 0;
 	       
 	  //print signal names for csv log file
 	  		try{
@@ -1374,8 +1389,12 @@ public class ACMGmodel{
 					else if(tags[i].equals("powerfactor")){
 						retval[i] = new Float(powerfactor);
 					}
+					else if(tags[i].equals("TOTAL_CAP_DEMAND")) {
+						retval[i] = new Float(TOTAL_CAP_DEMAND);
+					}
 					else
-						System.out.println("readtag:missing tag name");
+						System.out.println("readtag:missing tag name: ");
+						System.out.println(tags[i]);
 						
 			}	
 		}
@@ -1540,6 +1559,24 @@ public class ACMGmodel{
 				else if(tags[i].equals("RES_BUS4LOAD5_USER")){
 					RES_BUS4LOAD5_USER = bool2int(values[i]);
 				}
+				else if(tags[i].equals("RES_BUS5_USER")){
+					RES_BUS5_USER = bool2int(values[i]);
+				}
+				else if(tags[i].equals("RES_BUS5LOAD1_USER")){
+					RES_BUS5_LOAD1_USER = bool2int(values[i]);
+				}
+				else if(tags[i].equals("RES_BUS5LOAD2_USER")){
+					RES_BUS5_LOAD2_USER = bool2int(values[i]);
+				}
+				else if(tags[i].equals("RES_BUS5LOAD3_USER")){
+					RES_BUS5_LOAD3_USER = bool2int(values[i]);
+				}
+				else if(tags[i].equals("RES_BUS5LOAD4_USER")){
+					RES_BUS5_LOAD4_USER = bool2int(values[i]);
+				}
+				else if(tags[i].equals("RES_BUS5LOAD5_USER")){
+					RES_BUS5_LOAD5_USER = bool2int(values[i]);
+				}
 				else if(tags[i].equals("SOURCE_1_User")){
 					SOURCE_1_User = bool2int(values[i]);
 				}
@@ -1547,28 +1584,28 @@ public class ACMGmodel{
 					SOURCE_2_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_droopCoeff")){
-					SOURCE_1_droopCoeff = bool2int(values[i]);
+					SOURCE_1_droopCoeff = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_droopCoeff")){
-					SOURCE_2_droopCoeff = bool2int(values[i]);
+					SOURCE_2_droopCoeff = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_unregVtag")){
-					SOURCE_1_unregVtag = bool2int(values[i]);
+					SOURCE_1_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_unregVtag")){
-					SOURCE_2_unregVtag = bool2int(values[i]);
+					SOURCE_2_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_unregVtag")){
-					SOURCE_1_unregVtag = bool2int(values[i]);
+					SOURCE_1_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_unregVtag")){
-					SOURCE_2_unregVtag = bool2int(values[i]);
+					SOURCE_2_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_noLoadVoltage")){
-					SOURCE_1_unregVtag = bool2int(values[i]);
+					SOURCE_1_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_2_noLoadVoltage")){
-					SOURCE_2_unregVtag = bool2int(values[i]);
+					SOURCE_2_unregVtag = obj2double(values[i]);
 				}
 				else if(tags[i].equals("SOURCE_1_DROOP_SELECT")){
 					SOURCE_1_DROOP_SELECT = bool2int(values[i]);
@@ -1582,9 +1619,13 @@ public class ACMGmodel{
 				else if(tags[i].equals("SOURCE_2_BATTERY_CHARGE_SELECT")){
 					SOURCE_2_BATTERY_CHARGE_SELECT = bool2int(values[i]);
 				}
+				else if(tags[i].equals("TOTAL_CAP_DEMAND")) {
+					TOTAL_CAP_DEMAND = obj2double(values[i]);
+				}
 				else
-					System.out.println("writetag:missing tag name");
-					retval = null;
+					System.out.println("writetag:missing tag name:");
+					System.out.println(tags[i]);
+				
 			}
 		}	
 		if(retval != null){
@@ -1613,6 +1654,14 @@ public class ACMGmodel{
 		double retval = 0;
 		if(in instanceof Number){
 			retval = ((Number) in).doubleValue();
+		}		
+		return retval;
+	}
+    
+    public double obj2int(Object in){
+		double retval = 0;
+		if(in instanceof Number){
+			retval = ((Number) in).intValue();
 		}		
 		return retval;
 	}
