@@ -516,19 +516,19 @@ public class ACMGmodel{
 	    this.RES_BUS5_LOAD4_FAULT = 0;   
 	    this.RES_BUS5_LOAD5_FAULT = 0;
 	    
-	    this.powerfactor = 0.85;
+	    this.powerfactor = 0.8;
 	    
 		this.src1loc = 1;
 		this.src2loc = 2;
 		
 		this.src1regv = 24;
-		this.src2regv = 24;
+		this.src2regv = 12;
 		
 		this.src1unregv = 24;
-		this.src2unregv = 24;
+		this.src2unregv = 12;
 		
 		this.src1noloadv = 24;
-		this.src2noloadv = 24;
+		this.src2noloadv = 12;
 	
 		this.src1regc = 0;
 		this.src2regc = 0;
