@@ -173,7 +173,7 @@ public class ACMGmodel{
 	double src1unregv;
 	double src2unregv;
 	
-	int MAIN_FAULT;
+	int MAIN_MAIN_FAULT;
 	int COM_MAIN_FAULT;
     int COM_BUS1_FAULT;   
     int COM_BUS1_LOAD1_FAULT;   
@@ -457,7 +457,8 @@ public class ACMGmodel{
     	
     	this.SOURCE_1_User = 1;
     	this.SOURCE_2_User = 1;
-    			
+    	
+    	this.MAIN_MAIN_FAULT=0;
 		this.COM_MAIN_FAULT = 0;
 	    this.COM_BUS1_FAULT = 0;   
 	    this.COM_BUS1_LOAD1_FAULT = 0;   
@@ -501,7 +502,7 @@ public class ACMGmodel{
 	    this.RES_BUS3_LOAD1_FAULT = 0;   
 	    this.RES_BUS3_LOAD2_FAULT = 0;  
 	    this.RES_BUS3_LOAD3_FAULT = 0;   
-	    this.RES_BUS3_LOAD4_FAULT = 0;   
+	    this.RES_BUS3_LOAD4_FAULT = 1;   
 	    this.RES_BUS3_LOAD5_FAULT = 0;   
 	    this.RES_BUS4_FAULT = 0;   
 	    this.RES_BUS4_LOAD1_FAULT = 0;   
@@ -516,7 +517,7 @@ public class ACMGmodel{
 	    this.RES_BUS5_LOAD4_FAULT = 0;   
 	    this.RES_BUS5_LOAD5_FAULT = 0;
 	    
-	    this.powerfactor = 0.8;
+	    this.powerfactor = 0.85;
 	    
 		this.src1loc = 1;
 		this.src2loc = 2;
@@ -1392,6 +1393,162 @@ public class ACMGmodel{
 					else if(tags[i].equals("TOTAL_CAP_DEMAND")) {
 						retval[i] = new Float(TOTAL_CAP_DEMAND);
 					}
+					else if(tags[i].equals("MAIN_MAIN_FAULT")){
+						retval[i] = int2bool(MAIN_MAIN_FAULT);
+					}	
+					else if(tags[i].equals("COM_MAIN_FAULT")){
+						retval[i] = int2bool(COM_MAIN_FAULT);
+					}	
+					else if(tags[i].equals("COM_BUS1_FAULT")){
+						retval[i] = int2bool(COM_BUS1_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS1_LOAD1_FAULT")){
+						retval[i] = int2bool(COM_BUS1_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS1_LOAD2_FAULT")){
+						retval[i] = int2bool(COM_BUS1_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS1_LOAD3_FAULT")){
+						retval[i] = int2bool(COM_BUS1_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS1_LOAD4_FAULT")){
+						retval[i] = int2bool(COM_BUS1_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS1_LOAD5_FAULT")){
+						retval[i] = int2bool(COM_BUS1_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_FAULT")){
+						retval[i] = int2bool(COM_BUS1_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_LOAD1_FAULT")){
+						retval[i] = int2bool(COM_BUS2_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_LOAD2_FAULT")){
+						retval[i] = int2bool(COM_BUS2_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_LOAD3_FAULT")){
+						retval[i] = int2bool(COM_BUS2_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_LOAD4_FAULT")){
+						retval[i] = int2bool(COM_BUS2_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("COM_BUS2_LOAD5_FAULT")){
+						retval[i] = int2bool(COM_BUS2_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("IND_MAIN_FAULT")){
+						retval[i] = int2bool(IND_MAIN_FAULT);
+					}	
+					else if(tags[i].equals("IND_BUS1_FAULT")){
+						retval[i] = int2bool(IND_BUS1_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS1_LOAD1_FAULT")){
+						retval[i] = int2bool(IND_BUS1_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS1_LOAD2_FAULT")){
+						retval[i] = int2bool(IND_BUS1_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS1_LOAD3_FAULT")){
+						retval[i] = int2bool(IND_BUS1_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS1_LOAD4_FAULT")){
+						retval[i] = int2bool(IND_BUS1_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS1_LOAD5_FAULT")){
+						retval[i] = int2bool(IND_BUS1_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_FAULT")){
+						retval[i] = int2bool(IND_BUS2_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_LOAD1_FAULT")){
+						retval[i] = int2bool(IND_BUS2_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_LOAD2_FAULT")){
+						retval[i] = int2bool(IND_BUS2_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_LOAD3_FAULT")){
+						retval[i] = int2bool(IND_BUS2_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_LOAD4_FAULT")){
+						retval[i] = int2bool(IND_BUS2_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("IND_BUS2_LOAD5_FAULT")){
+						retval[i] = int2bool(IND_BUS2_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("RES_MAIN_FAULT")){
+						retval[i] = int2bool(RES_MAIN_FAULT);
+					}	
+					else if(tags[i].equals("RES_BUS1_FAULT")){
+						retval[i] = int2bool(RES_BUS1_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS1_LOAD1_FAULT")){
+						retval[i] = int2bool(RES_BUS1_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS1_LOAD2_FAULT")){
+						retval[i] = int2bool(RES_BUS1_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS1_LOAD3_FAULT")){
+						retval[i] = int2bool(RES_BUS1_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS1_LOAD4_FAULT")){
+						retval[i] = int2bool(RES_BUS1_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS1_LOAD5_FAULT")){
+						retval[i] = int2bool(RES_BUS1_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_FAULT")){
+						retval[i] = int2bool(RES_BUS2_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_LOAD1_FAULT")){
+						retval[i] = int2bool(RES_BUS2_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_LOAD2_FAULT")){
+						retval[i] = int2bool(RES_BUS2_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_LOAD3_FAULT")){
+						retval[i] = int2bool(RES_BUS2_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_LOAD4_FAULT")){
+						retval[i] = int2bool(RES_BUS2_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS2_LOAD5_FAULT")){
+						retval[i] = int2bool(RES_BUS2_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_FAULT")){
+						retval[i] = int2bool(RES_BUS3_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_LOAD1_FAULT")){
+						retval[i] = int2bool(RES_BUS3_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_LOAD2_FAULT")){
+						retval[i] = int2bool(RES_BUS3_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_LOAD3_FAULT")){
+						retval[i] = int2bool(RES_BUS3_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_LOAD4_FAULT")){
+						retval[i] = int2bool(RES_BUS3_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS3_LOAD5_FAULT")){
+						retval[i] = int2bool(RES_BUS3_LOAD5_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_FAULT")){
+						retval[i] = int2bool(RES_BUS4_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_LOAD1_FAULT")){
+						retval[i] = int2bool(RES_BUS4_LOAD1_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_LOAD2_FAULT")){
+						retval[i] = int2bool(RES_BUS4_LOAD2_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_LOAD3_FAULT")){
+						retval[i] = int2bool(RES_BUS4_LOAD3_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_LOAD4_FAULT")){
+						retval[i] = int2bool(RES_BUS4_LOAD4_FAULT);
+						}
+					else if(tags[i].equals("RES_BUS4_LOAD5_FAULT")){
+						retval[i] = int2bool(RES_BUS4_LOAD5_FAULT);
+						}
 					else
 						System.out.println("readtag:missing tag name: ");
 						System.out.println(tags[i]);
@@ -1400,10 +1557,10 @@ public class ACMGmodel{
 		}
 		else if (mode.equals("write")) {
 			for(int i = 0;i<tags.length;i++){
-				if(tags[i].equals("SOURCE_1_USER")){
+				if(tags[i].equals("SOURCE_1_User")){
 					SOURCE_1_User = bool2int(values[i]);
 				}	
-				else if(tags[i].equals("SOURCE_2_USER")){
+				else if(tags[i].equals("SOURCE_2_User")){
 					SOURCE_2_User = bool2int(values[i]);
 				}
 				else if(tags[i].equals("COM_MAIN_USER")){
