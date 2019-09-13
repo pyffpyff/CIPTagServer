@@ -21,7 +21,7 @@ public class ServeModelTags{
 	public static void main(String[] args){
 		int lpnum = 12897;
 		long now = 0;
-		int modelinterval = 20;
+		int modelinterval = 10;
 		long recbytes;
 		String line;
 		String retval;
@@ -89,7 +89,7 @@ public class ServeModelTags{
 								//System.out.println("return value is null");
 							}
 	
-							//System.out.println("closing client socket");
+							System.out.println("closing client socket");
 							tclient.close();
 						}
 					}
